@@ -154,18 +154,22 @@ methods
         for i = 1:n_off
             offspring(i) = population(i);
             p2 = i + fix(length(population) / 2);
+            source_idx = i;
+            if ~info.ParentTransferred(i) && info.ParentTransferred(p2)
+                source_idx = p2;
+            end
             [offspring(i).Dec, tempDec] = GA_Crossover(population(i).Dec, population(p2).Dec, Algo.MuC);
             offspring(i).Dec = GA_Mutation(offspring(i).Dec, Algo.MuM);
             tempDec = GA_Mutation(tempDec, Algo.MuM);
             swap_indicator = rand(1, length(population(i).Dec)) >= 0.5;
             offspring(i).Dec(swap_indicator) = tempDec(swap_indicator);
             offspring(i).Dec = min(max(offspring(i).Dec, 0), 1);
-            info.ParentCV(i) = population(i).CV;
-            info.ParentObj(i) = population(i).Obj;
+            info.ParentCV(i) = population(source_idx).CV;
+            info.ParentObj(i) = population(source_idx).Obj;
+            info.IsTransferred(i) = info.ParentTransferred(i) || info.ParentTransferred(p2);
+            info.StateId(i) = info.ParentStateId(source_idx);
+            info.Trust(i) = info.ParentTrust(source_idx);
         end
-        info.IsTransferred = info.ParentTransferred(1:n_off);
-        info.StateId = info.ParentStateId(1:n_off);
-        info.Trust = info.ParentTrust(1:n_off);
     end
 
     function offspring = Generation2(Algo, population, pool, transpop)

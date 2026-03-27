@@ -230,20 +230,71 @@ methods
         state.FPop = Algo.SelectStatePopulation(pop, state.FIdx, 'F');
         state.BPop = Algo.SelectStatePopulation(pop, state.BIdx, 'B');
         state.IPop = Algo.SelectStatePopulation(pop, state.IIdx, 'I');
+        [trust_f_pop, trust_has_compat(1)] = Algo.SelectTrustPopulation(pop, state.FIdx, 'F');
+        [trust_b_pop, trust_has_compat(2)] = Algo.SelectTrustPopulation(pop, state.BIdx, 'B');
+        [trust_i_pop, trust_has_compat(3)] = Algo.SelectTrustPopulation(pop, state.IIdx, 'I');
         state.FCenter = mean(state.FPop.Decs, 1);
         state.BCenter = mean(state.BPop.Decs, 1);
         state.ICenter = mean(state.IPop.Decs, 1);
-        state.FScale = std(state.FPop.Decs, 0, 1) + 1e-12;
-        state.BScale = std(state.BPop.Decs, 0, 1) + 1e-12;
-        state.IScale = std(state.IPop.Decs, 0, 1) + 1e-12;
+        state.FScale = max(std(state.FPop.Decs, 0, 1), 1e-3);
+        state.BScale = max(std(state.BPop.Decs, 0, 1), 1e-3);
+        state.IScale = max(std(state.IPop.Decs, 0, 1), 1e-3);
+        [state.TrustCenter{1}, state.TrustScale{1}] = Algo.SummarizePopulationStats(trust_f_pop);
+        [state.TrustCenter{2}, state.TrustScale{2}] = Algo.SummarizePopulationStats(trust_b_pop);
+        [state.TrustCenter{3}, state.TrustScale{3}] = Algo.SummarizePopulationStats(trust_i_pop);
+        state.TrustHasCompat = trust_has_compat;
+        if isempty(trust_b_pop)
+            state.TrustBoundaryCenter = [];
+            state.TrustHasBoundary = false;
+        else
+            state.TrustBoundaryCenter = mean(trust_b_pop.Decs, 1);
+            state.TrustHasBoundary = true;
+        end
     end
 
     function chosen = SelectStatePopulation(Algo, pop, idx, mode_name)
+        [ordered_idx, same_state_fill, cross_state_fill] = Algo.RankStateCandidates(pop, idx, mode_name);
+        target_size = min(length(pop), max(Algo.StateMinSize, 2));
+
+        if numel(idx) >= Algo.StateMinSize
+            chosen = pop(ordered_idx);
+            return;
+        end
+
+        chosen_idx = ordered_idx;
+        need = target_size - numel(chosen_idx);
+        if need > 0
+            take = min(need, numel(same_state_fill));
+            chosen_idx = [chosen_idx, same_state_fill(1:take)];
+            need = target_size - numel(chosen_idx);
+        end
+        if need > 0
+            remaining_cross = setdiff(cross_state_fill, chosen_idx, 'stable');
+            take = min(need, numel(remaining_cross));
+            chosen_idx = [chosen_idx, remaining_cross(1:take)];
+        end
+        chosen = pop(chosen_idx);
+    end
+
+    function [chosen, has_compat] = SelectTrustPopulation(Algo, pop, idx, mode_name)
+        [ordered_idx, same_state_fill] = Algo.RankStateCandidates(pop, idx, mode_name);
+        target_size = min(length(pop), max(Algo.StateMinSize, 2));
+
+        chosen_idx = ordered_idx;
+        need = target_size - numel(chosen_idx);
+        if need > 0
+            take = min(need, numel(same_state_fill));
+            chosen_idx = [chosen_idx, same_state_fill(1:take)];
+        end
+        chosen = pop(chosen_idx);
+        has_compat = numel(chosen_idx) >= Algo.StateMinSize;
+    end
+
+    function [ordered_idx, same_state_fill, cross_state_fill] = RankStateCandidates(~, pop, idx, mode_name)
         cv = [pop.CV];
         obj = [pop.Obj];
         feasible_idx = find(cv <= 0);
         infeasible_idx = find(cv > 0);
-        target_size = min(length(pop), max(Algo.StateMinSize, 2));
 
         [~, infeasible_low_order] = sort(cv(infeasible_idx), 'ascend');
         infeasible_low_idx = infeasible_idx(infeasible_low_order);
@@ -269,25 +320,16 @@ methods
                 % Fall back to feasible solutions only after exhausting positive-CV candidates.
                 cross_state_fill = feasible_best_idx;
         end
+    end
 
-        if numel(idx) >= Algo.StateMinSize
-            chosen = pop(ordered_idx);
+    function [center, scale] = SummarizePopulationStats(~, pop)
+        if isempty(pop)
+            center = [];
+            scale = [];
             return;
         end
-
-        chosen_idx = ordered_idx;
-        need = target_size - numel(chosen_idx);
-        if need > 0
-            take = min(need, numel(same_state_fill));
-            chosen_idx = [chosen_idx, same_state_fill(1:take)];
-            need = target_size - numel(chosen_idx);
-        end
-        if need > 0
-            remaining_cross = setdiff(cross_state_fill, chosen_idx, 'stable');
-            take = min(need, numel(remaining_cross));
-            chosen_idx = [chosen_idx, remaining_cross(1:take)];
-        end
-        chosen = pop(chosen_idx);
+        center = mean(pop.Decs, 1);
+        scale = max(std(pop.Decs, 0, 1), 1e-3);
     end
 
     function [maps, meta] = BuildStateAwareMaps(~, ~, ~, dst_state, src_state)
@@ -301,9 +343,11 @@ methods
             maps{state_id}.FromDst = CEDA_trans(dst_channels{state_id}, src_channels{state_id}, dst_candidate_sets{state_id});
         end
         meta.BoundaryCV = dst_state.BoundaryCV;
-        meta.StateCenter = {dst_state.FCenter, dst_state.BCenter, dst_state.ICenter};
-        meta.StateScale = {dst_state.FScale, dst_state.BScale, dst_state.IScale};
-        meta.BoundaryCenter = dst_state.BCenter;
+        meta.TrustCenter = dst_state.TrustCenter;
+        meta.TrustScale = dst_state.TrustScale;
+        meta.TrustHasCompat = dst_state.TrustHasCompat;
+        meta.TrustBoundaryCenter = dst_state.TrustBoundaryCenter;
+        meta.TrustHasBoundary = dst_state.TrustHasBoundary;
     end
 
     function [population, info] = InjectByTrust(Algo, population, maps, meta, edge_stat)
@@ -328,12 +372,20 @@ methods
     end
 
     function trust = EstimateTransferTrust(Algo, dec, state_id, meta, edge_stat)
-        center = meta.StateCenter{state_id};
-        scale = meta.StateScale{state_id};
-        compat_dist = norm((dec - center) ./ scale);
-        compat = Algo.NormalizeDistanceScore(compat_dist);
-        boundary_dist = norm(dec - meta.BoundaryCenter);
-        boundary = Algo.NormalizeDistanceScore(boundary_dist);
+        if meta.TrustHasCompat(state_id)
+            center = meta.TrustCenter{state_id};
+            scale = meta.TrustScale{state_id};
+            compat_dist = norm((dec - center) ./ scale);
+            compat = Algo.NormalizeDistanceScore(compat_dist);
+        else
+            compat = 0.5;
+        end
+        if meta.TrustHasBoundary
+            boundary_dist = norm(dec - meta.TrustBoundaryCenter);
+            boundary = Algo.NormalizeDistanceScore(boundary_dist);
+        else
+            boundary = 0.5;
+        end
         history = edge_stat.Success(state_id);
         trust = Algo.Trust_WCompat * compat + Algo.Trust_WBoundary * boundary + Algo.Trust_WHistory * history;
         trust = min(max(trust, 0), 1);

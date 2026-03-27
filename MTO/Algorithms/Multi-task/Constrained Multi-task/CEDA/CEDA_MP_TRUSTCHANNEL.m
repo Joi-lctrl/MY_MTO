@@ -328,8 +328,12 @@ methods
     end
 
     function trust = EstimateTransferTrust(Algo, dec, state_id, meta, edge_stat)
-        compat = 1;
-        boundary = Algo.NormalizeDistanceScore(norm(dec - meta.BoundaryCenter));
+        center = meta.StateCenter{state_id};
+        scale = meta.StateScale{state_id};
+        compat_dist = norm((dec - center) ./ scale);
+        compat = Algo.NormalizeDistanceScore(compat_dist);
+        boundary_dist = norm(dec - meta.BoundaryCenter);
+        boundary = Algo.NormalizeDistanceScore(boundary_dist);
         history = edge_stat.Success(state_id);
         trust = Algo.Trust_WCompat * compat + Algo.Trust_WBoundary * boundary + Algo.Trust_WHistory * history;
         trust = min(max(trust, 0), 1);

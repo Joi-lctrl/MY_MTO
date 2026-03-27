@@ -206,7 +206,7 @@ methods
         if isempty(feasible_idx)
             state.FIdx = [];
         else
-            take_f = max(1, ceil(Algo.StateTopF * numel(feasible_idx)));
+            take_f = min(numel(feasible_idx), max(1, ceil(Algo.StateTopF * numel(feasible_idx))));
             [~, ord_f] = sort(obj(feasible_idx), 'ascend');
             state.FIdx = feasible_idx(ord_f(1:take_f));
         end
@@ -216,7 +216,7 @@ methods
             state.IIdx = [];
             state.BoundaryCV = 0;
         else
-            take_b = max(1, ceil(Algo.StateTopB * numel(infeasible_idx)));
+            take_b = min(numel(infeasible_idx), max(1, ceil(Algo.StateTopB * numel(infeasible_idx))));
             [sorted_cv, ord_b] = sort(cv(infeasible_idx), 'ascend');
             state.BIdx = infeasible_idx(ord_b(1:take_b));
             if take_b < numel(infeasible_idx)
@@ -226,16 +226,47 @@ methods
             end
             state.BoundaryCV = sorted_cv(take_b);
         end
+
+        state.FPop = Algo.SelectStatePopulation(pop, state.FIdx, 'lowcv');
+        state.BPop = Algo.SelectStatePopulation(pop, state.BIdx, 'lowcv');
+        state.IPop = Algo.SelectStatePopulation(pop, state.IIdx, 'highcv');
+        state.FCenter = mean(state.FPop.Decs, 1);
+        state.BCenter = mean(state.BPop.Decs, 1);
+        state.ICenter = mean(state.IPop.Decs, 1);
+        state.FScale = std(state.FPop.Decs, 0, 1) + 1e-12;
+        state.BScale = std(state.BPop.Decs, 0, 1) + 1e-12;
+        state.IScale = std(state.IPop.Decs, 0, 1) + 1e-12;
     end
 
-    function [maps, meta] = BuildStateAwareMaps(~, population, transpop, dst_state, ~)
+    function chosen = SelectStatePopulation(Algo, pop, idx, mode_name)
+        if numel(idx) >= Algo.StateMinSize
+            chosen = pop(idx);
+            return;
+        end
+
+        cv = [pop.CV];
+        switch mode_name
+            case 'lowcv'
+                [~, order] = sort(cv, 'ascend');
+            otherwise
+                [~, order] = sort(cv, 'descend');
+        end
+        take = min(length(pop), max(Algo.StateMinSize, 2));
+        chosen = pop(order(1:take));
+    end
+
+    function [maps, meta] = BuildStateAwareMaps(~, population, transpop, dst_state, src_state)
+        dst_channels = {dst_state.FPop, dst_state.BPop, dst_state.IPop};
+        src_channels = {src_state.FPop, src_state.BPop, src_state.IPop};
         maps = cell(1, 3);
         for state_id = 1:3
-            maps{state_id}.FromSrc = transpop.Decs;
-            maps{state_id}.FromDst = population.Decs;
+            maps{state_id}.FromSrc = CEDA_trans(src_channels{state_id}, dst_channels{state_id}, transpop.Decs);
+            maps{state_id}.FromDst = CEDA_trans(dst_channels{state_id}, src_channels{state_id}, population.Decs);
         end
-        meta.BoundaryCenter = mean(population.Decs, 1);
         meta.BoundaryCV = dst_state.BoundaryCV;
+        meta.StateCenter = {dst_state.FCenter, dst_state.BCenter, dst_state.ICenter};
+        meta.StateScale = {dst_state.FScale, dst_state.BScale, dst_state.IScale};
+        meta.BoundaryCenter = dst_state.BCenter;
     end
 
     function [population, info] = InjectByTrust(Algo, population, maps, meta, edge_stat)
@@ -408,7 +439,7 @@ methods
     function state_id = StateIdFromCV(~, cv, meta)
         if cv <= 0
             state_id = 1;
-        elseif cv <= meta.BoundaryCV
+        elseif meta.BoundaryCV > 0 && cv <= meta.BoundaryCV
             state_id = 2;
         else
             state_id = 3;

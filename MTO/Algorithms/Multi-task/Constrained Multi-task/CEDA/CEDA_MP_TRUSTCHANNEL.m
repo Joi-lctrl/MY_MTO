@@ -170,19 +170,6 @@ methods
 
     function offspring = Generation2(Algo, population, pool, transpop)
         population = population(pool);
-        population_temp = population;
-        temp_Dec = CEDA_trans(transpop, population_temp, transpop.Decs);
-        temp_Dec2 = CEDA_trans(population_temp, transpop, population.Decs);
-        for i = 1:length(population)
-            if rand() < 0
-                if rand() < 0.5
-                    population(i).Dec = temp_Dec(randi(end), :);
-                else
-                    population(i).Dec = temp_Dec2(randi(end), :);
-                end
-            end
-        end
-
         for i = 1:ceil(length(population) / 2)
             offspring(i) = population(i);
             p2 = i + fix(length(population) / 2);
@@ -226,13 +213,14 @@ methods
         end
     end
 
-    function [maps, meta] = BuildStateAwareMaps(~, population, transpop, ~, ~)
+    function [maps, meta] = BuildStateAwareMaps(~, population, transpop, dst_state, ~)
         maps = cell(1, 3);
         for state_id = 1:3
             maps{state_id}.FromSrc = transpop.Decs;
             maps{state_id}.FromDst = population.Decs;
         end
         meta.BoundaryCenter = mean(population.Decs, 1);
+        meta.BoundaryCV = dst_state.BoundaryCV;
     end
 
     function [population, info] = InjectByTrust(Algo, population, maps, meta, edge_stat)
@@ -274,7 +262,7 @@ methods
                 continue;
             end
             state_id = info.StateId(i);
-            selected = rank1(i) <= n_parent;
+            selected = any(rank1 == (n_parent + i));
             cv_improve = offspring(i).CV < info.ParentCV(i);
             became_feasible = info.ParentCV(i) > 0 && offspring(i).CV <= 0;
             obj_improve = info.ParentCV(i) <= 0 && offspring(i).CV <= 0 && offspring(i).Obj < info.ParentObj(i);
@@ -320,7 +308,12 @@ methods
             trans_mask = mask & info.IsTransferred;
             try_count = sum(mask);
             accept_count = sum(trans_mask);
-            survive_count = sum(trans_mask & (rank1(1:length(info.IsTransferred))' <= n_parent)');
+            survive_count = 0;
+            for i = find(trans_mask)
+                if any(rank1 == (n_parent + i))
+                    survive_count = survive_count + 1;
+                end
+            end
             cv_improve_count = sum(trans_mask & ([offspring.CV] < info.ParentCV));
             become_feasible_count = sum(trans_mask & (info.ParentCV > 0) & ([offspring.CV] <= 0));
             trust_mean = mean(info.Trust(mask), 'omitnan');
@@ -360,7 +353,7 @@ methods
     function state_id = StateIdFromCV(~, cv, meta)
         if cv <= 0
             state_id = 1;
-        elseif cv <= meta.BoundaryCenter(1) + inf
+        elseif cv <= meta.BoundaryCV
             state_id = 2;
         else
             state_id = 3;

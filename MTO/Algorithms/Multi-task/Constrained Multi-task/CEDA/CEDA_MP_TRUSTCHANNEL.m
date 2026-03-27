@@ -149,26 +149,37 @@ methods
         [population, info] = Algo.InjectByTrust(population, maps, state_meta, edge_stat);
 
         n_off = ceil(length(population) / 2);
-        info.ParentCV = nan(1, n_off);
-        info.ParentObj = nan(1, n_off);
+        info.ParentATransferred = false(1, n_off);
+        info.ParentAStateId = zeros(1, n_off);
+        info.ParentACV = nan(1, n_off);
+        info.ParentAObj = nan(1, n_off);
+        info.ParentATrust = nan(1, n_off);
+        info.ParentBTransferred = false(1, n_off);
+        info.ParentBStateId = zeros(1, n_off);
+        info.ParentBCV = nan(1, n_off);
+        info.ParentBObj = nan(1, n_off);
+        info.ParentBTrust = nan(1, n_off);
+        info.IsTransferred = false(1, n_off);
         for i = 1:n_off
             offspring(i) = population(i);
             p2 = i + fix(length(population) / 2);
-            source_idx = i;
-            if ~info.ParentTransferred(i) && info.ParentTransferred(p2)
-                source_idx = p2;
-            end
             [offspring(i).Dec, tempDec] = GA_Crossover(population(i).Dec, population(p2).Dec, Algo.MuC);
             offspring(i).Dec = GA_Mutation(offspring(i).Dec, Algo.MuM);
             tempDec = GA_Mutation(tempDec, Algo.MuM);
             swap_indicator = rand(1, length(population(i).Dec)) >= 0.5;
             offspring(i).Dec(swap_indicator) = tempDec(swap_indicator);
             offspring(i).Dec = min(max(offspring(i).Dec, 0), 1);
-            info.ParentCV(i) = population(source_idx).CV;
-            info.ParentObj(i) = population(source_idx).Obj;
-            info.IsTransferred(i) = info.ParentTransferred(i) || info.ParentTransferred(p2);
-            info.StateId(i) = info.ParentStateId(source_idx);
-            info.Trust(i) = info.ParentTrust(source_idx);
+            info.ParentATransferred(i) = info.ParentTransferred(i);
+            info.ParentAStateId(i) = info.ParentStateId(i);
+            info.ParentACV(i) = population(i).CV;
+            info.ParentAObj(i) = population(i).Obj;
+            info.ParentATrust(i) = info.ParentTrust(i);
+            info.ParentBTransferred(i) = info.ParentTransferred(p2);
+            info.ParentBStateId(i) = info.ParentStateId(p2);
+            info.ParentBCV(i) = population(p2).CV;
+            info.ParentBObj(i) = population(p2).Obj;
+            info.ParentBTrust(i) = info.ParentTrust(p2);
+            info.IsTransferred(i) = info.ParentATransferred(i) || info.ParentBTransferred(i);
         end
     end
 
@@ -262,16 +273,24 @@ methods
 
     function edge_stat = UpdateChannelHistory(Algo, edge_stat, offspring, info, rank1, n_parent)
         for i = 1:length(offspring)
-            if ~info.IsTransferred(i)
-                continue;
-            end
-            state_id = info.StateId(i);
             selected = any(rank1 == (n_parent + i));
-            cv_improve = offspring(i).CV < info.ParentCV(i);
-            became_feasible = info.ParentCV(i) > 0 && offspring(i).CV <= 0;
-            obj_improve = info.ParentCV(i) <= 0 && offspring(i).CV <= 0 && offspring(i).Obj < info.ParentObj(i);
-            reward = 0.35 * selected + 0.25 * cv_improve + 0.20 * became_feasible + 0.20 * obj_improve;
-            edge_stat.Success(state_id) = (1 - Algo.HistAlpha) * edge_stat.Success(state_id) + Algo.HistAlpha * reward;
+
+            if info.ParentATransferred(i)
+                state_id = info.ParentAStateId(i);
+                cv_improve = offspring(i).CV < info.ParentACV(i);
+                became_feasible = info.ParentACV(i) > 0 && offspring(i).CV <= 0;
+                obj_improve = info.ParentACV(i) <= 0 && offspring(i).CV <= 0 && offspring(i).Obj < info.ParentAObj(i);
+                reward = 0.35 * selected + 0.25 * cv_improve + 0.20 * became_feasible + 0.20 * obj_improve;
+                edge_stat.Success(state_id) = (1 - Algo.HistAlpha) * edge_stat.Success(state_id) + Algo.HistAlpha * reward;
+            end
+            if info.ParentBTransferred(i)
+                state_id = info.ParentBStateId(i);
+                cv_improve = offspring(i).CV < info.ParentBCV(i);
+                became_feasible = info.ParentBCV(i) > 0 && offspring(i).CV <= 0;
+                obj_improve = info.ParentBCV(i) <= 0 && offspring(i).CV <= 0 && offspring(i).Obj < info.ParentBObj(i);
+                reward = 0.35 * selected + 0.25 * cv_improve + 0.20 * became_feasible + 0.20 * obj_improve;
+                edge_stat.Success(state_id) = (1 - Algo.HistAlpha) * edge_stat.Success(state_id) + Algo.HistAlpha * reward;
+            end
         end
     end
 
@@ -308,21 +327,53 @@ methods
 
     function Log = RecordTransferStats(~, Log, gen, t, info, edge_stat, offspring, rank1, n_parent)
         for state_id = 1:3
-            mask = info.StateId == state_id;
-            trans_mask = mask & info.IsTransferred;
-            try_count = sum(mask);
-            accept_count = sum(trans_mask);
+            try_count = 0;
+            accept_count = 0;
             survive_count = 0;
-            for i = find(trans_mask)
-                if any(rank1 == (n_parent + i))
-                    survive_count = survive_count + 1;
+            cv_improve_count = 0;
+            become_feasible_count = 0;
+            trust_samples = [];
+            for i = 1:length(offspring)
+                if info.ParentAStateId(i) == state_id
+                    try_count = try_count + 1;
+                    trust_samples(end + 1) = info.ParentATrust(i);
+                    if info.ParentATransferred(i)
+                        accept_count = accept_count + 1;
+                        if any(rank1 == (n_parent + i))
+                            survive_count = survive_count + 1;
+                        end
+                        if offspring(i).CV < info.ParentACV(i)
+                            cv_improve_count = cv_improve_count + 1;
+                        end
+                        if info.ParentACV(i) > 0 && offspring(i).CV <= 0
+                            become_feasible_count = become_feasible_count + 1;
+                        end
+                    end
+                end
+                if info.ParentBStateId(i) == state_id
+                    try_count = try_count + 1;
+                    trust_samples(end + 1) = info.ParentBTrust(i);
+                    if info.ParentBTransferred(i)
+                        accept_count = accept_count + 1;
+                        if any(rank1 == (n_parent + i))
+                            survive_count = survive_count + 1;
+                        end
+                        if offspring(i).CV < info.ParentBCV(i)
+                            cv_improve_count = cv_improve_count + 1;
+                        end
+                        if info.ParentBCV(i) > 0 && offspring(i).CV <= 0
+                            become_feasible_count = become_feasible_count + 1;
+                        end
+                    end
                 end
             end
-            cv_improve_count = sum(trans_mask & ([offspring.CV] < info.ParentCV));
-            become_feasible_count = sum(trans_mask & (info.ParentCV > 0) & ([offspring.CV] <= 0));
-            trust_mean = mean(info.Trust(mask), 'omitnan');
-            if isnan(trust_mean)
+            if isempty(trust_samples)
                 trust_mean = edge_stat.Success(state_id);
+            else
+                trust_mean = mean(trust_samples, 'omitnan');
+                if isnan(trust_mean)
+                    trust_mean = edge_stat.Success(state_id);
+                end
             end
             switch state_id
                 case 1

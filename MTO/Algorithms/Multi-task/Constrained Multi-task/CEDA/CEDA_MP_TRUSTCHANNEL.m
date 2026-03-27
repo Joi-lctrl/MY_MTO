@@ -227,9 +227,9 @@ methods
             state.BoundaryCV = sorted_cv(take_b);
         end
 
-        state.FPop = Algo.SelectStatePopulation(pop, state.FIdx, 'lowcv');
-        state.BPop = Algo.SelectStatePopulation(pop, state.BIdx, 'lowcv');
-        state.IPop = Algo.SelectStatePopulation(pop, state.IIdx, 'highcv');
+        state.FPop = Algo.SelectStatePopulation(pop, state.FIdx, 'F');
+        state.BPop = Algo.SelectStatePopulation(pop, state.BIdx, 'B');
+        state.IPop = Algo.SelectStatePopulation(pop, state.IIdx, 'I');
         state.FCenter = mean(state.FPop.Decs, 1);
         state.BCenter = mean(state.BPop.Decs, 1);
         state.ICenter = mean(state.IPop.Decs, 1);
@@ -239,29 +239,66 @@ methods
     end
 
     function chosen = SelectStatePopulation(Algo, pop, idx, mode_name)
+        cv = [pop.CV];
+        obj = [pop.Obj];
+        feasible_idx = find(cv <= 0);
+        infeasible_idx = find(cv > 0);
+        target_size = min(length(pop), max(Algo.StateMinSize, 2));
+
+        [~, infeasible_low_order] = sort(cv(infeasible_idx), 'ascend');
+        infeasible_low_idx = infeasible_idx(infeasible_low_order);
+        [~, infeasible_high_order] = sort(cv(infeasible_idx), 'descend');
+        infeasible_high_idx = infeasible_idx(infeasible_high_order);
+        [~, feasible_order] = sort(obj(feasible_idx), 'ascend');
+        feasible_best_idx = feasible_idx(feasible_order);
+
+        switch mode_name
+            case 'F'
+                ordered_idx = feasible_best_idx(ismember(feasible_best_idx, idx));
+                same_state_fill = setdiff(feasible_best_idx, ordered_idx, 'stable');
+                % Cross the feasibility boundary only as a last resort.
+                cross_state_fill = infeasible_low_idx;
+            case 'B'
+                ordered_idx = infeasible_low_idx(ismember(infeasible_low_idx, idx));
+                same_state_fill = setdiff(infeasible_low_idx, ordered_idx, 'stable');
+                % Fall back to feasible solutions only after exhausting positive-CV candidates.
+                cross_state_fill = feasible_best_idx;
+            otherwise
+                ordered_idx = infeasible_high_idx(ismember(infeasible_high_idx, idx));
+                same_state_fill = setdiff(infeasible_high_idx, ordered_idx, 'stable');
+                % Fall back to feasible solutions only after exhausting positive-CV candidates.
+                cross_state_fill = feasible_best_idx;
+        end
+
         if numel(idx) >= Algo.StateMinSize
-            chosen = pop(idx);
+            chosen = pop(ordered_idx);
             return;
         end
 
-        cv = [pop.CV];
-        switch mode_name
-            case 'lowcv'
-                [~, order] = sort(cv, 'ascend');
-            otherwise
-                [~, order] = sort(cv, 'descend');
+        chosen_idx = ordered_idx;
+        need = target_size - numel(chosen_idx);
+        if need > 0
+            take = min(need, numel(same_state_fill));
+            chosen_idx = [chosen_idx, same_state_fill(1:take)];
+            need = target_size - numel(chosen_idx);
         end
-        take = min(length(pop), max(Algo.StateMinSize, 2));
-        chosen = pop(order(1:take));
+        if need > 0
+            remaining_cross = setdiff(cross_state_fill, chosen_idx, 'stable');
+            take = min(need, numel(remaining_cross));
+            chosen_idx = [chosen_idx, remaining_cross(1:take)];
+        end
+        chosen = pop(chosen_idx);
     end
 
-    function [maps, meta] = BuildStateAwareMaps(~, population, transpop, dst_state, src_state)
+    function [maps, meta] = BuildStateAwareMaps(~, ~, ~, dst_state, src_state)
         dst_channels = {dst_state.FPop, dst_state.BPop, dst_state.IPop};
         src_channels = {src_state.FPop, src_state.BPop, src_state.IPop};
+        dst_candidate_sets = {dst_state.FPop.Decs, dst_state.BPop.Decs, dst_state.IPop.Decs};
+        src_candidate_sets = {src_state.FPop.Decs, src_state.BPop.Decs, src_state.IPop.Decs};
         maps = cell(1, 3);
         for state_id = 1:3
-            maps{state_id}.FromSrc = CEDA_trans(src_channels{state_id}, dst_channels{state_id}, transpop.Decs);
-            maps{state_id}.FromDst = CEDA_trans(dst_channels{state_id}, src_channels{state_id}, population.Decs);
+            maps{state_id}.FromSrc = CEDA_trans(src_channels{state_id}, dst_channels{state_id}, src_candidate_sets{state_id});
+            maps{state_id}.FromDst = CEDA_trans(dst_channels{state_id}, src_channels{state_id}, dst_candidate_sets{state_id});
         end
         meta.BoundaryCV = dst_state.BoundaryCV;
         meta.StateCenter = {dst_state.FCenter, dst_state.BCenter, dst_state.ICenter};

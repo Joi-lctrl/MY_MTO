@@ -392,17 +392,17 @@ methods
 
             if info.ParentATransferred(i)
                 state_id = info.ParentAStateId(i);
-                cv_improve = offspring(i).CV < info.ParentACV(i);
+                cv_improve = offspring(i).CV < info.ParentACV(i) - 1e-12;
                 became_feasible = info.ParentACV(i) > 0 && offspring(i).CV <= 0;
-                obj_improve = info.ParentACV(i) <= 0 && offspring(i).CV <= 0 && offspring(i).Obj < info.ParentAObj(i);
+                obj_improve = info.ParentACV(i) <= 0 && offspring(i).CV <= 0 && offspring(i).Obj < info.ParentAObj(i) - 1e-12;
                 reward = 0.35 * selected + 0.25 * cv_improve + 0.20 * became_feasible + 0.20 * obj_improve;
                 edge_stat.Success(state_id) = (1 - Algo.HistAlpha) * edge_stat.Success(state_id) + Algo.HistAlpha * reward;
             end
             if info.ParentBTransferred(i)
                 state_id = info.ParentBStateId(i);
-                cv_improve = offspring(i).CV < info.ParentBCV(i);
+                cv_improve = offspring(i).CV < info.ParentBCV(i) - 1e-12;
                 became_feasible = info.ParentBCV(i) > 0 && offspring(i).CV <= 0;
-                obj_improve = info.ParentBCV(i) <= 0 && offspring(i).CV <= 0 && offspring(i).Obj < info.ParentBObj(i);
+                obj_improve = info.ParentBCV(i) <= 0 && offspring(i).CV <= 0 && offspring(i).Obj < info.ParentBObj(i) - 1e-12;
                 reward = 0.35 * selected + 0.25 * cv_improve + 0.20 * became_feasible + 0.20 * obj_improve;
                 edge_stat.Success(state_id) = (1 - Algo.HistAlpha) * edge_stat.Success(state_id) + Algo.HistAlpha * reward;
             end
@@ -457,7 +457,7 @@ methods
                         if any(rank1 == (n_parent + i))
                             survive_count = survive_count + 1;
                         end
-                        if offspring(i).CV < info.ParentACV(i)
+                        if offspring(i).CV < info.ParentACV(i) - 1e-12
                             cv_improve_count = cv_improve_count + 1;
                         end
                         if info.ParentACV(i) > 0 && offspring(i).CV <= 0
@@ -473,7 +473,7 @@ methods
                         if any(rank1 == (n_parent + i))
                             survive_count = survive_count + 1;
                         end
-                        if offspring(i).CV < info.ParentBCV(i)
+                        if offspring(i).CV < info.ParentBCV(i) - 1e-12
                             cv_improve_count = cv_improve_count + 1;
                         end
                         if info.ParentBCV(i) > 0 && offspring(i).CV <= 0

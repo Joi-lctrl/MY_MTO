@@ -243,12 +243,11 @@ methods
         [state.TrustCenter{2}, state.TrustScale{2}] = Algo.SummarizePopulationStats(trust_b_pop);
         [state.TrustCenter{3}, state.TrustScale{3}] = Algo.SummarizePopulationStats(trust_i_pop);
         state.TrustHasCompat = trust_has_compat;
-        if isempty(trust_b_pop)
+        state.TrustHasBoundary = numel(state.BIdx) >= Algo.StateMinSize;
+        if ~state.TrustHasBoundary
             state.TrustBoundaryCenter = [];
-            state.TrustHasBoundary = false;
         else
             state.TrustBoundaryCenter = mean(trust_b_pop.Decs, 1);
-            state.TrustHasBoundary = true;
         end
     end
 
@@ -277,17 +276,9 @@ methods
     end
 
     function [chosen, has_compat] = SelectTrustPopulation(Algo, pop, idx, mode_name)
-        [ordered_idx, same_state_fill] = Algo.RankStateCandidates(pop, idx, mode_name);
-        target_size = min(length(pop), max(Algo.StateMinSize, 2));
-
-        chosen_idx = ordered_idx;
-        need = target_size - numel(chosen_idx);
-        if need > 0
-            take = min(need, numel(same_state_fill));
-            chosen_idx = [chosen_idx, same_state_fill(1:take)];
-        end
-        chosen = pop(chosen_idx);
-        has_compat = numel(chosen_idx) >= Algo.StateMinSize;
+        [ordered_idx, ~] = Algo.RankStateCandidates(pop, idx, mode_name);
+        chosen = pop(ordered_idx);
+        has_compat = numel(ordered_idx) >= Algo.StateMinSize;
     end
 
     function [ordered_idx, same_state_fill, cross_state_fill] = RankStateCandidates(~, pop, idx, mode_name)

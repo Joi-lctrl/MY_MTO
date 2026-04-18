@@ -1,0 +1,1695 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>cmd_interleave 是怎么跑起来的</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400;1,9..40,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    :root {
+      --color-accent:       #2A7B9B;
+      --color-accent-hover: #1F6280;
+      --color-accent-light: #E4F2F7;
+      --color-accent-muted: #5A9DB8;
+    }
+  </style>
+
+  <script src="main.js" defer></script>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="progress-bar" id="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="nav-inner">
+      <span class="nav-title">cmd_interleave 是怎么跑起来的</span>
+      <div class="nav-dots" id="nav-dots" role="tablist">
+        <button class="nav-dot" data-target="module-1" data-tooltip="你到底运行了什么" role="tab" aria-label="Module 1: 你到底运行了什么"></button>
+        <button class="nav-dot" data-target="module-2" data-tooltip="谁在参与这场实验" role="tab" aria-label="Module 2: 谁在参与这场实验"></button>
+        <button class="nav-dot" data-target="module-3" data-tooltip="一次 rep 是怎么推进的" role="tab" aria-label="Module 3: 一次 rep 是怎么推进的"></button>
+        <button class="nav-dot" data-target="module-4" data-tooltip="变量如何变成钢板结果" role="tab" aria-label="Module 4: 变量如何变成钢板结果"></button>
+        <button class="nav-dot" data-target="module-5" data-tooltip="结果文件里到底有什么" role="tab" aria-label="Module 5: 结果文件里到底有什么"></button>
+        <button class="nav-dot" data-target="module-6" data-tooltip="运行轨迹：起点" role="tab" aria-label="Module 6: 运行轨迹：起点"></button>
+        <button class="nav-dot" data-target="module-7" data-tooltip="运行轨迹：主循环" role="tab" aria-label="Module 7: 运行轨迹：主循环"></button>
+        <button class="nav-dot" data-target="module-8" data-tooltip="运行轨迹：状态记录" role="tab" aria-label="Module 8: 运行轨迹：状态记录"></button>
+        <button class="nav-dot" data-target="module-9" data-tooltip="运行轨迹：评估过程" role="tab" aria-label="Module 9: 运行轨迹：评估过程"></button>
+        <button class="nav-dot" data-target="module-10" data-tooltip="运行轨迹：求解器调用" role="tab" aria-label="Module 10: 运行轨迹：求解器调用"></button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+<section class="module" id="module-1">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">01</span>
+      <h1 class="module-title">你到底运行了什么</h1>
+      <p class="module-subtitle">
+        `cmd_interleave` 不是一个普通的画图脚本。它是在 <span class="term" data-definition="MATLAB 是一个数值计算环境。你可以把它理解成一个很擅长矩阵、优化和工程计算的工作台。">MATLAB</span>
+        里临时搭了一条小型实验流水线: 选任务, 设预算, 轮流跑两种算法, 把船板设计送去 <span class="term" data-definition="ANSYS 是工程仿真软件。这里用它来算结构质量、弯曲应力和剪切应力。">ANSYS</span>, 最后把结果打包成一个 `.mat` 文件。
+      </p>
+    </header>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">先用一句话抓住主线</h2>
+      <div class="step-cards stagger-children">
+        <div class="step-card animate-in">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <strong>脚本先定实验规则</strong>
+            <p>任务组合是哪些, 每个算法最多做多少次 <span class="term" data-definition="Function Evaluation, 简写 FE。每评价一个候选解一次目标函数和约束, 就记一次 FE。优化里真正花钱的通常就是它。">FE</span>, 每个任务的种群大小是多少。</p>
+          </div>
+        </div>
+        <div class="step-card animate-in">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <strong>问题对象把任务整理好</strong>
+            <p>`Ship_Panel_MTSO` 会把 `task3`、`task5` 这类任务转换成真正能被算法调用的函数、上下界和维度。</p>
+          </div>
+        </div>
+        <div class="step-card animate-in">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <strong>CEDA-DW 和 GA 轮流上场</strong>
+            <p>同一组任务、同一份随机种子、同一份预算。脚本的重点不是并行跑，而是“交错跑完再对比”。</p>
+          </div>
+        </div>
+        <div class="step-card animate-in">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <strong>每个候选解都会落到真实结构评估</strong>
+            <p>算法给的是归一化变量, 评估时会映射成真实尺寸, 然后送进 ANSYS 算质量和约束。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-accent animate-in">
+        <div class="callout-icon">i</div>
+        <div class="callout-content">
+          <strong class="callout-title">最重要的理解</strong>
+          <p>你运行的不是“一个算法”, 而是一整条实验剧本。`cmd_interleave` 像导演, 负责安排谁上场、什么时候停、最后把什么东西写进结果文件。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">这个剧本最关键的文件有哪些</h2>
+      <div class="file-tree animate-in">
+        <div class="ft-folder">
+          <span class="ft-name">MTO</span>
+          <div class="ft-children">
+            <div class="ft-file"><span class="ft-name">cmd_interleave.m</span><span class="ft-desc">入口脚本: 设配置, 跑算法, 保存 interleave 结果</span></div>
+            <div class="ft-file"><span class="ft-name">mto.m</span><span class="ft-desc">平台总入口: GUI 或命令行实验</span></div>
+            <div class="ft-folder">
+              <span class="ft-name">Algorithms</span>
+              <div class="ft-children">
+                <div class="ft-file"><span class="ft-name">Algorithm.m</span><span class="ft-desc">算法基类: 记最优值、记 FE、统一结果格式</span></div>
+                <div class="ft-file"><span class="ft-name">GA.m</span><span class="ft-desc">单任务遗传算法</span></div>
+                <div class="ft-file"><span class="ft-name">CEDA_MP_DUALCHANNEL_WEIGHTED.m</span><span class="ft-desc">当前脚本里更复杂的多任务算法</span></div>
+              </div>
+            </div>
+            <div class="ft-folder">
+              <span class="ft-name">Problems</span>
+              <div class="ft-children">
+                <div class="ft-file"><span class="ft-name">Ship_Panel_MTSO.m</span><span class="ft-desc">把船板任务包装成优化问题</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ft-folder">
+          <span class="ft-name">APDL</span>
+          <div class="ft-children">
+            <div class="ft-file"><span class="ft-name">Ship_Panel_Problem.m</span><span class="ft-desc">任务定义、变量上下界、APDL 宏生成</span></div>
+            <div class="ft-file"><span class="ft-name">run_ansys_eval.m</span><span class="ft-desc">真正调用 ANSYS, 解析质量和应力结果</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">入口脚本最先做的配置</h2>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>active_tasks = [3 5];  % 修改为你想跑的任务组合
+Reps = 1;              % 总重复次数
+maxFE = 1800;          % 每个算法的总FE预算
+N = 20;                % 种群大小
+Results_Num = 50;      % 收敛曲线记录点数
+Global_Seed = 2604;
+Disable_Swap = true;   % 若算法含Swap参数，则强制关闭变量交换</code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">这次实验只关注任务 3 和任务 5, 不是把整套 ship problem 全部跑一遍。</p>
+            <p class="tl">`Reps = 1` 表示这份脚本这次只做一轮重复实验。</p>
+            <p class="tl">每个算法最多花 1800 次 FE, 你可以把它理解成算法的总体预算。</p>
+            <p class="tl">每个任务子种群的目标大小是 20, 所以每一代不会无限膨胀。</p>
+            <p class="tl">收敛曲线最终只留 50 个采样点, 这是为了看图和存盘更轻。</p>
+            <p class="tl">全局随机种子固定成 2604, 这样重跑时更容易复现。</p>
+            <p class="tl">如果算法有 `Swap` 这个开关, 这里统一先关掉变量交换。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">一条数据流到底怎么走</h2>
+      <div class="flow-animation animate-in" data-steps='[
+        {"highlight":"flow-actor-1","label":"你运行 cmd_interleave.m"},
+        {"highlight":"flow-actor-2","label":"脚本建立 Ship_Panel_MTSO 和两种算法","packet":true,"from":"actor-1","to":"actor-2"},
+        {"highlight":"flow-actor-3","label":"算法开始生成候选解并交给问题对象","packet":true,"from":"actor-2","to":"actor-3"},
+        {"highlight":"flow-actor-4","label":"问题对象调用 run_ansys_eval 让 ANSYS 做结构计算","packet":true,"from":"actor-3","to":"actor-4"},
+        {"highlight":"flow-actor-5","label":"脚本把最优值、收敛曲线和种子写进 interleave mat 文件","packet":true,"from":"actor-4","to":"actor-5"}
+      ]'>
+        <div class="flow-actors">
+          <div class="flow-actor" id="flow-actor-1">
+            <div class="flow-actor-icon">S</div>
+            <span>Script</span>
+          </div>
+          <div class="flow-actor" id="flow-actor-2">
+            <div class="flow-actor-icon">P</div>
+            <span>Problem + Algos</span>
+          </div>
+          <div class="flow-actor" id="flow-actor-3">
+            <div class="flow-actor-icon">D</div>
+            <span>Designs</span>
+          </div>
+          <div class="flow-actor" id="flow-actor-4">
+            <div class="flow-actor-icon">A</div>
+            <span>ANSYS</span>
+          </div>
+          <div class="flow-actor" id="flow-actor-5">
+            <div class="flow-actor-icon">M</div>
+            <span>MAT File</span>
+          </div>
+        </div>
+
+        <div class="flow-packet"></div>
+        <div class="flow-step-label">Click "Next Step" to begin</div>
+        <div class="flow-controls">
+          <button class="btn flow-next-btn">Next Step</button>
+          <button class="btn flow-reset-btn">Restart</button>
+          <span class="flow-progress"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">小测: 你应该先盯哪一层</h2>
+      <div class="quiz-container animate-in" id="quiz-module1">
+        <div class="quiz-question-block"
+             data-correct="option-b"
+             data-explanation-right="对。`cmd_interleave` 先决定任务组合、预算、种群和种子。很多后续现象其实都是这里的配置造成的。"
+             data-explanation-wrong="先别急着怪算法。对这条链路来说, 最先定实验边界的是 `cmd_interleave` 本身。">
+          <div class="scenario-block">
+            <div class="scenario-context">
+              <span class="scenario-label">Scenario</span>
+              <p>你发现这次实验只出现 `Task 3` 和 `Task 5` 的曲线, 没有别的任务。你最应该先看哪里?</p>
+            </div>
+          </div>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>`run_ansys_eval.m` 里的应力解析</span>
+            </button>
+            <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>`cmd_interleave.m` 里的 `active_tasks = [3 5]`</span>
+            </button>
+            <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>`Selection_Elit.m` 的排序逻辑</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+        <button class="quiz-check-btn" onclick="checkQuiz('quiz-module1')">Check Answers</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module1')">Try Again</button>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="module" id="module-2">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">02</span>
+      <h1 class="module-title">谁在参与这场实验</h1>
+      <p class="module-subtitle">
+        理解 `cmd_interleave` 的捷径, 不是背完整个仓库, 而是先认清“演员表”。你只要知道谁负责调度、谁负责出题、谁负责求解、谁负责工程仿真, 后面很多代码就会突然变好懂。
+      </p>
+    </header>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">先认识 5 个核心角色</h2>
+      <div class="pattern-cards stagger-children">
+        <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-1)">
+          <div class="pattern-icon" style="background: var(--color-actor-1); color: white;">C</div>
+          <h4 class="pattern-title">cmd_interleave</h4>
+          <p class="pattern-desc">导演。它安排任务、算法、预算、随机种子和结果保存。</p>
+        </div>
+        <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-2)">
+          <div class="pattern-icon" style="background: var(--color-actor-2); color: white;">P</div>
+          <h4 class="pattern-title">Ship_Panel_MTSO</h4>
+          <p class="pattern-desc">翻译官。它把“任务编号”翻成上下界、维度和真正可调用的评估函数。</p>
+        </div>
+        <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-3)">
+          <div class="pattern-icon" style="background: var(--color-actor-3); color: white;">B</div>
+          <h4 class="pattern-title">Algorithm 基类</h4>
+          <p class="pattern-desc">公共骨架。记 FE、记每代结果、统一 `getResult()` 输出格式。</p>
+        </div>
+        <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-4)">
+          <div class="pattern-icon" style="background: var(--color-actor-4); color: white;">G</div>
+          <h4 class="pattern-title">GA / CEDA-DW</h4>
+          <p class="pattern-desc">真正提出候选设计的人。一个简单直接, 一个会利用跨任务迁移。</p>
+        </div>
+        <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-5)">
+          <div class="pattern-icon" style="background: var(--color-actor-5); color: white;">A</div>
+          <h4 class="pattern-title">APDL + ANSYS</h4>
+          <p class="pattern-desc">裁判。它不关心算法名气, 只认结构质量和应力约束。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">问题对象是怎么把任务准备好的</h2>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>ship_prob = Ship_Panel_Problem();
+active_tasks = Prob.ActiveTasks(:)';
+
+for k = 1:numel(active_tasks)
+    task_id = active_tasks(k);
+    [lb{k}, ~, ub{k}] = ship_prob.get_design_space(task_id);
+    fnc{k} = Prob.makeTaskFcn(task_id);
+end</code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">先拿到最底层的 ship panel 任务表, 它知道每个任务的真实工程参数。</p>
+            <p class="tl">把当前想跑的任务列表取出来, 这里通常就是脚本设进去的 `[3 5]` 这种数组。</p>
+            <p class="tl">逐个任务处理, 不偷懒也不假设所有任务都一样。</p>
+            <p class="tl">给这个任务取出上下界。也就是告诉算法: 哪些尺寸能动, 最小多小, 最大多大。</p>
+            <p class="tl">再给这个任务造一个专属评估函数。之后算法只需要调这个函数, 不用理解 ANSYS 细节。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-info animate-in">
+        <div class="callout-icon">i</div>
+        <div class="callout-content">
+          <strong class="callout-title">一个很有用的软件工程模式</strong>
+          <p>这里做的是 <span class="term" data-definition="封装就是把复杂细节藏起来, 只暴露一个好用的接口。外面的人会用, 但不用知道里面怎么实现。">封装</span>。算法只看见“任务函数”, 不直接碰 APDL 宏、结果文件和 ANSYS 路径。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">把这些角色想成一个工作群</h2>
+      <div class="chat-window animate-in" id="chat-module2">
+        <div class="chat-messages">
+          <div class="chat-message" data-msg="0" data-sender="cmd" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-1)">C</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-1)">cmd_interleave</span>
+              <p>我这次只跑任务 3 和任务 5, 预算 1800 FE, 大家按这个来。</p>
+            </div>
+          </div>
+          <div class="chat-message" data-msg="1" data-sender="prob" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-2)">P</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-2)">Ship_Panel_MTSO</span>
+              <p>收到。我去 `Ship_Panel_Problem` 里把这两个任务的上下界和函数接口取出来。</p>
+            </div>
+          </div>
+          <div class="chat-message" data-msg="2" data-sender="task" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-3)">T</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-3)">Ship_Panel_Problem</span>
+              <p>任务 3、5 的尺寸范围已经准备好。算法以后都走统一的 `get_design_space()`。</p>
+            </div>
+          </div>
+          <div class="chat-message" data-msg="3" data-sender="algo" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-4)">A</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-4)">Algorithms</span>
+              <p>很好。我只管在 0 到 1 的归一化空间里提候选解, 然后把它们交给问题对象评估。</p>
+            </div>
+          </div>
+          <div class="chat-message" data-msg="4" data-sender="ansys" style="display:none">
+            <div class="chat-avatar" style="background: var(--color-actor-5)">N</div>
+            <div class="chat-bubble">
+              <span class="chat-sender" style="color: var(--color-actor-5)">ANSYS</span>
+              <p>把真实尺寸给我。我会回传质量、弯曲应力、剪切应力, 以及约束是否超标。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="chat-typing" style="display:none">
+          <div class="chat-avatar" id="chat-module2-typing-avatar">?</div>
+          <div class="chat-typing-dots">
+            <span class="typing-dot"></span>
+            <span class="typing-dot"></span>
+            <span class="typing-dot"></span>
+          </div>
+        </div>
+
+        <div class="chat-controls">
+          <button class="btn chat-next-btn">Next Message</button>
+          <button class="btn chat-all-btn">Play All</button>
+          <button class="btn chat-reset-btn">Replay</button>
+          <span class="chat-progress"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">小测: 你想换任务组合时, 先改哪</h2>
+      <div class="quiz-container animate-in" id="quiz-module2">
+        <div class="quiz-question-block"
+             data-correct="option-c"
+             data-explanation-right="对。最先影响本次实验任务集合的是 `cmd_interleave` 里传给问题对象的 `active_tasks`。问题对象只是在后面照单执行。"
+             data-explanation-wrong="再往后看都太晚了。任务集合最先是在 `cmd_interleave` 的配置区被定下来的。">
+          <div class="scenario-block">
+            <div class="scenario-context">
+              <span class="scenario-label">Scenario</span>
+              <p>你想把实验从 `[3 5]` 改成 `[3 6]`。从“谁最先知道这件事”这个角度看, 你应该最先动哪一层?</p>
+            </div>
+          </div>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>`run_ansys_eval.m` 里的 `task_id` 解析</span>
+            </button>
+            <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>`Algorithm.m` 的 `notTerminated()`</span>
+            </button>
+            <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>`cmd_interleave.m` 的 `active_tasks` 配置</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+        <button class="quiz-check-btn" onclick="checkQuiz('quiz-module2')">Check Answers</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module2')">Try Again</button>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="module" id="module-3">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">03</span>
+      <h1 class="module-title">一次 rep 是怎么推进的</h1>
+      <p class="module-subtitle">
+        `rep` 可以理解成“同一实验再独立重来一次”。它的存在不是为了热闹, 而是为了防止你被一次好运气或坏运气骗到。
+      </p>
+    </header>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">一轮 rep 的骨架非常朴素</h2>
+      <div class="step-cards stagger-children">
+        <div class="step-card animate-in">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <strong>先固定随机种子</strong>
+            <p>这样这次 rep 的随机数来源就被钉住了, 两个算法可以共享同一把“骰子”。</p>
+          </div>
+        </div>
+        <div class="step-card animate-in">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <strong>重新设置问题对象</strong>
+            <p>脚本会再次调用 `prob.setTasks()`。这能保证任务边界和函数句柄是干净的一套。</p>
+          </div>
+        </div>
+        <div class="step-card animate-in">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <strong>给算法塞配置</strong>
+            <p>`Result_Num` 决定收敛历史最终保留多少点, `Save_Dec` 决定是否把决策变量也存下来。</p>
+          </div>
+        </div>
+        <div class="step-card animate-in">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <strong>算法开始代际循环</strong>
+            <p>GA 和 CEDA-DW 都会一代一代提出候选解, 评估后再筛一轮, 直到 FE 用完或早停触发。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">脚本在每次开跑前做了什么</h2>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>rng(seeds(rep));
+prob.setTasks();
+algo = algos{a};
+algo.Result_Num = Results_Num;
+algo.Save_Dec = false;
+if Disable_Swap && isprop(algo, 'Swap')
+    algo.Swap = 1;
+end
+algo.reset();</code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">先把这次 rep 的随机源锁到固定种子上。</p>
+            <p class="tl">把问题对象重新整理一遍, 避免上一个算法留下的状态影响这一个。</p>
+            <p class="tl">取出当前要跑的算法对象。</p>
+            <p class="tl">告诉算法: 收敛结果最后只留 `Results_Num` 个采样点。</p>
+            <p class="tl">这里明确不保存每代 `Dec`, 所以默认只保留目标值轨迹和最终最优解。</p>
+            <p class="tl">如果算法带 `Swap` 属性, 这里统一把它关成脚本想要的模式。</p>
+            <p class="tl">最后重置算法内部状态, 让它像刚开机一样开始这一轮。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="badge-list animate-in">
+        <div class="badge-item">
+          <code class="badge-code">Global_Seed = 2604</code>
+          <span class="badge-desc">全局起点种子, 用来生成每个 rep 的实际种子</span>
+        </div>
+        <div class="badge-item">
+          <code class="badge-code">rep_seeds = (0:Reps-1) + Global_Seed</code>
+          <span class="badge-desc">每次重复实验真正喂给 `rng()` 的数字</span>
+        </div>
+        <div class="badge-item">
+          <code class="badge-code">Result_Num = 50</code>
+          <span class="badge-desc">收敛历史不会原样保存全部代数, 最后会重采样成 50 个点</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">算法基类每一代都会顺手记账</h2>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>flag = Algo.FE < Prob.maxFE;
+
+gen = Algo.Gen;
+isSingleObj = max(Prob.M) == 1;
+for t = 1:Prob.T
+    if isSingleObj
+        bestSol = Algo.Best{t};
+        Algo.Result(t, gen).Obj = bestSol.Obj;</code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">先判断 FE 预算是否还没花完。没花完才能继续下一代。</p>
+            <p class="tl">取出当前代编号 `gen`。</p>
+            <p class="tl">这条 ship panel 链路是单目标问题, 所以这里会走 `isSingleObj` 分支。</p>
+            <p class="tl">按任务一个个记录当前代结果。</p>
+            <p class="tl">单目标时不保存整个人口, 只记住“这一代当前最优个体”。</p>
+            <p class="tl">第一件被记下来的就是最优目标值 `Obj`。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-accent animate-in">
+        <div class="callout-icon">i</div>
+        <div class="callout-content">
+          <strong class="callout-title">为什么这点很关键</strong>
+          <p>很多人以为 `.mat` 里一定保存了每代每个个体。对这条单目标链路不是这样。默认保存的是“每代最好那一个”的历史, 不是完整人群快照。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">小测: 为什么两个算法共用同一组 seed</h2>
+      <div class="quiz-container animate-in" id="quiz-module3">
+        <div class="quiz-question-block"
+             data-correct="option-a"
+             data-explanation-right="对。共用同一组 seed 的核心价值是公平比较。你更容易把差异归因到算法本身, 而不是随机波动。"
+             data-explanation-wrong="重现只是其中一层价值。更关键的是公平: 两个算法最好在同一组随机条件下被比较。">
+          <div class="scenario-block">
+            <div class="scenario-context">
+              <span class="scenario-label">Scenario</span>
+              <p>你想判断 CEDA-DW 和 GA 谁更强。为什么 `cmd_interleave` 会先固定 seed, 再轮流跑这两个算法?</p>
+            </div>
+          </div>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>为了让比较更公平, 不让算法吃到完全不同的随机运气</span>
+            </button>
+            <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>因为 ANSYS 只能接受固定种子, 不然会报错</span>
+            </button>
+            <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>因为 `Selection_Elit` 只支持偶数种子</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+        <button class="quiz-check-btn" onclick="checkQuiz('quiz-module3')">Check Answers</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module3')">Try Again</button>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="module" id="module-4">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">04</span>
+      <h1 class="module-title">变量如何变成钢板结果</h1>
+      <p class="module-subtitle">
+        算法嘴里说的是 0 到 1 之间的归一化数字, 工程软件嘴里说的是腹板高度、板厚和应力。中间这层翻译, 就是这条链路最“像工程”的地方。
+      </p>
+    </header>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">第一步: 把归一化变量映射成真实尺寸</h2>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>Range = Prob.Ub{t} - Prob.Lb{t};
+Lower = Prob.Lb{t};
+x = Decs(:, 1:D) .* Range + Lower;
+
+[Objs, Cons] = Prob.evaluate(x, t);
+Algo.FE = Algo.FE + size(x, 1);</code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">先算这个任务每个变量允许活动的真实跨度。</p>
+            <p class="tl">再取出下界, 也就是每个变量最小能到哪。</p>
+            <p class="tl">把 0 到 1 的归一化决策变量拉伸成真实工程尺寸 `x`。</p>
+            <p class="tl">把真实尺寸交给问题对象评估。此时算法已经不用直接碰上下界了。</p>
+            <p class="tl">本次真正做了多少次评估, FE 就加多少。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">第二步: 真实尺寸被送进 APDL 和 ANSYS</h2>
+      <div class="icon-rows animate-in">
+        <div class="icon-row">
+          <div class="icon-circle" style="background: var(--color-accent-light); color: var(--color-accent);">1</div>
+          <div>
+            <strong>`Ship_Panel_Problem.generate_mac()`</strong>
+            <p>把 `h_web_L1`、`b_bot_R` 这类尺寸拼成 APDL 宏脚本。你可以把它理解成“给 ANSYS 写施工说明书”。</p>
+          </div>
+        </div>
+        <div class="icon-row">
+          <div class="icon-circle" style="background: var(--color-info-light); color: var(--color-info);">2</div>
+          <div>
+            <strong>`run_ansys_eval()`</strong>
+            <p>创建工作目录、写 `.mac`、找到 `MAPDL.exe`、启动批处理求解, 然后读取结果文本。</p>
+          </div>
+        </div>
+        <div class="icon-row">
+          <div class="icon-circle" style="background: var(--color-success-light); color: var(--color-success);">3</div>
+          <div>
+            <strong>约束和目标回到优化器</strong>
+            <p>目标值用 FEA 质量, 约束则来自最大弯曲应力、最大剪切应力和几何顺序约束。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-animation animate-in" data-steps='[
+        {"highlight":"flow-actor-1","label":"算法手里先只有归一化 Dec"},
+        {"highlight":"flow-actor-2","label":"Algorithm.Evaluation 把 Dec 映射成真实尺寸 x","packet":true,"from":"actor-1","to":"actor-2"},
+        {"highlight":"flow-actor-3","label":"Ship_Panel_MTSO 把 x 逐个任务送去评估","packet":true,"from":"actor-2","to":"actor-3"},
+        {"highlight":"flow-actor-4","label":"run_ansys_eval 生成 APDL 宏并启动 ANSYS","packet":true,"from":"actor-3","to":"actor-4"},
+        {"highlight":"flow-actor-5","label":"质量和约束返回给算法, 用来选择下一代","packet":true,"from":"actor-4","to":"actor-5"}
+      ]'>
+        <div class="flow-actors">
+          <div class="flow-actor" id="flow-actor-1">
+            <div class="flow-actor-icon">D</div>
+            <span>Normalized Dec</span>
+          </div>
+          <div class="flow-actor" id="flow-actor-2">
+            <div class="flow-actor-icon">X</div>
+            <span>Real x</span>
+          </div>
+          <div class="flow-actor" id="flow-actor-3">
+            <div class="flow-actor-icon">P</div>
+            <span>Problem</span>
+          </div>
+          <div class="flow-actor" id="flow-actor-4">
+            <div class="flow-actor-icon">A</div>
+            <span>ANSYS</span>
+          </div>
+          <div class="flow-actor" id="flow-actor-5">
+            <div class="flow-actor-icon">R</div>
+            <span>Obj + Con</span>
+          </div>
+        </div>
+
+        <div class="flow-packet"></div>
+        <div class="flow-step-label">Click "Next Step" to begin</div>
+        <div class="flow-controls">
+          <button class="btn flow-next-btn">Next Step</button>
+          <button class="btn flow-reset-btn">Restart</button>
+          <span class="flow-progress"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">第三步: ANSYS 回来的东西会被整理成优化能懂的格式</h2>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>con(1) = max_bend - task.bend_allow;
+con(2) = max_shear - task.shear_allow;
+
+h_web_L1 = x(1);
+h_web_L2 = x(5);
+con(3) = h_web_L2 - h_web_L1;</code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">第一条约束问的是: 最大弯曲应力有没有超过任务允许值。</p>
+            <p class="tl">第二条约束问的是: 最大剪切应力有没有超标。</p>
+            <p class="tl">接下来开始看几何关系, 先取中心纵骨高度。</p>
+            <p class="tl">再取侧纵骨高度。</p>
+            <p class="tl">如果 `h_web_L2 - h_web_L1` 是正的, 说明侧纵骨反而比中心纵骨还高, 这条几何约束就被破坏了。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-warning animate-in">
+        <div class="callout-icon">!</div>
+        <div class="callout-content">
+          <strong class="callout-title">当 ANSYS 出错时, 优化不会立刻崩</strong>
+          <p>代码会给这个候选解一个巨大的惩罚值, 让算法自然把它淘汰掉。这是很常见的“让搜索继续往前走”的工程手法。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">小测: 如果 ANSYS 找不到可执行文件会发生什么</h2>
+      <div class="quiz-container animate-in" id="quiz-module4">
+        <div class="quiz-question-block"
+             data-correct="option-b"
+             data-explanation-right="对。`run_ansys_eval` 会把目标值设成一个很大的惩罚值, 约束也设成严重违约, 这样优化器还能继续跑。"
+             data-explanation-wrong="这里的设计不是直接让整场实验中断, 而是把这次评估记成一个非常差的候选解。">
+          <div class="scenario-block">
+            <div class="scenario-context">
+              <span class="scenario-label">Scenario</span>
+              <p>如果机器上根本找不到 `MAPDL.exe`, 这条优化链路最可能出现哪种行为?</p>
+            </div>
+          </div>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>算法自动切换成 GUI 模式重新评估</span>
+            </button>
+            <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>这次个体会拿到很差的惩罚目标值和严重约束违背</span>
+            </button>
+            <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>代码会默认把所有约束都当成满足</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+        <button class="quiz-check-btn" onclick="checkQuiz('quiz-module4')">Check Answers</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module4')">Try Again</button>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="module" id="module-5">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">05</span>
+      <h1 class="module-title">结果文件里到底有什么</h1>
+      <p class="module-subtitle">
+        跑完实验以后, 你最容易误解的地方就在这: `interleave_*.mat` 不是 GUI 里的 `MTOData.mat`。它是 `cmd_interleave` 自己打包出来的一套轻量结果格式。
+      </p>
+    </header>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">脚本最后保存了哪些字段</h2>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>save_name = sprintf('interleave_%s.mat', datestr(now, 'yyyymmdd_HHMMSS'));
+save(save_name, 'BestObj', 'BestCV', 'BestDecNorm', 'BestDecReal', ...
+    'ConvergeObj', 'ConvergeFE', 'algo_names', 'active_tasks', ...
+    'Reps', 'maxFE', 'Disable_Swap', 'Global_Seed', 'rep_seeds', ...
+    'PopulationSizeStats');</code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">文件名会自动带上时间戳, 所以每次运行默认都是一个新文件。</p>
+            <p class="tl">这里真正写入磁盘的是一组普通变量, 不是一个叫 `MTOData` 的总结构体。</p>
+            <p class="tl">`BestObj`、`BestCV`、`BestDecNorm`、`BestDecReal` 是最好结果视角。</p>
+            <p class="tl">`ConvergeObj` 和 `ConvergeFE` 是画收敛曲线用的轨迹。</p>
+            <p class="tl">后面这几个是实验元信息: 算法名、任务、重复次数、预算和 Swap 配置。</p>
+            <p class="tl">这份工作区现在还额外保存了 `Global_Seed`、每次 rep 的实际 `rep_seeds`、以及逐代 `PopulationSizeStats`。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">读这个文件时, 你最关心的通常是这 6 类东西</h2>
+      <div class="pattern-cards stagger-children">
+        <div class="pattern-card animate-in">
+          <div class="pattern-icon" style="background: var(--color-actor-1); color: white;">O</div>
+          <h4 class="pattern-title">BestObj</h4>
+          <p class="pattern-desc">每个算法、每次 rep、每个任务的最终最佳目标值。</p>
+        </div>
+        <div class="pattern-card animate-in">
+          <div class="pattern-icon" style="background: var(--color-actor-2); color: white;">C</div>
+          <h4 class="pattern-title">ConvergeObj</h4>
+          <p class="pattern-desc">收敛曲线主体。画对比图时最常用。</p>
+        </div>
+        <div class="pattern-card animate-in">
+          <div class="pattern-icon" style="background: var(--color-actor-3); color: white;">D</div>
+          <h4 class="pattern-title">BestDecReal</h4>
+          <p class="pattern-desc">最终最优个体的真实尺寸, 不再是 0 到 1 的归一化值。</p>
+        </div>
+        <div class="pattern-card animate-in">
+          <div class="pattern-icon" style="background: var(--color-actor-4); color: white;">F</div>
+          <h4 class="pattern-title">ConvergeFE</h4>
+          <p class="pattern-desc">每个收敛点对应的真实 FE 位置, 不是简单的代编号。</p>
+        </div>
+        <div class="pattern-card animate-in">
+          <div class="pattern-icon" style="background: var(--color-actor-5); color: white;">S</div>
+          <h4 class="pattern-title">Global_Seed / rep_seeds</h4>
+          <p class="pattern-desc">告诉你这次实验随机性从哪里来, 以后怎么复现。</p>
+        </div>
+        <div class="pattern-card animate-in">
+          <div class="pattern-icon" style="background: var(--color-accent); color: white;">P</div>
+          <h4 class="pattern-title">PopulationSizeStats</h4>
+          <p class="pattern-desc">记录每代各任务的种群大小。现在你终于可以回答“这一代到底有多少个体”。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">收敛曲线为什么不是原始每一代原样保存</h2>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>Result = Result_Gen(:, 1:maxGen);
+for k = 1:size(Result_Gen, 1)
+    Gap = FE_Gen(end) ./ (maxGen);
+    idx = 1;
+    i = 1;
+    while i <= length(FE_Gen)</code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">先预留出一个固定长度的新结果容器。</p>
+            <p class="tl">逐个任务或逐条轨迹处理。</p>
+            <p class="tl">用总 FE 除以 `maxGen` 算出采样间隔。</p>
+            <p class="tl">准备好往第几个采样点写数据。</p>
+            <p class="tl">再从原始 FE 序列头开始扫一遍。</p>
+            <p class="tl">这说明保存到 `.mat` 里的收敛历史, 是重采样后的版本, 不是未经压缩的全代历史。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-warning animate-in">
+        <div class="callout-icon">!</div>
+        <div class="callout-content">
+          <strong class="callout-title">两个很容易踩的坑</strong>
+          <p>第一, GUI 的载入按钮默认执行 `load(..., 'MTOData')`, 所以 `interleave_*.mat` 不能直接当 `MTOData.mat` 用。第二, `.mat` 是二进制文件, 如果被文本工具碰坏, 你会看到“文件还在, 但里面像没东西”。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">小测: 现在你想查哪一项</h2>
+      <div class="quiz-container animate-in" id="quiz-module5">
+        <div class="quiz-question-block"
+             data-correct="option-c"
+             data-explanation-right="对。`PopulationSizeStats` 就是为这个问题加进去的。它按算法和 rep 存逐代种群大小。"
+             data-explanation-wrong="别再去 `BestObj` 或 `ConvergeObj` 里找个体个数了。那两类字段关心的是目标值轨迹, 不是人头统计。">
+          <div class="scenario-block">
+            <div class="scenario-context">
+              <span class="scenario-label">Scenario</span>
+              <p>你现在最想知道的是“第 12 代任务 5 子种群里到底有多少个体”。你应该优先查看哪个字段?</p>
+            </div>
+          </div>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>`BestDecReal`</span>
+            </button>
+            <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>`ConvergeFE`</span>
+            </button>
+            <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>`PopulationSizeStats`</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+        <button class="quiz-check-btn" onclick="checkQuiz('quiz-module5')">Check Answers</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module5')">Try Again</button>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="module" id="module-6">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">06</span>
+      <h1 class="module-title">Runtime Start</h1>
+      <p class="module-subtitle">
+        这一节不再按“代码逐行翻译”的方式讲, 而是直接跟着 MATLAB 的真实运行轨迹走: 先启动会话, 再把问题对象搭起来, 然后把后续循环需要的结果容器一次性铺好。
+      </p>
+    </header>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Trace 1: 运行一开始, MATLAB 先清场再定位脚本目录</h2>
+      <div class="callout callout-info animate-in">
+        <div class="callout-icon">i</div>
+        <div class="callout-content">
+          <strong class="callout-title">这里看的不是“语法”, 而是“启动顺序”</strong>
+          <p>
+            主脚本刚被执行时, 先发生的是环境整理和路径准备. 这一步不会产生优化结果, 但它决定了后面类文件、问题文件和辅助函数能不能被 MATLAB 找到.
+          </p>
+        </div>
+      </div>
+
+      <div class="pattern-cards stagger-children">
+        <div class="pattern-card runtime-card animate-in">
+          <div class="pattern-icon">1</div>
+          <h4 class="pattern-title">Current line</h4>
+          <p class="pattern-desc"><code>cmd_interleave.m:L4-L6</code></p>
+          <h4 class="pattern-title">What happens here</h4>
+          <p class="pattern-desc">
+            <code>clear; clc; close all;</code> 先把旧状态清掉; <code>cd(fileparts(mfilename('fullpath')))</code> 把当前工作目录切到脚本所在位置; <code>addpath(genpath(pwd))</code> 再把仓库里的子目录全部放进搜索路径.
+          </p>
+          <h4 class="pattern-title">Next jump</h4>
+          <p class="pattern-desc">
+            不跳文件, 继续留在 <code>cmd_interleave.m</code> 里往下执行.
+          </p>
+          <h4 class="pattern-title">Return point</h4>
+          <p class="pattern-desc">
+            直接推进到 <code>cmd_interleave.m:L8</code> 的配置区.
+          </p>
+        </div>
+
+        <div class="pattern-card runtime-card animate-in">
+          <div class="pattern-icon">2</div>
+          <h4 class="pattern-title">Current line</h4>
+          <p class="pattern-desc"><code>cmd_interleave.m:L8-L21</code></p>
+          <h4 class="pattern-title">What happens here</h4>
+          <p class="pattern-desc">
+            这里不是算法在跑, 而是在写运行参数: 哪些任务要启用、重复几次、总 FE 上限是多少、收敛曲线要记录多少点, 以及早停和画图范围的阈值都先固定下来.
+          </p>
+          <h4 class="pattern-title">Next jump</h4>
+          <p class="pattern-desc">
+            仍然不离开 <code>cmd_interleave.m</code>; 这些值只是给后面的对象初始化和循环控制提供输入.
+          </p>
+          <h4 class="pattern-title">Return point</h4>
+          <p class="pattern-desc">
+            继续到 <code>cmd_interleave.m:L24</code> 的问题对象创建段.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Trace 2: 问题对象先出现, `setTasks()` 才是真正的跨文件入口</h2>
+      <div class="pattern-card runtime-card animate-in">
+        <div class="pattern-icon">3</div>
+        <h4 class="pattern-title">Current line</h4>
+        <p class="pattern-desc"><code>cmd_interleave.m:L24-L29</code></p>
+        <h4 class="pattern-title">What happens here</h4>
+        <p class="pattern-desc">
+          <code>prob = Ship_Panel_MTSO()</code> 先把船板优化问题对象造出来; 接着把 <code>N</code>, <code>maxFE</code>, <code>Cleanup</code> 和 <code>ActiveTasks</code> 写进去; 最后在 <code>prob.setTasks()</code> 这一步让问题对象根据当前任务组合重新装配边界、维度和目标函数句柄.
+        </p>
+        <h4 class="pattern-title">Next jump</h4>
+        <p class="pattern-desc">
+          <code>prob.setTasks()</code> -> <code>Ship_Panel_MTSO.setTasks</code>.
+        </p>
+        <h4 class="pattern-title">Return point</h4>
+        <p class="pattern-desc">
+          返回 <code>cmd_interleave.m:L31</code>, 也就是继续构造算法对象的地方.
+        </p>
+      </div>
+
+      <div class="callout callout-info animate-in">
+        <div class="callout-icon">i</div>
+        <div class="callout-content">
+          <strong class="callout-title">为什么这一步必须单独点出来</strong>
+          <p>
+            <code>Ship_Panel_MTSO.setTasks</code> 会在内部把 active task 映射成真正的设计空间, 组装 <code>T</code>, <code>D</code>, <code>Lb</code>, <code>Ub</code> 和 <code>Fnc</code>. 这意味着主脚本不是“猜”任务信息, 而是把控制权交给问题类去完成初始化, 然后再回到 <code>cmd_interleave.m</code> 继续执行。
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Trace 3: 结果容器先占位, 后面的循环才有地方写数据</h2>
+      <div class="callout callout-info animate-in">
+        <div class="callout-icon">i</div>
+        <div class="callout-content">
+          <strong class="callout-title">MATLAB 里的三个“第一次出现”</strong>
+          <p>
+            这几个构造不是算法本身, 而是运行时的存储骨架. 你可以把它们看成“先把抽屉摆好, 后面每次 rep / 每个任务 / 每条曲线只负责往里放东西”.
+          </p>
+        </div>
+      </div>
+
+      <div class="pattern-cards stagger-children">
+        <div class="pattern-card runtime-card animate-in">
+          <div class="pattern-icon">cell</div>
+          <h4 class="pattern-title">First appearance</h4>
+          <p class="pattern-desc"><code>cell(nAlgo, 1)</code> / <code>cell(nTask, 1)</code></p>
+          <h4 class="pattern-title">MATLAB meaning</h4>
+          <p class="pattern-desc">
+            <code>cell(...)</code> 创建的是 cell 容器, 里面每个格子都可以装不同大小、不同类型的内容. 这里用它装每个算法自己的结果表, 因为每个算法的收敛历史长度和嵌套层级都不一样.
+          </p>
+          <h4 class="pattern-title">Why it fits the trace</h4>
+          <p class="pattern-desc">
+            这让主脚本可以先完成“架子”初始化, 等算法真正跑完再按算法索引把数据填进去.
+          </p>
+        </div>
+
+        <div class="pattern-card runtime-card animate-in">
+          <div class="pattern-icon">nan</div>
+          <h4 class="pattern-title">First appearance</h4>
+          <p class="pattern-desc"><code>nan(nAlgo, Reps, nTask)</code></p>
+          <h4 class="pattern-title">MATLAB meaning</h4>
+          <p class="pattern-desc">
+            <code>nan(...)</code> 先用 NaN 占住数值数组的位置. 这比全零更适合结果预分配, 因为未写入的位置一眼就能看出来, 后面统计时也不会把“没结果”误认成真实的 0.
+          </p>
+          <h4 class="pattern-title">Why it fits the trace</h4>
+          <p class="pattern-desc">
+            在 runtime 里, 这相当于先留白, 再让每次 rep 的最终最佳值逐格落位.
+          </p>
+        </div>
+
+        <div class="pattern-card runtime-card animate-in">
+          <div class="pattern-icon">g</div>
+          <h4 class="pattern-title">First appearance</h4>
+          <p class="pattern-desc"><code>gobjects(1, nTask)</code> / <code>gobjects(nAlgo, nTask)</code></p>
+          <h4 class="pattern-title">MATLAB meaning</h4>
+          <p class="pattern-desc">
+            <code>gobjects(...)</code> 预先创建图形句柄数组. 这些位置以后会装进 <code>subplot</code>、<code>animatedline</code> 之类的对象, 所以先给它们一个“句柄型”的空壳最合适.
+          </p>
+          <h4 class="pattern-title">Why it fits the trace</h4>
+          <p class="pattern-desc">
+            这不是在画图, 而是在为后面的实时曲线更新准备控制点. 当你进入下一模块时, 它们就会立刻被拿去连接每个任务子图.
+          </p>
+        </div>
+      </div>
+
+      <div class="callout callout-info animate-in">
+        <div class="callout-icon">i</div>
+        <div class="callout-content">
+          <strong class="callout-title">这一步结束后, 脚本才真正准备好进入循环</strong>
+          <p>
+            到这里为止, 主脚本已经完成启动、问题装配和结果占位. 下一模块才会接着讲图窗句柄如何建立、以及 <code>algo.run(prob)</code> 触发的主循环轨迹。
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="module" id="module-7">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">07</span>
+      <h1 class="module-title">Runtime Loop</h1>
+      <p class="module-subtitle">
+        这一页不再做普通逐行翻译, 而是盯住一次真实运行: 先把随机状态和回调挂好, 然后在 <code>algo.run(prob)</code> 处跳走, 最后再回来收尸、记账、保存。
+      </p>
+    </header>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">第 97 到 119 行: 先把这次运行的环境钉死</h2>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>97         rng(seeds(rep));
+98         prob.setTasks();
+99         algo = algos{a};
+100        algo.Result_Num = Results_Num;
+101        algo.Save_Dec = false;
+102        if Disable_Swap && isprop(algo, 'Swap')
+103            algo.Swap = 1;
+104        end
+105        algo.reset();
+107        es = containers.Map();
+108        es('prev_best') = inf(1, nTask);
+109        es('stall_count') = 0;
+110        es('min_fe') = maxFE * EarlyStop_MinFE_Ratio;
+111        es('patience') = EarlyStop_Patience;
+112        es('triggered') = false;
+114        cur_a = a;
+115        algo.Check_Status_Fn = @() live_update_with_earlystop( ...
+116            algo, cur_a, nTask, h_obj, h_cv, active_tasks, fig1, es);
+118        algo.run(prob);
+119        PopulationSizeStats{a, rep} = algo.PopSize_Gen;</code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">RUNTIME TRACE</span>
+          <div class="translation-lines">
+            <p class="tl"><code>L97</code> 这次重复实验先把随机数流切到固定 seed, 所以同一轮 rep 的结果可复现。</p>
+            <p class="tl"><code>L98</code> 重新生成问题任务配置, 让当前算法拿到干净的任务定义。</p>
+            <p class="tl"><code>L99</code> 从算法列表里取出当前要跑的对象, 之后所有状态都挂在这个对象上。</p>
+            <p class="tl"><code>L100</code> 设定收敛曲线最终要采样多少个点。</p>
+            <p class="tl"><code>L101</code> 明确这次不保存决策变量, 只保留摘要结果。</p>
+            <p class="tl"><code>L102</code> 如果算法有 <code>Swap</code> 参数, 这里就把它压到关闭状态。</p>
+            <p class="tl"><code>L103</code> 在这个代码库里, <code>Swap=1</code> 表示不做变量交换。</p>
+            <p class="tl"><code>L104</code> 结束这个可选参数分支。</p>
+            <p class="tl"><code>L105</code> 重置算法对象, 让 FE、Gen、历史缓存都回到起点。</p>
+            <p class="tl"><code>L107</code> 新建一个 <code>containers.Map</code> 来装早停状态; 它是键值对容器, 回调里改它会直接改到同一个对象。</p>
+            <p class="tl"><code>L108</code> 这里存的是“上一次最好值”, 初始用 <code>inf(1, nTask)</code> 占位。</p>
+            <p class="tl"><code>L109</code> 停滞代数先记为 0。</p>
+            <p class="tl"><code>L110</code> 记录允许开始早停检查的最低 FE 门槛。</p>
+            <p class="tl"><code>L111</code> 记录容忍的连续无改进代数。</p>
+            <p class="tl"><code>L112</code> 早停开关先关着。</p>
+            <p class="tl"><code>L114</code> 把当前算法编号单独存一份, 方便匿名函数捕获。</p>
+            <p class="tl"><code>L115</code> 这一行不是立即执行回调, 而是造出一个匿名函数句柄, 等算法每代末尾再来调用。</p>
+            <p class="tl"><code>L116</code> 匿名函数把绘图句柄、任务编号、图窗和 <code>containers.Map</code> 一起封进去, 形成一个可回放的 runtime hook。</p>
+            <p class="tl"><code>L118</code> 真正的运行从这里开始, 后面会跳进算法类自己的 <code>run</code> 方法。</p>
+            <p class="tl"><code>L119</code> 算法返回后, 这里接住并保存每代的种群大小快照。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-info animate-in">
+        <div class="callout-icon">i</div>
+        <div class="callout-content">
+          <strong class="callout-title">MATLAB basics: rng / containers.Map / anonymous function</strong>
+          <p><code>rng(seeds(rep))</code> 不是“随机一下”, 而是把随机流重置到一个固定起点, 所以这次 rep 里所有后续采样都能复现。</p>
+          <p><code>containers.Map</code> 像一个可共享的字典, 适合把“跨函数要继续更新”的状态放进去。</p>
+          <p><code>@() live_update_with_earlystop(...)</code> 是匿名函数句柄, 这里的作用是延迟执行: 先把上下文捕获好, 等 <code>notTerminated</code> 的时机再真正跑。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">第 118 行: <code>algo.run(prob)</code> 是显式跳转卡</h2>
+      <div class="pattern-card runtime-card animate-in">
+        <div class="pattern-icon">J</div>
+        <h4 class="pattern-title">Current line</h4>
+        <p class="pattern-desc"><code>cmd_interleave.m:L118</code></p>
+        <h4 class="pattern-title">What happens here</h4>
+        <p class="pattern-desc">脚本把控制权交给当前算法对象。这个调用会进入所选算法类的 <code>run(prob)</code>，里面才是真正的初始化、繁殖、选择和代际循环。</p>
+        <h4 class="pattern-title">Next jump</h4>
+        <p class="pattern-desc">跳进 <code>algo</code> 的类实现，沿着 <code>run</code> 和它内部调用的 <code>notTerminated</code> 往下走。</p>
+        <h4 class="pattern-title">Return point</h4>
+        <p class="pattern-desc">算法结束后回到 <code>cmd_interleave.m:L119</code>，继续保存 <code>PopulationSizeStats</code> 和后面的结果提取。</p>
+      </div>
+      <div class="callout callout-accent animate-in">
+        <div class="callout-icon">i</div>
+        <div class="callout-content">
+          <strong class="callout-title">这里要把“调用”理解成一次上下文切换</strong>
+          <p>外层脚本并没有自己做进化，它只是把已经配置好的 <code>algo</code> 交出去。真正跑循环的是算法对象，外层只在返回后继续收尾。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">第 119 到 188 行: 算法回来以后, 先把本轮结果封存</h2>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>119        PopulationSizeStats{a, rep} = algo.PopSize_Gen;
+121        if es('triggered')
+122            fprintf('  [早停] %s 停止（连续%d代无改进）\n', ...
+123                algo_names{a}, es('patience'));
+124        end
+126        for t = 1:nTask
+127            if ~isempty(algo.Best) && numel(algo.Best) &gt;= t && ~isempty(algo.Best{t})
+128                d = prob.D(t);
+129                dec_norm = algo.Best{t}.Dec(1:d);
+130                BestDecNorm{a, rep, t} = dec_norm;
+131                BestDecReal{a, rep, t} = prob.Lb{t} + dec_norm .* (prob.Ub{t} - prob.Lb{t});
+132                BestCV(a, rep, t) = algo.Best{t}.CV;
+133            end
+134        end
+136        tmp = algo.getResult(prob);
+137        fe_gen = algo.FE_Gen;
+138        if ~isempty(fe_gen)
+139            nPoints = size(tmp, 2);
+140            fe_axis_real = linspace(fe_gen(1), fe_gen(end), nPoints);
+141            if isempty(ConvergeFE{a})
+142                ConvergeFE{a} = nan(Reps, nPoints);
+143            end
+144            ConvergeFE{a}(rep, :) = fe_axis_real;
+145        end
+146        for t = 1:nTask
+147            obj_hist = [tmp(t, :).Obj];
+148            if isempty(ConvergeObj{a}{t})
+149                ConvergeObj{a}{t} = nan(Reps, numel(obj_hist));
+150            end
+151            ConvergeObj{a}{t}(rep, :) = obj_hist;
+152            BestObj(a, rep, t) = obj_hist(end);
+153        end
+171 %% ===== 汇总 =====
+184 save_name = sprintf('interleave_%s.mat', datestr(now, 'yyyymmdd_HHMMSS'));
+185 save(save_name, 'BestObj', 'BestCV', 'BestDecNorm', 'BestDecReal', ...
+186     'ConvergeObj', 'ConvergeFE', 'algo_names', 'active_tasks', ...
+187     'Reps', 'maxFE', 'Disable_Swap', 'Global_Seed', 'rep_seeds', ...
+188     'PopulationSizeStats');</code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">RUNTIME TRACE</span>
+          <div class="translation-lines">
+            <p class="tl"><code>L119</code> 把每代的种群大小历史接走, 这是算法返回后的第一份账单。</p>
+            <p class="tl"><code>L121</code> 早停标记若已触发, 这里会打印停止原因。</p>
+            <p class="tl"><code>L122</code> 输出算法名, 让这次停止对应到具体运行对象。</p>
+            <p class="tl"><code>L126</code> 开始按任务封存最终最佳解。</p>
+            <p class="tl"><code>L127</code> <code>numel(algo.Best)</code> 先确认这个 cell 容器里已经有第 <code>t</code> 个任务的最佳解槽位。</p>
+            <p class="tl"><code>L128</code> 读出该任务的维度 <code>d</code>。</p>
+            <p class="tl"><code>L129</code> 切出最佳个体里真正需要的前 <code>d</code> 个归一化决策变量。</p>
+            <p class="tl"><code>L130</code> 把归一化最优解写进最终结果容器。</p>
+            <p class="tl"><code>L131</code> 立刻映射回真实物理量并写入另一份结果槽位。</p>
+            <p class="tl"><code>L132</code> 记录该任务的约束违反值。</p>
+            <p class="tl"><code>L136</code> 开始提取完整收敛历史。</p>
+            <p class="tl"><code>L137</code> 读出逐代 FE 历史。</p>
+            <p class="tl"><code>L139</code> <code>size(tmp, 2)</code> 数的是重采样结果的列数, 也就是这条收敛轨迹里有多少个点; 同族里的 <code>size(x,1)</code> 会数行数。</p>
+            <p class="tl"><code>L140</code> 用首尾 FE 拉出一条同长度的真实横轴。</p>
+            <p class="tl"><code>L142</code> <code>nan(Reps, nPoints)</code> 这里是预分配: <code>NaN</code> 标出“还没写入”, 而 <code>zeros(...)</code> 则是全零预分配的同族写法, 只适合零可以当安全默认值的场景。</p>
+            <p class="tl"><code>L144</code> 把这次重复的 FE 横轴写回去。</p>
+            <p class="tl"><code>L147</code> 从重采样结果里拼出该任务的目标值历史。</p>
+            <p class="tl"><code>L149</code> <code>numel(obj_hist)</code> 数的是这条历史向量里共有多少个采样点, 正好拿来分配列数。</p>
+            <p class="tl"><code>L151</code> 把当前 rep 的目标值历史写入对应行。</p>
+            <p class="tl"><code>L152</code> 取最后一个点作为这一轮的最终最佳目标值。</p>
+            <p class="tl"><code>L184</code> 生成带时间戳的结果文件名。</p>
+            <p class="tl"><code>L185</code> 开始写盘保存核心结果。</p>
+            <p class="tl"><code>L188</code> 把逐代种群大小统计一并落盘。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-info animate-in">
+        <div class="callout-icon">i</div>
+        <div class="callout-content">
+          <strong class="callout-title">MATLAB basics: size(x,1), numel(x), zeros(...)</strong>
+          <p><code>size(x,1)</code> 是同一类 <code>size(...)</code> 写法里的“数行数”形式。这里代码实际用的是 <code>size(tmp, 2)</code> 来数列数, 因为它在追踪重采样结果的列宽。</p>
+          <p><code>numel(x)</code> 统计的是总元素数。这里它对应 <code>numel(obj_hist)</code>, 用来知道这条目标历史到底有多少个采样点, 好分配 <code>ConvergeObj</code> 的列数。</p>
+          <p><code>zeros(...)</code> 是全零预分配的同类写法。这里附近用的是 <code>nan(Reps, nPoints)</code>, 因为 <code>NaN</code> 更适合标出“还没写入”的空位, 不会把缺失数据伪装成真实的 0。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">第 193 到 220 行: 回调函数在每代末尾追踪运行态</h2>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>193 function live_update_with_earlystop(algo, algo_idx, nTask, h_obj, h_cv, active_tasks, fig1, es)
+194 % 每代由 Algorithm.notTerminated 调用，实时更新图形 + 早停检查
+195 if ~isvalid(fig1), return; end
+197 fe = algo.FE;
+198 cur_best = inf(1, nTask);
+199 for t = 1:nTask
+200     if ~isempty(algo.Best) && numel(algo.Best) &gt;= t && ~isempty(algo.Best{t})
+201         addpoints(h_obj(algo_idx, t), fe, algo.Best{t}.Obj);
+202         addpoints(h_cv(algo_idx, t),  fe, algo.Best{t}.CV);
+203         cur_best(t) = algo.Best{t}.Obj;
+204     end
+205 end
+207 drawnow('limitrate');
+209 % 早停检查：超过最低FE后，连续patience代无改进则强制终止
+210 if fe &gt;= es('min_fe')
+211     prev_best = es('prev_best');
+212     improved = any(cur_best &lt; prev_best - 1e-6);
+213     if improved
+214         es('stall_count') = 0;
+215         es('prev_best') = min(cur_best, prev_best);
+216     else
+217         es('stall_count') = es('stall_count') + 1;
+218     end
+219     if es('stall_count') &gt;= es('patience')
+220         es('triggered') = true;</code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">RUNTIME TRACE</span>
+          <div class="translation-lines">
+            <p class="tl"><code>L193</code> 这是回调入口, 不是主流程; 它只会在算法每代收尾时被叫到。</p>
+            <p class="tl"><code>L194</code> 注释已经把职责写死: 更新图形, 顺便检查要不要早停。</p>
+            <p class="tl"><code>L195</code> 如果图窗被关掉, 这条回调直接退场, 避免在失效句柄上画图。</p>
+            <p class="tl"><code>L197</code> 把当前 FE 读出来, 因为图上的点要标在这一代的位置。</p>
+            <p class="tl"><code>L198</code> 先造一个“当前最好值”向量, 初始全是正无穷。</p>
+            <p class="tl"><code>L199</code> 按任务走一遍, 把每个任务的点都检查一遍。</p>
+            <p class="tl"><code>L200</code> 只有已经有最佳解的任务才往图上加新点。</p>
+            <p class="tl"><code>L201</code> 给目标值曲线追加一个新采样点。</p>
+            <p class="tl"><code>L202</code> 给约束违反曲线也追加一个新采样点。</p>
+            <p class="tl"><code>L203</code> 顺手更新当前代看到的最好目标值。</p>
+            <p class="tl"><code>L204</code> 结束这个任务是否可画的分支。</p>
+            <p class="tl"><code>L205</code> 结束按任务收集曲线数据的循环。</p>
+            <p class="tl"><code>L207</code> 刷新图窗, 但限制刷新频率, 防止 UI 被拖慢。</p>
+            <p class="tl"><code>L209</code> 下面开始做早停逻辑。</p>
+            <p class="tl"><code>L210</code> 只有 FE 已经过了门槛, 才允许把停滞当成“真停滞”来判断。</p>
+            <p class="tl"><code>L211</code> 读出上一次记录的最好值。</p>
+            <p class="tl"><code>L212</code> 只要当前任何任务比历史最好好一点点, 就算本代有改进。</p>
+            <p class="tl"><code>L213</code> 如果改进了, 走这个分支。</p>
+            <p class="tl"><code>L214</code> 有改进就把停滞计数清零。</p>
+            <p class="tl"><code>L215</code> 并把历史最好值更新成更小的那个。</p>
+            <p class="tl"><code>L216</code> 如果没有改进, 就走这里。</p>
+            <p class="tl"><code>L217</code> 没改进就把停滞代数加一。</p>
+            <p class="tl"><code>L218</code> 结束“是否改进”的分支。</p>
+            <p class="tl"><code>L219</code> 如果停滞代数已经顶到上限, 这次回调就会准备结束算法。</p>
+            <p class="tl"><code>L220</code> 把触发标记置位, 后面 <code>notTerminated</code> 会因此返回 false。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="module" id="module-8">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">08</span>
+      <h1 class="module-title">Runtime Bookkeeping</h1>
+      <p class="module-subtitle">
+        这一页把 <code>Algorithm.notTerminated</code> 讲成一个执行检查点: 它不只是返回 true / false, 它还会在每代末尾把结果、人口大小、FE 和回调都补齐。
+      </p>
+    </header>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">第 111 到 116 行: 先判断这个检查点是否允许继续</h2>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>111 % Check Termination Condition
+112 if Algo.FE &lt;= 0
+113     flag = true;
+114     return;
+115 end
+116 flag = Algo.FE &lt; Prob.maxFE;</code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">RUNTIME TRACE</span>
+          <div class="translation-lines">
+            <p class="tl"><code>L111</code> 这是一个检查点的入口注释, 提醒你这里先看“要不要继续跑”。</p>
+            <p class="tl"><code>L112</code> 如果 FE 还没被正常推进到正数, 这里先挡住, 不让后面的记账逻辑乱写。</p>
+            <p class="tl"><code>L113</code> 直接把返回值设成 true, 表示当前还没违反运行条件。</p>
+            <p class="tl"><code>L114</code> 然后立刻返回, 这个检查点到此结束。</p>
+            <p class="tl"><code>L115</code> 结束早退分支。</p>
+            <p class="tl"><code>L116</code> 正常情况下, 只要 FE 还小于 maxFE, 算法就还能继续往下跑一个检查周期。</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">第 118 到 146 行: 检查点在每代末尾写结果</h2>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>118 gen = Algo.Gen;
+119 isSingleObj = max(Prob.M) == 1;
+120 for t = 1:Prob.T
+121     if isSingleObj
+122         % Single-objective: Record Best solution
+123         bestSol = Algo.Best{t};
+124         Algo.Result(t, gen).Obj = bestSol.Obj;
+125         Algo.Result(t, gen).CV = bestSol.CV;
+126         if Algo.Save_Dec
+127             Algo.Result(t, gen).Dec = bestSol.Dec;
+128         else
+129             Algo.Result(t, gen).Dec = [];
+130         end
+131     else
+132         % Multi-objective: Record Population
+133         popSol = Pop{t};
+134         Algo.Result(t, gen).Obj = popSol.Objs;
+135         Algo.Result(t, gen).CV = popSol.CVs;
+136         if Algo.Save_Dec
+137             Algo.Result(t, gen).Dec = popSol.Decs;
+138         else
+139             Algo.Result(t, gen).Dec = [];
+140         end
+141     end
+142 end
+143 popSizes = Algo.snapshotPopulationSizes(Prob, Pop);
+144 if ~isempty(popSizes)
+145     Algo.PopSize_Gen(gen, 1:numel(popSizes)) = popSizes;
+146 end</code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">RUNTIME TRACE</span>
+          <div class="translation-lines">
+            <p class="tl"><code>L118</code> 先拿到当前代号, 因为这一整轮的结果都要写进同一个 generation slot。</p>
+            <p class="tl"><code>L119</code> 判断现在跑的是单目标还是多目标, 这会决定后面记“最好个体”还是记“整个人口”。</p>
+            <p class="tl"><code>L120</code> 按任务循环, 每个任务都要单独写一份 checkpoint。</p>
+            <p class="tl"><code>L121</code> 单目标就走这里。</p>
+            <p class="tl"><code>L122</code> 注释直接说明: 这里只记最佳解, 不是整个人口。</p>
+            <p class="tl"><code>L123</code> 取出当前任务已经找到的最佳个体。</p>
+            <p class="tl"><code>L124</code> 把这个个体的目标值写进当前代的结果槽。</p>
+            <p class="tl"><code>L125</code> 同时写入约束违反值。</p>
+            <p class="tl"><code>L126</code> 再看这一轮是否允许保存决策变量。</p>
+            <p class="tl"><code>L127</code> 如果允许, 就把最佳个体的 <code>Dec</code> 也写进去。</p>
+            <p class="tl"><code>L128</code> 否则走这里。</p>
+            <p class="tl"><code>L129</code> 不保存时, 明确写一个空数组, 保持结果结构一致。</p>
+            <p class="tl"><code>L130</code> 结束单目标记录分支。</p>
+            <p class="tl"><code>L131</code> 多目标就走另一条路径。</p>
+            <p class="tl"><code>L132</code> 注释说明多目标模式下要记的是整个人口。</p>
+            <p class="tl"><code>L133</code> 取出当前任务的人口对象。</p>
+            <p class="tl"><code>L134</code> 把整个人口的目标矩阵写进结果结构。</p>
+            <p class="tl"><code>L135</code> 约束违反矩阵也同样写进去。</p>
+            <p class="tl"><code>L136</code> 再检查是否需要保存决策变量。</p>
+            <p class="tl"><code>L137</code> 允许保存时, 整个人口的 <code>Decs</code> 也会被放进结果里。</p>
+            <p class="tl"><code>L138</code> 否则走这里。</p>
+            <p class="tl"><code>L139</code> 不保存时, 还是写空数组以保持结构稳定。</p>
+            <p class="tl"><code>L140</code> 结束多目标记录分支。</p>
+            <p class="tl"><code>L141</code> 结束单目标 / 多目标的总分支。</p>
+            <p class="tl"><code>L142</code> 结束按任务写结果的循环。</p>
+            <p class="tl"><code>L143</code> 现在把当前代的任务人口大小统计出来, 这是检查点里的第二笔账。</p>
+            <p class="tl"><code>L144</code> 只有统计结果非空时才往总表里写。</p>
+            <p class="tl"><code>L145</code> <code>numel(popSizes)</code> 决定要写多少个任务槽位; 这一行就是把行向量按当前 generation 写回去。</p>
+            <p class="tl"><code>L146</code> 结束人口大小记录分支。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-accent animate-in">
+        <div class="callout-icon">i</div>
+        <div class="callout-content">
+          <strong class="callout-title">这一步的本质是“写 checkpoint”, 不是“再跑一次算法”</strong>
+          <p><code>notTerminated</code> 只在代末做收尾: 它把当前代的最佳解或整个人口存进 <code>Algo.Result</code>, 再把人口大小写进 <code>PopSize_Gen</code>。真正的搜索算子并不在这里执行。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">第 147 到 152 行: 记录 FE, 推进代号, 再把控制权交回去</h2>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>147 % Stage update
+148 Algo.FE_Gen(gen) = Algo.FE;
+149 Algo.Gen = Algo.Gen + 1;
+151 drawnow('limitrate');
+152 Algo.Check_Status_Fn();</code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">RUNTIME TRACE</span>
+          <div class="translation-lines">
+            <p class="tl"><code>L147</code> 这一句注释说明下面是阶段性更新, 也就是这个 checkpoint 的收尾动作。</p>
+            <p class="tl"><code>L148</code> 把当前代结束时的 FE 写进历史, 以后画曲线或做分析都靠它。</p>
+            <p class="tl"><code>L149</code> 代号加一, 下一轮检查点就会往前挪一个槽位。</p>
+            <p class="tl"><code>L151</code> 刷新图形事件队列, 但限制刷新频率, 避免每代都把界面拖慢。</p>
+            <p class="tl"><code>L152</code> 调用外层脚本挂进来的状态回调; 到这里, 一个代末检查点才算彻底结束。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-info animate-in">
+        <div class="callout-icon">i</div>
+        <div class="callout-content">
+          <strong class="callout-title">为什么这里像“检查点”而不是“终点”</strong>
+          <p>因为它会先记账、再推进、再回调。只要 <code>flag</code> 还没被外部条件打成 false，算法就会回到主循环继续下一代。这个函数是节拍器, 不是终止按钮。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="module" id="module-9">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">09</span>
+      <h1 class="module-title">Runtime Evaluation Trace</h1>
+      <p class="module-subtitle">
+        这一页只追一条真实调用链: <code>Algorithm.Evaluation</code> 先把解送进 <code>Problem.evaluate</code>, 再跳到 <code>Ship_Panel_MTSO.evalTaskBatch</code>, 然后按返回点一路退回去。
+      </p>
+    </header>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Trace 1: <code>Algorithm.Evaluation</code> 把人口送进问题层, 再等结果返回</h2>
+      <div class="pattern-card runtime-card animate-in">
+        <div class="pattern-icon">A</div>
+        <h4 class="pattern-title">Current line</h4>
+        <p class="pattern-desc"><code>Algorithm.m:L155-L186</code></p>
+        <h4 class="pattern-title">What happens here</h4>
+        <p class="pattern-desc">
+          先把 <code>Pop.Decs</code> 映射成真实尺寸 <code>x</code>, 再把 <code>x</code> 交给 <code>Prob.evaluate(x, t)</code>。这一层不算工程目标, 只负责准备输入、接收输出, 然后继续做 FE 记账和人口回填。
+        </p>
+        <h4 class="pattern-title">Next jump</h4>
+        <p class="pattern-desc"><code>Problem.evaluate</code> 先做边界裁剪, 然后跳到 <code>Prob.Fnc{t}</code>, 对这个问题来说就是 <code>Ship_Panel_MTSO.evalTaskBatch</code>。</p>
+        <h4 class="pattern-title">Return point</h4>
+        <p class="pattern-desc">等问题层把 <code>Objs</code> / <code>Cons</code> 返回后, 控制权回到 <code>Algorithm.m:L186-L197</code>, 继续更新 FE、<code>Pop.Obj</code>、<code>Pop.Con</code> 和 <code>Pop.CV</code>。</p>
+        <div class="pattern-cards stagger-children" style="grid-template-columns: 1fr; margin-top: var(--space-6);">
+          <div class="pattern-card runtime-card animate-in" style="border-top-color: var(--color-actor-2);">
+            <div class="pattern-icon">B</div>
+            <h4 class="pattern-title">Current line</h4>
+            <p class="pattern-desc"><code>Problem.m:L75-L80</code></p>
+            <h4 class="pattern-title">What happens here</h4>
+            <p class="pattern-desc">
+              这里先检查边界: 如果 <code>Prob.Bounded</code> 为 true, <code>x</code> 会被裁到 <code>Lb / Ub</code> 之间, 然后才执行 <code>Prob.Fnc{t}(x)</code>。
+            </p>
+            <h4 class="pattern-title">Next jump</h4>
+            <p class="pattern-desc">
+              <code>Prob.Fnc{t}</code> 在 <code>Ship_Panel_MTSO.setTasks</code> 里被装成函数句柄, 实际指向 <code>Ship_Panel_MTSO.evalTaskBatch</code> 的闭包入口。
+            </p>
+            <h4 class="pattern-title">Return point</h4>
+            <p class="pattern-desc">函数句柄跑完后, <code>[Objs, Cons]</code> 原路回到 <code>Problem.evaluate</code>, 再回到 <code>Algorithm.Evaluation</code>。</p>
+
+            <div class="pattern-cards stagger-children" style="grid-template-columns: 1fr; margin-top: var(--space-6);">
+              <div class="pattern-card runtime-card animate-in" style="border-top-color: var(--color-actor-5);">
+                <div class="pattern-icon">C</div>
+                <h4 class="pattern-title">Current line</h4>
+                <p class="pattern-desc"><code>Ship_Panel_MTSO.m:L70-L92</code></p>
+                <h4 class="pattern-title">What happens here</h4>
+                <p class="pattern-desc">
+                  这层是批量评估器: <code>n = size(x, 1)</code> 先数出要跑多少个个体, <code>zeros(n, 1)</code> 和 <code>zeros(n, 4)</code> 先按行数和约束列数预分配结果。
+                </p>
+                <h4 class="pattern-title">Next jump</h4>
+                <p class="pattern-desc">
+                  每个个体都会调用 <code>run_ansys_eval(x(i, :), task_id, cfg)</code>, 也就是跳进下一层 ANSYS 包装器。
+                </p>
+                <h4 class="pattern-title">Return point</h4>
+                <p class="pattern-desc">每次底层评估结束后, 结果先回到这一层的 <code>for i = 1:n</code> 循环, 再继续处理下一个个体。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Trace 2: <code>evalTaskBatch</code> 里最关键的形状操作, 不是“语法”, 是“数据摆法”</h2>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>71 n = size(x, 1);
+72 Objs = zeros(n, 1);
+73 Cons = zeros(n, 4);
+81 Cons(i, :) = reshape(con, 1, []);
+91 fprintf('[DEBUG] Task%d Ind%d -> Obj=%.4f Con=[%s] CV=%.4f\n', ...
+92     task_id, i, Objs(i,1), num2str(Cons(i,:), '%.4f '), sum(max(0, Cons(i,:))));</code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">MATLAB MEANING</span>
+          <div class="translation-lines">
+            <p class="tl"><code>size(x, 1)</code> 取的是行数, 也就是当前要评估多少个个体。</p>
+            <p class="tl"><code>zeros(n, 1)</code> 和 <code>zeros(n, 4)</code> 先把结果容器按“个体数 × 1”与“个体数 × 4”预留好, 省掉循环里反复扩容。</p>
+            <p class="tl"><code>reshape(con, 1, [])</code> 把返回的约束向量强制摆成一行; <code>[]</code> 让 MATLAB 自己推导列数, 所以不管底层是列向量还是行向量, 这里都能归整成 <code>1x4</code>。</p>
+            <p class="tl"><code>sum(max(0, Cons(i,:)))</code> 逐列把正违反量加起来, 得到这一条解的总约束违反值 <code>CV</code>。</p>
+            <p class="tl"><code>num2str(Cons(i,:), '%.4f ')</code> 只是把这一行约束格式化成可读字符串, 方便调试输出。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-info animate-in">
+        <div class="callout-icon">i</div>
+        <div class="callout-content">
+          <strong class="callout-title">这条调用链的返回顺序很重要</strong>
+          <p><code>run_ansys_eval</code> 先回到 <code>evalTaskBatch</code>, <code>evalTaskBatch</code> 再回到 <code>Problem.evaluate</code>, 最后 <code>Algorithm.Evaluation</code> 才继续做 FE 记账和历史最好解更新。这里不是“跳过去就完了”, 而是每一层都在等下层返回自己的结果形状。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Trace 3: <code>setTasks</code> 把问题函数装成闭包, 让 <code>Prob.evaluate</code> 真正有地方跳</h2>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>54 for k = 1:numel(active_tasks)
+55     task_id = active_tasks(k);
+56     [lb{k}, ~, ub{k}] = ship_prob.get_design_space(task_id);
+57     fnc{k} = Prob.makeTaskFcn(task_id);
+58 end
+60 Prob.T = numel(active_tasks);
+62 Prob.D = cellfun(@length, lb);
+65 Prob.Fnc = fnc;</code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">RUNTIME TRACE</span>
+          <div class="translation-lines">
+            <p class="tl"><code>L54-L58</code> 这一小段先按任务编号循环, 给每个任务分别装好边界和函数句柄。</p>
+            <p class="tl"><code>Prob.makeTaskFcn(task_id)</code> 返回的是一个会捕获 <code>task_id</code> 的函数句柄, 所以后面 <code>Prob.evaluate</code> 一旦选中第 <code>t</code> 个任务, 就会准确跳到对应任务的批量评估入口。</p>
+            <p class="tl"><code>L60</code> 任务数要重设成当前激活任务的数量, 因为问题对象后面所有按任务的数组都要跟着缩小或展开。</p>
+            <p class="tl"><code>L62</code> <code>cellfun(@length, lb)</code> 直接把每个任务的设计变量长度统计出来, 得到每个任务自己的维度。</p>
+            <p class="tl"><code>L65</code> 最后把函数句柄数组塞回 <code>Prob.Fnc</code>, 这一步完成后, <code>Problem.evaluate</code> 才能在运行时真正 dispatch 到 <code>Ship_Panel_MTSO.evalTaskBatch</code>。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-warning animate-in">
+        <div class="callout-icon">!</div>
+        <div class="callout-content">
+          <strong class="callout-title">模块 09 的边界</strong>
+          <p>这里先把 <code>Algorithm.Evaluation</code> -> <code>Problem.evaluate</code> -> <code>Ship_Panel_MTSO.evalTaskBatch</code> 的调用栈讲清楚; 真正的 ANSYS 启动、失败和惩罚细节留到下一页。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="module" id="module-10">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">10</span>
+      <h1 class="module-title">ANSYS Wrapper Trace</h1>
+      <p class="module-subtitle">
+        这一页只看 <code>run_ansys_eval</code> 怎么把一条真实尺寸向量交给 ANSYS, 哪些地方会提前失败, 以及失败时为什么统一改成惩罚值而不是直接抛断整轮优化。
+      </p>
+    </header>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Trace 1: 先建 <code>extra</code> 结构体, 再准备工作目录和输入文件</h2>
+      <div class="pattern-card runtime-card animate-in">
+        <div class="pattern-icon">1</div>
+        <h4 class="pattern-title">Current line</h4>
+        <p class="pattern-desc"><code>run_ansys_eval.m:L20-L46</code></p>
+        <h4 class="pattern-title">What happens here</h4>
+        <p class="pattern-desc">
+          <code>extra = struct(...)</code> 先创建一个固定字段的诊断包: <code>error</code>、<code>feasible</code>、质量、最大应力和几何差值都先占位。后面就算某一步失败, 调用者也还能拿到结构化状态。
+        </p>
+        <h4 class="pattern-title">Next jump</h4>
+        <p class="pattern-desc">
+          接着会实例化 <code>Ship_Panel_Problem</code>, 计算解析质量, 建工作目录, 再把 <code>cleanup</code> 包装成 <code>onCleanup</code> 守卫。
+        </p>
+        <h4 class="pattern-title">Return point</h4>
+        <p class="pattern-desc">如果前面的准备都成功, 控制权继续流向宏文件生成和 ANSYS 启动阶段; 如果还没出错, 这里不会 return。</p>
+      </div>
+
+      <div class="callout callout-info animate-in">
+        <div class="callout-icon">i</div>
+        <div class="callout-content">
+          <strong class="callout-title">为什么要用 <code>struct(...)</code></strong>
+          <p>这不是随手拼一个杂物袋, 而是把每次评估要汇报的状态字段一次性定死。调用者后面只要看 <code>extra.error</code>、<code>extra.feasible</code> 和各个测量值, 就知道这次评估是成功、失败, 还是只拿到了部分诊断数据。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Trace 2: 三个早退点都走同一套惩罚路线</h2>
+      <div class="pattern-cards stagger-children" style="grid-template-columns: 1fr; margin-top: var(--space-6);">
+        <div class="pattern-card runtime-card animate-in" style="border-top-color: var(--color-error);">
+          <div class="pattern-icon">2</div>
+          <h4 class="pattern-title">Failure path</h4>
+          <p class="pattern-desc"><code>run_ansys_eval.m:L57-L77</code></p>
+          <h4 class="pattern-title">What fails</h4>
+          <p class="pattern-desc">
+            这一段只处理真正的前置失败: <code>fopen(mac_file, 'w')</code> 打不开宏文件, 或者 <code>find_ansys_exe()</code> 找不到可执行文件。
+          </p>
+          <h4 class="pattern-title">Penalty behavior</h4>
+          <p class="pattern-desc">
+            这两个前置失败都会先发 <code>warning(...)</code>, 然后把 <code>obj</code> 设成 <code>1e10</code>, <code>con</code> 设成 <code>[100 100 100 100]</code>, 再把 <code>extra.error = true</code>, 最后直接 <code>return</code>。
+          </p>
+          <h4 class="pattern-title">Why this matters</h4>
+          <p class="pattern-desc">
+            这一步的作用是把“连输入文件都没准备好”这种问题尽早拦住, 不让后面的 ANSYS 运行阶段接着浪费时间。
+          </p>
+        </div>
+
+        <div class="pattern-card runtime-card animate-in" style="border-top-color: var(--color-actor-4);">
+          <div class="pattern-icon">3</div>
+          <h4 class="pattern-title">Failure path</h4>
+          <p class="pattern-desc"><code>run_ansys_eval.m:L79-L102</code></p>
+          <h4 class="pattern-title">What fails</h4>
+          <p class="pattern-desc">
+            这一段只管 ANSYS 真正跑起来之后的失败: <code>system(cmd)</code> 返回非零状态, 或者结果文件存在但 <code>parse_results</code> 读不出有效数值。
+          </p>
+          <h4 class="pattern-title">Penalty behavior</h4>
+          <p class="pattern-desc">
+            两个后置失败都会沿用同样的惩罚输出, 这样调用方不用区分是哪一步崩了, 只要知道这次评估不可用即可。
+          </p>
+          <h4 class="pattern-title">Return point</h4>
+          <p class="pattern-desc">失败后直接退回 <code>Ship_Panel_MTSO.evalTaskBatch</code>, 由上一层决定是否把这次错误再显式重罚一次。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Trace 3: 成功时, 先收集结果, 再组装约束, 最后判断可行性</h2>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>104 extra.max_bend = max_bend;
+105 extra.max_shear = max_shear;
+106 extra.mass_analytical = mass;
+107 extra.mass_fea = fea_mass;
+109 obj = fea_mass;
+113 con = zeros(1, 4);
+114 con(1) = max_bend - task.bend_allow;
+115 con(2) = max_shear - task.shear_allow;
+140 extra.feasible = all(con &lt;= 0);</code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">RUNTIME TRACE</span>
+          <div class="translation-lines">
+            <p class="tl"><code>L104-L107</code> 成功跑完后, 先把最大弯曲应力、最大剪应力、解析质量和 FEA 质量都写回 <code>extra</code>。</p>
+            <p class="tl"><code>L109</code> 目标值最终采用 FEA 质量, 这意味着优化器比较的是 ANSYS 结果, 不是解析估算值。</p>
+            <p class="tl"><code>L113-L115</code> 约束向量先清零, 再填入弯曲和剪切的超限量; 这里的正值就是违反, 负值或零就是满足。</p>
+            <p class="tl"><code>L140</code> <code>all(con &lt;= 0)</code> 只有在四条约束都不超限时才会给 <code>extra.feasible = true</code>。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-warning animate-in">
+        <div class="callout-icon">!</div>
+        <div class="callout-content">
+          <strong class="callout-title">错误到惩罚的路径是双层防线</strong>
+          <p><code>run_ansys_eval</code> 自己会在失败时返回惩罚值; 进入 <code>Ship_Panel_MTSO.evalTaskBatch</code> 之后, 还会再看 <code>extra.error</code>, 把这次解显式记成高惩罚, 保证优化器看到的始终是稳定的数值输出, 而不是中断。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Trace 4: 回到批量评估器, 这里把错误翻译成最终记录值</h2>
+      <div class="pattern-card runtime-card animate-in">
+        <div class="pattern-icon">4</div>
+        <h4 class="pattern-title">Current line</h4>
+        <p class="pattern-desc"><code>Ship_Panel_MTSO.m:L83-L91</code></p>
+        <h4 class="pattern-title">What happens here</h4>
+        <p class="pattern-desc">
+          如果 <code>extra.error</code> 为 true, 这一层会把目标值重写成 <code>1e10</code>, 把四条约束写成一整行大正违反, 然后继续打印调试信息。这样做的目的不是“报错退出”, 而是让优化器把坏解自然排到后面。
+        </p>
+        <h4 class="pattern-title">Return point</h4>
+        <p class="pattern-desc">等这一行个体处理完, 结果再回到 <code>Problem.evaluate</code>, 最终回到 <code>Algorithm.Evaluation</code> 去完成 FE 和记账。</p>
+      </div>
+    </div>
+  </div>
+</section>
+  </main>
+
+</body>
+</html>

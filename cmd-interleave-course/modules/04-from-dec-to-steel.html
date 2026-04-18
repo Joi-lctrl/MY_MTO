@@ -1,0 +1,169 @@
+<section class="module" id="module-4">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">04</span>
+      <h1 class="module-title">变量如何变成钢板结果</h1>
+      <p class="module-subtitle">
+        算法嘴里说的是 0 到 1 之间的归一化数字, 工程软件嘴里说的是腹板高度、板厚和应力。中间这层翻译, 就是这条链路最“像工程”的地方。
+      </p>
+    </header>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">第一步: 把归一化变量映射成真实尺寸</h2>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>Range = Prob.Ub{t} - Prob.Lb{t};
+Lower = Prob.Lb{t};
+x = Decs(:, 1:D) .* Range + Lower;
+
+[Objs, Cons] = Prob.evaluate(x, t);
+Algo.FE = Algo.FE + size(x, 1);</code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">先算这个任务每个变量允许活动的真实跨度。</p>
+            <p class="tl">再取出下界, 也就是每个变量最小能到哪。</p>
+            <p class="tl">把 0 到 1 的归一化决策变量拉伸成真实工程尺寸 `x`。</p>
+            <p class="tl">把真实尺寸交给问题对象评估。此时算法已经不用直接碰上下界了。</p>
+            <p class="tl">本次真正做了多少次评估, FE 就加多少。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">第二步: 真实尺寸被送进 APDL 和 ANSYS</h2>
+      <div class="icon-rows animate-in">
+        <div class="icon-row">
+          <div class="icon-circle" style="background: var(--color-accent-light); color: var(--color-accent);">1</div>
+          <div>
+            <strong>`Ship_Panel_Problem.generate_mac()`</strong>
+            <p>把 `h_web_L1`、`b_bot_R` 这类尺寸拼成 APDL 宏脚本。你可以把它理解成“给 ANSYS 写施工说明书”。</p>
+          </div>
+        </div>
+        <div class="icon-row">
+          <div class="icon-circle" style="background: var(--color-info-light); color: var(--color-info);">2</div>
+          <div>
+            <strong>`run_ansys_eval()`</strong>
+            <p>创建工作目录、写 `.mac`、找到 `MAPDL.exe`、启动批处理求解, 然后读取结果文本。</p>
+          </div>
+        </div>
+        <div class="icon-row">
+          <div class="icon-circle" style="background: var(--color-success-light); color: var(--color-success);">3</div>
+          <div>
+            <strong>约束和目标回到优化器</strong>
+            <p>目标值用 FEA 质量, 约束则来自最大弯曲应力、最大剪切应力和几何顺序约束。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-animation animate-in" data-steps='[
+        {"highlight":"flow-actor-1","label":"算法手里先只有归一化 Dec"},
+        {"highlight":"flow-actor-2","label":"Algorithm.Evaluation 把 Dec 映射成真实尺寸 x","packet":true,"from":"actor-1","to":"actor-2"},
+        {"highlight":"flow-actor-3","label":"Ship_Panel_MTSO 把 x 逐个任务送去评估","packet":true,"from":"actor-2","to":"actor-3"},
+        {"highlight":"flow-actor-4","label":"run_ansys_eval 生成 APDL 宏并启动 ANSYS","packet":true,"from":"actor-3","to":"actor-4"},
+        {"highlight":"flow-actor-5","label":"质量和约束返回给算法, 用来选择下一代","packet":true,"from":"actor-4","to":"actor-5"}
+      ]'>
+        <div class="flow-actors">
+          <div class="flow-actor" id="flow-actor-1">
+            <div class="flow-actor-icon">D</div>
+            <span>Normalized Dec</span>
+          </div>
+          <div class="flow-actor" id="flow-actor-2">
+            <div class="flow-actor-icon">X</div>
+            <span>Real x</span>
+          </div>
+          <div class="flow-actor" id="flow-actor-3">
+            <div class="flow-actor-icon">P</div>
+            <span>Problem</span>
+          </div>
+          <div class="flow-actor" id="flow-actor-4">
+            <div class="flow-actor-icon">A</div>
+            <span>ANSYS</span>
+          </div>
+          <div class="flow-actor" id="flow-actor-5">
+            <div class="flow-actor-icon">R</div>
+            <span>Obj + Con</span>
+          </div>
+        </div>
+
+        <div class="flow-packet"></div>
+        <div class="flow-step-label">Click "Next Step" to begin</div>
+        <div class="flow-controls">
+          <button class="btn flow-next-btn">Next Step</button>
+          <button class="btn flow-reset-btn">Restart</button>
+          <span class="flow-progress"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">第三步: ANSYS 回来的东西会被整理成优化能懂的格式</h2>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>con(1) = max_bend - task.bend_allow;
+con(2) = max_shear - task.shear_allow;
+
+h_web_L1 = x(1);
+h_web_L2 = x(5);
+con(3) = h_web_L2 - h_web_L1;</code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">第一条约束问的是: 最大弯曲应力有没有超过任务允许值。</p>
+            <p class="tl">第二条约束问的是: 最大剪切应力有没有超标。</p>
+            <p class="tl">接下来开始看几何关系, 先取中心纵骨高度。</p>
+            <p class="tl">再取侧纵骨高度。</p>
+            <p class="tl">如果 `h_web_L2 - h_web_L1` 是正的, 说明侧纵骨反而比中心纵骨还高, 这条几何约束就被破坏了。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-warning animate-in">
+        <div class="callout-icon">!</div>
+        <div class="callout-content">
+          <strong class="callout-title">当 ANSYS 出错时, 优化不会立刻崩</strong>
+          <p>代码会给这个候选解一个巨大的惩罚值, 让算法自然把它淘汰掉。这是很常见的“让搜索继续往前走”的工程手法。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">小测: 如果 ANSYS 找不到可执行文件会发生什么</h2>
+      <div class="quiz-container animate-in" id="quiz-module4">
+        <div class="quiz-question-block"
+             data-correct="option-b"
+             data-explanation-right="对。`run_ansys_eval` 会把目标值设成一个很大的惩罚值, 约束也设成严重违约, 这样优化器还能继续跑。"
+             data-explanation-wrong="这里的设计不是直接让整场实验中断, 而是把这次评估记成一个非常差的候选解。">
+          <div class="scenario-block">
+            <div class="scenario-context">
+              <span class="scenario-label">Scenario</span>
+              <p>如果机器上根本找不到 `MAPDL.exe`, 这条优化链路最可能出现哪种行为?</p>
+            </div>
+          </div>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>算法自动切换成 GUI 模式重新评估</span>
+            </button>
+            <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>这次个体会拿到很差的惩罚目标值和严重约束违背</span>
+            </button>
+            <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>代码会默认把所有约束都当成满足</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+        <button class="quiz-check-btn" onclick="checkQuiz('quiz-module4')">Check Answers</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module4')">Try Again</button>
+      </div>
+    </div>
+  </div>
+</section>

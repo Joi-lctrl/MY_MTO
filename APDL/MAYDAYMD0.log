@@ -1,0 +1,134 @@
+/BATCH  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       21:29:28
+/input,menust,tmp,''
+/GRA,POWER
+/GST,ON
+/PLO,INFO,3
+/GRO,CURL,ON
+/INPUT,'Task3','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       21:29:46
+/CPLANE,1   
+/REPLOT,RESIZE  
+WPSTYLE,,,,,,,,0
+FINISH  
+! /EXIT,NOSAV   
+/BATCH  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       00:40:16
+/input,menust,tmp,''
+/GRA,POWER
+/GST,ON
+/PLO,INFO,3
+/GRO,CURL,ON
+/CPLANE,1   
+/REPLOT,RESIZE  
+WPSTYLE,,,,,,,,0
+/INPUT,'Task3_lower','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       00:44:59
+/INPUT,'Task3_upper','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       00:45:38
+/INPUT,'Task4_lower','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       00:46:20
+/INPUT,'Task4_upper','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       00:46:47
+FINISH  
+! /EXIT,NOSAV   
+/BATCH  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       09:32:01
+/input,menust,tmp,''
+/GRA,POWER
+/GST,ON
+/PLO,INFO,3
+/GRO,CURL,ON
+/INPUT,'Task41','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0   
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       09:32:21
+/CPLANE,1   
+/REPLOT,RESIZE  
+WPSTYLE,,,,,,,,0
+/INPUT,'Task42','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0   
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       09:37:10
+/INPUT,'Task4','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       09:39:43
+/INPUT,'Task42','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0   
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       12:39:03
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/VIEW,1,1,2,3   
+/ANG,1  
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+FINISH  
+! /EXIT,NOSAV   
+/BATCH  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       00:23:19
+/input,menust,tmp,''
+/GRA,POWER
+/GST,ON
+/PLO,INFO,3
+/GRO,CURL,ON
+/CPLANE,1   
+/REPLOT,RESIZE  
+WPSTYLE,,,,,,,,0
+FINISH  
+! /EXIT,NOSAV   
+/BATCH  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       00:28:51
+/input,menust,tmp,''
+/GRA,POWER
+/GST,ON
+/PLO,INFO,3
+/GRO,CURL,ON
+/CPLANE,1   
+/REPLOT,RESIZE  
+WPSTYLE,,,,,,,,0
+/INPUT,'task5_lower','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       00:30:21
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/INPUT,'task5_lower','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0  

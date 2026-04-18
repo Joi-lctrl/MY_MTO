@@ -1,0 +1,192 @@
+<section class="module" id="module-1">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">01</span>
+      <h1 class="module-title">你到底运行了什么</h1>
+      <p class="module-subtitle">
+        `cmd_interleave` 不是一个普通的画图脚本。它是在 <span class="term" data-definition="MATLAB 是一个数值计算环境。你可以把它理解成一个很擅长矩阵、优化和工程计算的工作台。">MATLAB</span>
+        里临时搭了一条小型实验流水线: 选任务, 设预算, 轮流跑两种算法, 把船板设计送去 <span class="term" data-definition="ANSYS 是工程仿真软件。这里用它来算结构质量、弯曲应力和剪切应力。">ANSYS</span>, 最后把结果打包成一个 `.mat` 文件。
+      </p>
+    </header>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">先用一句话抓住主线</h2>
+      <div class="step-cards stagger-children">
+        <div class="step-card animate-in">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <strong>脚本先定实验规则</strong>
+            <p>任务组合是哪些, 每个算法最多做多少次 <span class="term" data-definition="Function Evaluation, 简写 FE。每评价一个候选解一次目标函数和约束, 就记一次 FE。优化里真正花钱的通常就是它。">FE</span>, 每个任务的种群大小是多少。</p>
+          </div>
+        </div>
+        <div class="step-card animate-in">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <strong>问题对象把任务整理好</strong>
+            <p>`Ship_Panel_MTSO` 会把 `task3`、`task5` 这类任务转换成真正能被算法调用的函数、上下界和维度。</p>
+          </div>
+        </div>
+        <div class="step-card animate-in">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <strong>CEDA-DW 和 GA 轮流上场</strong>
+            <p>同一组任务、同一份随机种子、同一份预算。脚本的重点不是并行跑，而是“交错跑完再对比”。</p>
+          </div>
+        </div>
+        <div class="step-card animate-in">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <strong>每个候选解都会落到真实结构评估</strong>
+            <p>算法给的是归一化变量, 评估时会映射成真实尺寸, 然后送进 ANSYS 算质量和约束。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-accent animate-in">
+        <div class="callout-icon">i</div>
+        <div class="callout-content">
+          <strong class="callout-title">最重要的理解</strong>
+          <p>你运行的不是“一个算法”, 而是一整条实验剧本。`cmd_interleave` 像导演, 负责安排谁上场、什么时候停、最后把什么东西写进结果文件。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">这个剧本最关键的文件有哪些</h2>
+      <div class="file-tree animate-in">
+        <div class="ft-folder">
+          <span class="ft-name">MTO</span>
+          <div class="ft-children">
+            <div class="ft-file"><span class="ft-name">cmd_interleave.m</span><span class="ft-desc">入口脚本: 设配置, 跑算法, 保存 interleave 结果</span></div>
+            <div class="ft-file"><span class="ft-name">mto.m</span><span class="ft-desc">平台总入口: GUI 或命令行实验</span></div>
+            <div class="ft-folder">
+              <span class="ft-name">Algorithms</span>
+              <div class="ft-children">
+                <div class="ft-file"><span class="ft-name">Algorithm.m</span><span class="ft-desc">算法基类: 记最优值、记 FE、统一结果格式</span></div>
+                <div class="ft-file"><span class="ft-name">GA.m</span><span class="ft-desc">单任务遗传算法</span></div>
+                <div class="ft-file"><span class="ft-name">CEDA_MP_DUALCHANNEL_WEIGHTED.m</span><span class="ft-desc">当前脚本里更复杂的多任务算法</span></div>
+              </div>
+            </div>
+            <div class="ft-folder">
+              <span class="ft-name">Problems</span>
+              <div class="ft-children">
+                <div class="ft-file"><span class="ft-name">Ship_Panel_MTSO.m</span><span class="ft-desc">把船板任务包装成优化问题</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ft-folder">
+          <span class="ft-name">APDL</span>
+          <div class="ft-children">
+            <div class="ft-file"><span class="ft-name">Ship_Panel_Problem.m</span><span class="ft-desc">任务定义、变量上下界、APDL 宏生成</span></div>
+            <div class="ft-file"><span class="ft-name">run_ansys_eval.m</span><span class="ft-desc">真正调用 ANSYS, 解析质量和应力结果</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">入口脚本最先做的配置</h2>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>active_tasks = [3 5];  % 修改为你想跑的任务组合
+Reps = 1;              % 总重复次数
+maxFE = 1800;          % 每个算法的总FE预算
+N = 20;                % 种群大小
+Results_Num = 50;      % 收敛曲线记录点数
+Global_Seed = 2604;
+Disable_Swap = true;   % 若算法含Swap参数，则强制关闭变量交换</code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">这次实验只关注任务 3 和任务 5, 不是把整套 ship problem 全部跑一遍。</p>
+            <p class="tl">`Reps = 1` 表示这份脚本这次只做一轮重复实验。</p>
+            <p class="tl">每个算法最多花 1800 次 FE, 你可以把它理解成算法的总体预算。</p>
+            <p class="tl">每个任务子种群的目标大小是 20, 所以每一代不会无限膨胀。</p>
+            <p class="tl">收敛曲线最终只留 50 个采样点, 这是为了看图和存盘更轻。</p>
+            <p class="tl">全局随机种子固定成 2604, 这样重跑时更容易复现。</p>
+            <p class="tl">如果算法有 `Swap` 这个开关, 这里统一先关掉变量交换。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">一条数据流到底怎么走</h2>
+      <div class="flow-animation animate-in" data-steps='[
+        {"highlight":"flow-actor-1","label":"你运行 cmd_interleave.m"},
+        {"highlight":"flow-actor-2","label":"脚本建立 Ship_Panel_MTSO 和两种算法","packet":true,"from":"actor-1","to":"actor-2"},
+        {"highlight":"flow-actor-3","label":"算法开始生成候选解并交给问题对象","packet":true,"from":"actor-2","to":"actor-3"},
+        {"highlight":"flow-actor-4","label":"问题对象调用 run_ansys_eval 让 ANSYS 做结构计算","packet":true,"from":"actor-3","to":"actor-4"},
+        {"highlight":"flow-actor-5","label":"脚本把最优值、收敛曲线和种子写进 interleave mat 文件","packet":true,"from":"actor-4","to":"actor-5"}
+      ]'>
+        <div class="flow-actors">
+          <div class="flow-actor" id="flow-actor-1">
+            <div class="flow-actor-icon">S</div>
+            <span>Script</span>
+          </div>
+          <div class="flow-actor" id="flow-actor-2">
+            <div class="flow-actor-icon">P</div>
+            <span>Problem + Algos</span>
+          </div>
+          <div class="flow-actor" id="flow-actor-3">
+            <div class="flow-actor-icon">D</div>
+            <span>Designs</span>
+          </div>
+          <div class="flow-actor" id="flow-actor-4">
+            <div class="flow-actor-icon">A</div>
+            <span>ANSYS</span>
+          </div>
+          <div class="flow-actor" id="flow-actor-5">
+            <div class="flow-actor-icon">M</div>
+            <span>MAT File</span>
+          </div>
+        </div>
+
+        <div class="flow-packet"></div>
+        <div class="flow-step-label">Click "Next Step" to begin</div>
+        <div class="flow-controls">
+          <button class="btn flow-next-btn">Next Step</button>
+          <button class="btn flow-reset-btn">Restart</button>
+          <span class="flow-progress"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">小测: 你应该先盯哪一层</h2>
+      <div class="quiz-container animate-in" id="quiz-module1">
+        <div class="quiz-question-block"
+             data-correct="option-b"
+             data-explanation-right="对。`cmd_interleave` 先决定任务组合、预算、种群和种子。很多后续现象其实都是这里的配置造成的。"
+             data-explanation-wrong="先别急着怪算法。对这条链路来说, 最先定实验边界的是 `cmd_interleave` 本身。">
+          <div class="scenario-block">
+            <div class="scenario-context">
+              <span class="scenario-label">Scenario</span>
+              <p>你发现这次实验只出现 `Task 3` 和 `Task 5` 的曲线, 没有别的任务。你最应该先看哪里?</p>
+            </div>
+          </div>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>`run_ansys_eval.m` 里的应力解析</span>
+            </button>
+            <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>`cmd_interleave.m` 里的 `active_tasks = [3 5]`</span>
+            </button>
+            <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>`Selection_Elit.m` 的排序逻辑</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+        <button class="quiz-check-btn" onclick="checkQuiz('quiz-module1')">Check Answers</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module1')">Try Again</button>
+      </div>
+    </div>
+  </div>
+</section>

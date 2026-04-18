@@ -1,0 +1,131 @@
+<section class="module" id="module-9">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">09</span>
+      <h1 class="module-title">Runtime Evaluation Trace</h1>
+      <p class="module-subtitle">
+        这一页只追一条真实调用链: <code>Algorithm.Evaluation</code> 先把解送进 <code>Problem.evaluate</code>, 再跳到 <code>Ship_Panel_MTSO.evalTaskBatch</code>, 然后按返回点一路退回去。
+      </p>
+    </header>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Trace 1: <code>Algorithm.Evaluation</code> 把人口送进问题层, 再等结果返回</h2>
+      <div class="pattern-card runtime-card animate-in">
+        <div class="pattern-icon">A</div>
+        <h4 class="pattern-title">Current line</h4>
+        <p class="pattern-desc"><code>Algorithm.m:L155-L186</code></p>
+        <h4 class="pattern-title">What happens here</h4>
+        <p class="pattern-desc">
+          先把 <code>Pop.Decs</code> 映射成真实尺寸 <code>x</code>, 再把 <code>x</code> 交给 <code>Prob.evaluate(x, t)</code>。这一层不算工程目标, 只负责准备输入、接收输出, 然后继续做 FE 记账和人口回填。
+        </p>
+        <h4 class="pattern-title">Next jump</h4>
+        <p class="pattern-desc"><code>Problem.evaluate</code> 先做边界裁剪, 然后跳到 <code>Prob.Fnc{t}</code>, 对这个问题来说就是 <code>Ship_Panel_MTSO.evalTaskBatch</code>。</p>
+        <h4 class="pattern-title">Return point</h4>
+        <p class="pattern-desc">等问题层把 <code>Objs</code> / <code>Cons</code> 返回后, 控制权回到 <code>Algorithm.m:L186-L197</code>, 继续更新 FE、<code>Pop.Obj</code>、<code>Pop.Con</code> 和 <code>Pop.CV</code>。</p>
+        <div class="pattern-cards stagger-children" style="grid-template-columns: 1fr; margin-top: var(--space-6);">
+          <div class="pattern-card runtime-card animate-in" style="border-top-color: var(--color-actor-2);">
+            <div class="pattern-icon">B</div>
+            <h4 class="pattern-title">Current line</h4>
+            <p class="pattern-desc"><code>Problem.m:L75-L80</code></p>
+            <h4 class="pattern-title">What happens here</h4>
+            <p class="pattern-desc">
+              这里先检查边界: 如果 <code>Prob.Bounded</code> 为 true, <code>x</code> 会被裁到 <code>Lb / Ub</code> 之间, 然后才执行 <code>Prob.Fnc{t}(x)</code>。
+            </p>
+            <h4 class="pattern-title">Next jump</h4>
+            <p class="pattern-desc">
+              <code>Prob.Fnc{t}</code> 在 <code>Ship_Panel_MTSO.setTasks</code> 里被装成函数句柄, 实际指向 <code>Ship_Panel_MTSO.evalTaskBatch</code> 的闭包入口。
+            </p>
+            <h4 class="pattern-title">Return point</h4>
+            <p class="pattern-desc">函数句柄跑完后, <code>[Objs, Cons]</code> 原路回到 <code>Problem.evaluate</code>, 再回到 <code>Algorithm.Evaluation</code>。</p>
+
+            <div class="pattern-cards stagger-children" style="grid-template-columns: 1fr; margin-top: var(--space-6);">
+              <div class="pattern-card runtime-card animate-in" style="border-top-color: var(--color-actor-5);">
+                <div class="pattern-icon">C</div>
+                <h4 class="pattern-title">Current line</h4>
+                <p class="pattern-desc"><code>Ship_Panel_MTSO.m:L70-L92</code></p>
+                <h4 class="pattern-title">What happens here</h4>
+                <p class="pattern-desc">
+                  这层是批量评估器: <code>n = size(x, 1)</code> 先数出要跑多少个个体, <code>zeros(n, 1)</code> 和 <code>zeros(n, 4)</code> 先按行数和约束列数预分配结果。
+                </p>
+                <h4 class="pattern-title">Next jump</h4>
+                <p class="pattern-desc">
+                  每个个体都会调用 <code>run_ansys_eval(x(i, :), task_id, cfg)</code>, 也就是跳进下一层 ANSYS 包装器。
+                </p>
+                <h4 class="pattern-title">Return point</h4>
+                <p class="pattern-desc">每次底层评估结束后, 结果先回到这一层的 <code>for i = 1:n</code> 循环, 再继续处理下一个个体。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Trace 2: <code>evalTaskBatch</code> 里最关键的形状操作, 不是“语法”, 是“数据摆法”</h2>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>71 n = size(x, 1);
+72 Objs = zeros(n, 1);
+73 Cons = zeros(n, 4);
+81 Cons(i, :) = reshape(con, 1, []);
+91 fprintf('[DEBUG] Task%d Ind%d -> Obj=%.4f Con=[%s] CV=%.4f\n', ...
+92     task_id, i, Objs(i,1), num2str(Cons(i,:), '%.4f '), sum(max(0, Cons(i,:))));</code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">MATLAB MEANING</span>
+          <div class="translation-lines">
+            <p class="tl"><code>size(x, 1)</code> 取的是行数, 也就是当前要评估多少个个体。</p>
+            <p class="tl"><code>zeros(n, 1)</code> 和 <code>zeros(n, 4)</code> 先把结果容器按“个体数 × 1”与“个体数 × 4”预留好, 省掉循环里反复扩容。</p>
+            <p class="tl"><code>reshape(con, 1, [])</code> 把返回的约束向量强制摆成一行; <code>[]</code> 让 MATLAB 自己推导列数, 所以不管底层是列向量还是行向量, 这里都能归整成 <code>1x4</code>。</p>
+            <p class="tl"><code>sum(max(0, Cons(i,:)))</code> 逐列把正违反量加起来, 得到这一条解的总约束违反值 <code>CV</code>。</p>
+            <p class="tl"><code>num2str(Cons(i,:), '%.4f ')</code> 只是把这一行约束格式化成可读字符串, 方便调试输出。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-info animate-in">
+        <div class="callout-icon">i</div>
+        <div class="callout-content">
+          <strong class="callout-title">这条调用链的返回顺序很重要</strong>
+          <p><code>run_ansys_eval</code> 先回到 <code>evalTaskBatch</code>, <code>evalTaskBatch</code> 再回到 <code>Problem.evaluate</code>, 最后 <code>Algorithm.Evaluation</code> 才继续做 FE 记账和历史最好解更新。这里不是“跳过去就完了”, 而是每一层都在等下层返回自己的结果形状。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Trace 3: <code>setTasks</code> 把问题函数装成闭包, 让 <code>Prob.evaluate</code> 真正有地方跳</h2>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>54 for k = 1:numel(active_tasks)
+55     task_id = active_tasks(k);
+56     [lb{k}, ~, ub{k}] = ship_prob.get_design_space(task_id);
+57     fnc{k} = Prob.makeTaskFcn(task_id);
+58 end
+60 Prob.T = numel(active_tasks);
+62 Prob.D = cellfun(@length, lb);
+65 Prob.Fnc = fnc;</code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">RUNTIME TRACE</span>
+          <div class="translation-lines">
+            <p class="tl"><code>L54-L58</code> 这一小段先按任务编号循环, 给每个任务分别装好边界和函数句柄。</p>
+            <p class="tl"><code>Prob.makeTaskFcn(task_id)</code> 返回的是一个会捕获 <code>task_id</code> 的函数句柄, 所以后面 <code>Prob.evaluate</code> 一旦选中第 <code>t</code> 个任务, 就会准确跳到对应任务的批量评估入口。</p>
+            <p class="tl"><code>L60</code> 任务数要重设成当前激活任务的数量, 因为问题对象后面所有按任务的数组都要跟着缩小或展开。</p>
+            <p class="tl"><code>L62</code> <code>cellfun(@length, lb)</code> 直接把每个任务的设计变量长度统计出来, 得到每个任务自己的维度。</p>
+            <p class="tl"><code>L65</code> 最后把函数句柄数组塞回 <code>Prob.Fnc</code>, 这一步完成后, <code>Problem.evaluate</code> 才能在运行时真正 dispatch 到 <code>Ship_Panel_MTSO.evalTaskBatch</code>。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-warning animate-in">
+        <div class="callout-icon">!</div>
+        <div class="callout-content">
+          <strong class="callout-title">模块 09 的边界</strong>
+          <p>这里先把 <code>Algorithm.Evaluation</code> -> <code>Problem.evaluate</code> -> <code>Ship_Panel_MTSO.evalTaskBatch</code> 的调用栈讲清楚; 真正的 ANSYS 启动、失败和惩罚细节留到下一页。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

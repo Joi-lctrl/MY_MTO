@@ -1,0 +1,420 @@
+
+ Ansys Mechanical Enterprise                       
+
+
+ *------------------------------------------------------------------*
+ |                                                                  |
+ |   W E L C O M E   T O   T H E   A N S Y S (R)  P R O G R A M     |
+ |                                                                  |
+ *------------------------------------------------------------------*
+
+
+
+
+ ***************************************************************
+ *         ANSYS MAPDL 2024 R1          LEGAL NOTICES          *
+ ***************************************************************
+ *                                                             *
+ * Copyright 1971-2024 Ansys, Inc.  All rights reserved.       *
+ * Unauthorized use, distribution or duplication is            *
+ * prohibited.                                                 *
+ *                                                             *
+ * Ansys is a registered trademark of Ansys, Inc. or its       *
+ * subsidiaries in the United States or other countries.       *
+ * See the Ansys, Inc. online documentation or the Ansys, Inc. *
+ * documentation CD or online help for the complete Legal      *
+ * Notice.                                                     *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * THIS ANSYS SOFTWARE PRODUCT AND PROGRAM DOCUMENTATION       *
+ * INCLUDE TRADE SECRETS AND CONFIDENTIAL AND PROPRIETARY      *
+ * PRODUCTS OF ANSYS, INC., ITS SUBSIDIARIES, OR LICENSORS.    *
+ * The software products and documentation are furnished by    *
+ * Ansys, Inc. or its subsidiaries under a software license    *
+ * agreement that contains provisions concerning               *
+ * non-disclosure, copying, length and nature of use,          *
+ * compliance with exporting laws, warranties, disclaimers,    *
+ * limitations of liability, and remedies, and other           *
+ * provisions.  The software products and documentation may be *
+ * used, disclosed, transferred, or copied only in accordance  *
+ * with the terms and conditions of that software license      *
+ * agreement.                                                  *
+ *                                                             *
+ * Ansys, Inc. is a UL registered                              *
+ * ISO 9001:2015 company.                                      *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * This product is subject to U.S. laws governing export and   *
+ * re-export.                                                  *
+ *                                                             *
+ * For U.S. Government users, except as specifically granted   *
+ * by the Ansys, Inc. software license agreement, the use,     *
+ * duplication, or disclosure by the United States Government  *
+ * is subject to restrictions stated in the Ansys, Inc.        *
+ * software license agreement and FAR 12.212 (for non-DOD      *
+ * licenses).                                                  *
+ *                                                             *
+ ***************************************************************
+
+ 2024 R1 
+     
+ Point Releases and Patches installed:   
+     
+ Ansys, Inc. License Manager 2024 R1 
+ Discovery 2024 R1   
+ SpaceClaim 2024 R1  
+ Icepak (includes CFD-Post) 2024 R1  
+ Fluids 2024 R1  
+ Ansys Dynamic Reporting 2024 R1 
+ CFD-Post only 2024 R1   
+ CFX (includes CFD-Post) 2024 R1 
+ Chemkin 2024 R1 
+ EnSight 2024 R1 
+ FENSAP-ICE 2024 R1  
+ Fluent (includes CFD-Post) 2024 R1  
+ Polyflow (includes CFD-Post) 2024 R1
+ Forte (includes EnSight) 2024 R1
+ ICEM CFD 2024 R1
+ TurboGrid 2024 R1   
+ ACIS Geometry Interface 2024 R1 
+ AutoCAD Geometry Interface 2024 R1  
+ Catia, Version 4 Geometry Interface 2024 R1 
+ Catia, Version 5 Geometry Interface 2024 R1 
+ Catia, Version 6 Geometry Interface 2024 R1 
+ Creo Elements/Direct Modeling Geometry Interface 2024 R1
+ Creo Parametric Geometry Interface 2024 R1  
+ Inventor Geometry Interface 2024 R1 
+ JTOpen Geometry Interface 2024 R1   
+ NX Geometry Interface 2024 R1   
+ Parasolid Geometry Interface  2024 R1   
+ Solid Edge Geometry Interface 2024 R1   
+ SOLIDWORKS Geometry Interface 2024 R1   
+ Speos 2024 R1   
+ Speos HPC 2024 R1   
+ optiSLang 2024 R1   
+ Remote Solve Manager Standalone Services 2024 R1
+ Additive 2024 R1
+ Aqwa 2024 R1
+ Autodyn 2024 R1 
+ Customization Files for User Programmable Features 2024 R1  
+ LS-DYNA 2024 R1 
+ Material Calibration App 2024 R1
+ Mechanical Products 2024 R1 
+ Motion 2024 R1  
+ Sherlock 2024 R1
+ Sound - SAS 2024 R1 
+
+
+          *****  MAPDL COMMAND LINE ARGUMENTS  *****
+  INITIAL JOBNAME              = task3_base_model_build                                                                                                                                                                                                                                  
+  BATCH MODE REQUESTED (-b)    = LIST
+  INPUT FILE COPY MODE (-c)    = COPY
+       2 PARALLEL PROCESSES REQUESTED WITH SINGLE THREAD PER PROCESS
+    TOTAL OF     2 CORES REQUESTED
+  INPUT FILE NAME              = C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDLRESULTS_MTO\task3\task3_base_model_build.mac
+  OUTPUT FILE NAME             = C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDLRESULTS_MTO\task3\task3_base_model_build.out
+  INITIAL DIRECTORY = C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDLRESULTS_MTO\task3
+
+ RELEASE= 2024 R1              BUILD= 24.1      UP20231106   VERSION=WINDOWS x64 
+ CURRENT JOBNAME=task3_base_model_build0  04:12:56  APR 17, 2026 CP=      0.094
+
+     1  FINISH  
+     2  /CLEAR, START   
+     3  /TITLE, Task3_base  
+     4  /NOPR   
+     5      
+     6  /PREP7  
+     7  ET, 1, BEAM188  
+     8  KEYOPT, 1, 4, 2 
+     9      
+    10  MP, EX, 1, 2.06e5   
+    11  MP, PRXY, 1, 0.3
+    12  MP, DENS, 1, 7.85e-9
+    13      
+    14  SECTYPE, 1, BEAM, I, LONG_C, 5  
+    15  SECDATA, 225, 1200, 425, 15, 10, 8  
+    16  SECTYPE, 2, BEAM, I, LONG_S, 5  
+    17  SECDATA, 225, 1200, 425, 15, 10, 8  
+    18  SECTYPE, 3, BEAM, I, RIB_C, 5   
+    19  SECDATA, 225, 800, 425, 15, 10, 8   
+    20  SECTYPE, 4, BEAM, I, RIB_S, 5   
+    21  SECDATA, 225, 800, 425, 15, 10, 8   
+    22  SECTYPE, 5, BEAM, I, RIB_O, 5   
+    23  SECDATA, 225, 800, 425, 15, 10, 8   
+    24      
+    25  K, 1, -1200, 0, 0   
+    26  K, 2, 0, 0, 0   
+    27  K, 3, 1200, 0, 0
+    28  K, 4, 2400, 0, 0
+    29  K, 5, 3600, 0, 0
+    30  K, 6, 4800, 0, 0
+    31  K, 7, 6000, 0, 0
+    32  K, 8, -1200, 1600, 0
+    33  K, 9, 0, 1600, 0
+    34  K, 10, 1200, 1600, 0
+    35  K, 11, 2400, 1600, 0
+    36  K, 12, 3600, 1600, 0
+    37  K, 13, 4800, 1600, 0
+    38  K, 14, 6000, 1600, 0
+    39  K, 15, -1200, 3200, 0   
+    40  K, 16, 0, 3200, 0   
+    41  K, 17, 1200, 3200, 0
+    42  K, 18, 2400, 3200, 0
+    43  K, 19, 3600, 3200, 0
+    44  K, 20, 4800, 3200, 0
+    45  K, 21, 6000, 3200, 0
+    46  K, 22, 0, -800, 0   
+    47  K, 23, 0, 4000, 0   
+    48  K, 24, 1200, -800, 0
+    49  K, 25, 1200, 4000, 0
+    50  K, 26, 2400, -800, 0
+    51  K, 27, 2400, 4000, 0
+    52  K, 28, 3600, -800, 0
+    53  K, 29, 3600, 4000, 0
+    54  K, 30, 4800, -800, 0
+    55  K, 31, 4800, 4000, 0
+    56      
+    57  L, 1, 2 
+    58  L, 2, 3 
+    59  L, 3, 4 
+    60  L, 4, 5 
+    61  L, 5, 6 
+    62  L, 6, 7 
+    63  L, 8, 9 
+    64  L, 9, 10
+    65  L, 10, 11   
+    66  L, 11, 12   
+    67  L, 12, 13   
+    68  L, 13, 14   
+    69  L, 15, 16   
+    70  L, 16, 17   
+    71  L, 17, 18   
+    72  L, 18, 19   
+    73  L, 19, 20   
+    74  L, 20, 21   
+    75  L, 22, 2
+    76  L, 2, 9 
+    77  L, 9, 16
+    78  L, 16, 23   
+    79  L, 24, 3
+    80  L, 3, 10
+    81  L, 10, 17   
+    82  L, 17, 25   
+    83  L, 26, 4
+    84  L, 4, 11
+    85  L, 11, 18   
+    86  L, 18, 27   
+    87  L, 28, 5
+    88  L, 5, 12
+    89  L, 12, 19   
+    90  L, 19, 29   
+    91  L, 30, 6
+    92  L, 6, 13
+    93  L, 13, 20   
+    94  L, 20, 31   
+    95      
+    96  K, 1001, -1200, 0, -1000
+    97  K, 1002, 6000, 0, -1000 
+    98  K, 1003, -1200, 1600, -1000 
+    99  K, 1004, 6000, 1600, -1000  
+   100  K, 1005, -1200, 3200, -1000 
+   101  K, 1006, 6000, 3200, -1000  
+   102  K, 2001, 0, -800, -1000 
+   103  K, 2002, 0, 4000, -1000 
+   104  K, 2003, 1200, -800, -1000  
+   105  K, 2004, 1200, 4000, -1000  
+   106  K, 2005, 2400, -800, -1000  
+   107  K, 2006, 2400, 4000, -1000  
+   108  K, 2007, 3600, -800, -1000  
+   109  K, 2008, 3600, 4000, -1000  
+   110  K, 2009, 4800, -800, -1000  
+   111  K, 2010, 4800, 4000, -1000  
+   112      
+   113  LSEL, S, LINE, , 1, 6   
+   114  LATT, 1, , 1, , 1001, , 2   
+   115  LESIZE, ALL, , , 20 
+   116  LSEL, S, LINE, , 7, 12  
+   117  LATT, 1, , 1, , 1003, , 1   
+   118  LESIZE, ALL, , , 20 
+   119  LSEL, S, LINE, , 13, 18 
+   120  LATT, 1, , 1, , 1005, , 2   
+   121  LESIZE, ALL, , , 20 
+   122  LSEL, S, LINE, , 19, 22 
+   123  LATT, 1, , 1, , 2001, , 5   
+   124  LESIZE, ALL, , , 5  
+   125  LSEL, S, LINE, , 23, 26 
+   126  LATT, 1, , 1, , 2003, , 4   
+   127  LESIZE, ALL, , , 5  
+   128  LSEL, S, LINE, , 27, 30 
+   129  LATT, 1, , 1, , 2005, , 3   
+   130  LESIZE, ALL, , , 5  
+   131  LSEL, S, LINE, , 31, 34 
+   132  LATT, 1, , 1, , 2007, , 4   
+   133  LESIZE, ALL, , , 5  
+   134  LSEL, S, LINE, , 35, 38 
+   135  LATT, 1, , 1, , 2009, , 5   
+   136  LESIZE, ALL, , , 5  
+   137      
+   138  ALLSEL, ALL 
+   139  LMESH, ALL  
+   140  ALLSEL, ALL 
+   141      
+   142  NSEL, S, LOC, X, -1200  
+   143  D, ALL, UX, 0   
+   144  D, ALL, UY, 0   
+   145  D, ALL, UZ, 0   
+   146  D, ALL, ROTX, 0 
+   147  D, ALL, ROTY, 0 
+   148  D, ALL, ROTZ, 0 
+   149  ALLSEL, ALL 
+   150  NSEL, S, LOC, X, 6000   
+   151  D, ALL, UX, 0   
+   152  D, ALL, UY, 0   
+   153  D, ALL, UZ, 0   
+   154  D, ALL, ROTX, 0 
+   155  D, ALL, ROTY, 0 
+   156  D, ALL, ROTZ, 0 
+   157  ALLSEL, ALL 
+   158  NSEL, S, LOC, Y, -800   
+   159  D, ALL, UX, 0   
+   160  D, ALL, UY, 0   
+   161  D, ALL, UZ, 0   
+   162  ALLSEL, ALL 
+   163  NSEL, S, LOC, Y, 4000   
+   164  D, ALL, UX, 0   
+   165  D, ALL, UY, 0   
+   166  D, ALL, UZ, 0   
+   167  ALLSEL, ALL 
+   168      
+   169  ESEL, S, SEC, , 3, 5
+   170  SFBEAM, ALL, 1, PRES, 12, 12
+   171  ALLSEL, ALL 
+   172      
+   173  SAVE, task3_base_model, db  
+   174  FINISH  
+
+ RUN SETUP PROCEDURE FROM FILE= e:\Program Files\ANSYS Inc241\v241\ANSYS\apdl\start.ans
+
+ /INPUT FILE= e:\Program Files\ANSYS Inc241\v241\ANSYS\apdl\start.ans  LINE=       0
+
+ CLEAR DATABASE AND RERUN START.ANS
+
+ RUN SETUP PROCEDURE FROM FILE= e:\Program Files\ANSYS Inc241\v241\ANSYS\apdl\start.ans
+
+ Ansys Mechanical Enterprise                       
+
+ /INPUT FILE= e:\Program Files\ANSYS Inc241\v241\ANSYS\apdl\start.ans  LINE=       0
+
+ TITLE= 
+  Task3_base                                                                   
+
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2024 R1          24.1     ***
+ Ansys Mechanical Enterprise                       
+ 20120530  VERSION=WINDOWS x64   04:12:57  APR 17, 2026 CP=      0.219
+
+  Task3_base                                                                   
+
+
+
+          ***** MAPDL ANALYSIS DEFINITION (PREP7) *****
+
+
+ ***** ROUTINE COMPLETED *****  CP =         0.359
+
+
+
+ ***** END OF INPUT ENCOUNTERED *****
+
+ PURGE ALL SOLUTION AND POST DATA
+ SAVE ALL MODEL DATA
+
+ ALL CURRENT MAPDL DATA WRITTEN TO FILE NAME= task3_base_model_build.db
+  FOR POSSIBLE RESUME FROM THIS POINT
+
+
+ NUMBER OF WARNING MESSAGES ENCOUNTERED=          0
+ NUMBER OF ERROR   MESSAGES ENCOUNTERED=          0
+
++--------------------- M A P D L   S T A T I S T I C S ------------------------+
+
+Release: 2024 R1            Build: 24.1       Update: UP20231106   Platform: WINDOWS x64 
+Date Run: 04/17/2026   Time: 04:12     Process ID: 12948
+Operating System: Windows 11  (Build: 26200)
+
+Processor Model: 12th Gen Intel(R) Core(TM) i5-1240P
+
+Compiler: Intel(R) Fortran Compiler Classic Version 2021.9  (Build: 20230302)
+          Intel(R) C/C++ Compiler Classic Version 2021.9  (Build: 20230302)
+          Intel(R) Math Kernel Library Version 2020.0.0 Product Build 20191125
+          BLAS Library supplied by Intel(R) MKL
+
+Number of machines requested            :    1
+Total number of cores available         :   16
+Number of physical cores available      :   12
+Number of processes requested           :    2
+Number of threads per process requested :    1
+Total number of cores requested         :    2 (Distributed Memory Parallel)               
+MPI Type: INTELMPI
+MPI Version: Intel(R) MPI Library 2021.10 for Windows* OS
+
+
+GPU Acceleration: Not Requested
+
+Job Name: task3_base_model_build0
+Input File: C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDLRESULTS_MTO\task3\task3_base_model_build.mac
+
+  Core                Machine Name   Working Directory
+ -----------------------------------------------------
+     0             LAPTOP-TOPLMTNP   C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDLRESULTS_MTO\task3
+     1             LAPTOP-TOPLMTNP   C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDLRESULTS_MTO\task3
+ 
+Latency time from master to core     1 =    1.749 microseconds
+ 
+Communication speed from master to core     1 =  8009.61 MB/sec
+
+Total CPU time for main thread                    :        0.6 seconds
+Total CPU time summed for all threads             :        0.4 seconds
+
+Elapsed time spent obtaining a license            :        1.9 seconds
+Elapsed time spent pre-processing model (/PREP7)  :        0.1 seconds
+Elapsed time spent solution - preprocessing       :        0.0 seconds
+Elapsed time spent computing solution             :        0.0 seconds
+Elapsed time spent solution - postprocessing      :        0.0 seconds
+Elapsed time spent post-processing model (/POST1) :        0.0 seconds
+ 
+
+Sum of disk space used on all processes           :        1.2 MB
+
+Sum of memory used on all processes               :       71.0 MB
+Sum of memory allocated on all processes          :     2368.0 MB
+Physical memory available                         :         16 GB
+Total amount of I/O written to disk               :        0.0 GB
+Total amount of I/O read from disk                :        0.0 GB
+
++------------------ E N D   M A P D L   S T A T I S T I C S -------------------+
+
+
+ *-----------------------------------------------------------------------------*
+ |                                                                             |
+ |                               RUN COMPLETED                                 |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |  Ansys MAPDL 2024 R1         Build 24.1         UP20231106    WINDOWS x64   |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |  Database Requested(-db)     1024 MB     Scratch Memory Requested   1024 MB |
+ |  Max Database Used(Master)      2 MB     Max Scratch Used(Master)     65 MB |
+ |  Max Database Used(Workers)     1 MB     Max Scratch Used(Workers)     3 MB |
+ |  Sum Database Used(All)         3 MB     Sum Scratch Used(All)        68 MB |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |        CP Time      (sec) =          0.375       Time  =  04:12:57          |
+ |        Elapsed Time (sec) =          4.000       Date  =  04/17/2026        |
+ |                                                                             |
+ *-----------------------------------------------------------------------------*

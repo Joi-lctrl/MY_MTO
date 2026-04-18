@@ -1,0 +1,22 @@
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       03:17:27
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       20:03:54
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       01:25:54
+
+ *** WARNING ***                         CP =     142.125   TIME= 05:55:39
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       01:53:22
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       23:58:53
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       05:26:19
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       17:14:19
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       20:36:23
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       02:29:20
+
+ *** ERROR ***                           CP =      87.000   TIME= 03:23:26
+ An unexpected error ( SIG$SEGV ) has occurred...  MAPDL internal data   
+ has been corrupted.  MAPDL is unable to recover and will terminate.     
+ Previously saved files are unaffected.  Please send the data leading    
+ to this operation to your technical support provider, as this will      
+ allow ANSYS, Inc to improve the program.                                
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       03:44:28
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       05:01:20

@@ -1,0 +1,454 @@
+classdef Ship_Panel_Problem < handle
+% Ship panel grillage optimization problem definition.
+% Task 1: s_long=800, s_rib=2400, q1=18, t_plate=12, n_long=3 (12 vars)
+% Task 2: s_long=1000, s_rib=3200, q1=25, t_plate=16, n_long=3 (12 vars)
+% Task 3: s_long=2400, s_rib=800, q1=18, t_plate=12, n_long=3 (12 vars)
+% Task 4: s_long=3200, s_rib=1000, q1=25, t_plate=16, n_long=3 (12 vars)
+% Task 5: s_long=2400, s_rib=800, q1=18, t_plate=12, n_long=5 (16 vars)
+
+properties
+    T = 5  % Number of tasks
+    Tasks struct
+end
+
+methods
+    function obj = Ship_Panel_Problem()
+        obj.Tasks = obj.defineTasks();
+    end
+
+    function [lb, x0, ub] = get_design_space(obj, task_id)
+        t = obj.Tasks(task_id);
+        lb = t.lb;
+        ub = t.ub;
+        x0 = (lb + ub) / 2;
+    end
+
+    function tasks = defineTasks(~)
+        % Variable order (12 vars, n_long=3):
+        % [h_web_L1, t_web_L1, b_bot_L1, t_bot_L1,   % center longitudinal
+        %  h_web_L2, t_web_L2, b_bot_L2, t_bot_L2,   % side longitudinals
+        %  h_web_R,  t_web_R,  b_bot_R,  t_bot_R]     % ribs
+        %
+        % Variable order (16 vars, n_long=5):
+        % [... same 12 vars ...,
+        %  h_web_L3, t_web_L3, b_bot_L3, t_bot_L3]    % outer longitudinals
+
+        % Task 1
+        tasks(1).name = 'Task1';
+        tasks(1).s_long = 800;
+        tasks(1).s_rib = 2400;
+        tasks(1).q1 = 18;
+        tasks(1).t_plate = 12;
+        tasks(1).n_long = 3;
+        tasks(1).n_rib = 5;
+        tasks(1).sigma_allow = 55;
+        tasks(1).bend_allow = 33;    % 0.6 * sigma_allow
+        tasks(1).shear_allow = 16.5; % 0.3 * sigma_allow
+        tasks(1).b_top_long = 400;   % min(s_long/2, s_rib/6)
+        tasks(1).b_top_rib = 133;    % min(s_long/6, s_rib/2)
+        tasks(1).lb = [200, 7, 60, 7, 200, 7, 60, 7, 200, 7, 60, 7];
+        tasks(1).ub = [400, 12, 160, 14, 400, 12, 160, 14, 400, 12, 160, 14];
+
+        % Task 2
+        tasks(2).name = 'Task2';
+        tasks(2).s_long = 1000;
+        tasks(2).s_rib = 3200;
+        tasks(2).q1 = 25;
+        tasks(2).t_plate = 16;
+        tasks(2).n_long = 3;
+        tasks(2).n_rib = 5;
+        tasks(2).sigma_allow = 60;
+        tasks(2).bend_allow = 36;    % 0.6 * sigma_allow
+        tasks(2).shear_allow = 18;   % 0.3 * sigma_allow
+        tasks(2).b_top_long = 500;   % min(s_long/2, s_rib/6)
+        tasks(2).b_top_rib = 166;    % min(s_long/6, s_rib/2)
+        tasks(2).lb = [250, 8, 80, 8, 250, 8, 80, 8, 250, 8, 80, 8];
+        tasks(2).ub = [480, 14, 200, 16, 480, 14, 200, 16, 480, 14, 200, 16];
+
+        % Task 3: s_rib < s_long (transverse-framed)
+        tasks(3).name = 'Task3';
+        tasks(3).s_long = 2400;
+        tasks(3).s_rib = 800;
+        tasks(3).q1 = 18;
+        tasks(3).t_plate = 12;
+        tasks(3).n_long = 3;
+        tasks(3).n_rib = 5;
+        tasks(3).sigma_allow = 200;
+        tasks(3).bend_allow = 120;   % 0.6 * sigma_allow
+        tasks(3).shear_allow = 60;   % 0.3 * sigma_allow
+        tasks(3).b_top_long = 133;   % min(2400/2, 800/6)
+        tasks(3).b_top_rib = 400;    % min(2400/6, 800/2)
+        tasks(3).lb = [250, 7, 100, 8, 250, 7, 100, 8, 120, 6, 50, 6];
+        tasks(3).ub = [450, 12, 200, 14, 450, 12, 200, 14, 250, 11, 120, 12];
+
+        % Task 4: s_rib < s_long (transverse-framed, larger scale)
+        tasks(4).name = 'Task4';
+        tasks(4).s_long = 3200;
+        tasks(4).s_rib = 1000;
+        tasks(4).q1 = 25;
+        tasks(4).t_plate = 16;
+        tasks(4).n_long = 3;
+        tasks(4).n_rib = 5;
+        tasks(4).sigma_allow = 250;
+        tasks(4).bend_allow = 150;   % 0.6 * sigma_allow
+        tasks(4).shear_allow = 75;   % 0.3 * sigma_allow
+        tasks(4).b_top_long = 166;   % min(3200/2, 1000/6)
+        tasks(4).b_top_rib = 500;    % min(3200/6, 1000/2)
+        tasks(4).lb = [300, 8, 120, 8, 300, 8, 120, 8, 150, 7, 60, 7];
+        tasks(4).ub = [550, 14, 240, 16, 550, 14, 240, 16, 300, 13, 150, 14];
+
+        % Task 5: based on Task 3, n_long=5 (add outer pair of longitudinals)
+        tasks(5).name = 'Task5';
+        tasks(5).s_long = 2400;
+        tasks(5).s_rib = 800;
+        tasks(5).q1 = 18;
+        tasks(5).t_plate = 12;
+        tasks(5).n_long = 5;
+        tasks(5).n_rib = 5;
+        tasks(5).sigma_allow = 200;
+        tasks(5).bend_allow = 120;   % 0.6 * sigma_allow
+        tasks(5).shear_allow = 60;   % 0.3 * sigma_allow
+        tasks(5).b_top_long = 133;   % min(2400/2, 800/6)
+        tasks(5).b_top_rib = 400;    % min(2400/6, 800/2)
+        % First 12 vars same bounds as Task 3, last 4 for outer longitudinals (L3)
+        tasks(5).lb = [250, 7, 100, 8, 250, 7, 100, 8, 120, 6, 50, 6, 250, 7, 100, 8];
+        tasks(5).ub = [450, 12, 200, 14, 450, 12, 200, 14, 250, 11, 120, 12, 450, 12, 200, 14];
+    end
+
+    function mac_str = generate_mac(obj, x, task_id)
+        % Generate APDL macro string from design variables.
+        % Supports n_long=3 (12 vars) and n_long=5 (16 vars).
+        t = obj.Tasks(task_id);
+
+        s_long = t.s_long;
+        s_rib = t.s_rib;
+        q1 = t.q1;
+        t_plate = t.t_plate;
+        n_long = t.n_long;
+        n_rib = t.n_rib;
+        b_top_long = t.b_top_long;
+        b_top_rib = t.b_top_rib;
+        t_top = t_plate;
+
+        long_ext = s_rib / 2;
+        rib_ext = s_long / 2;
+        L_span = (n_rib - 1) * s_rib;
+        W_span = (n_long - 1) * s_long;
+        X_left = -long_ext;
+        X_right = L_span + long_ext;
+        Y_bottom = -rib_ext;
+        Y_top = rib_ext + W_span;
+
+        % Parse design variables
+        h_web_L1 = x(1); t_web_L1 = x(2); b_bot_L1 = x(3); t_bot_L1 = x(4);
+        h_web_L2 = x(5); t_web_L2 = x(6); b_bot_L2 = x(7); t_bot_L2 = x(8);
+        h_web_R  = x(9); t_web_R  = x(10); b_bot_R  = x(11); t_bot_R  = x(12);
+
+        h_total_L1 = t_bot_L1 + h_web_L1 + t_top;
+        h_total_L2 = t_bot_L2 + h_web_L2 + t_top;
+        h_total_R  = t_bot_R  + h_web_R  + t_top;
+
+        % Section assignment: which section type for each longitudinal
+        % sec 1 = center (L1), sec 2 = inner side (L2), sec 4 = outer (L3)
+        center = floor(n_long / 2);  % 0-based center index
+        sec_map = zeros(1, n_long);
+        for ii = 0:n_long-1
+            if ii == center
+                sec_map(ii+1) = 1;
+            elseif abs(ii - center) == 1
+                sec_map(ii+1) = 2;
+            else
+                sec_map(ii+1) = 4;
+            end
+        end
+
+        mac = {};
+        mac{end+1} = 'FINISH';
+        mac{end+1} = '/CLEAR, START';
+        mac{end+1} = sprintf('/TITLE, %s_opt', t.name);
+        mac{end+1} = '/NOPR';
+        mac{end+1} = '';
+        mac{end+1} = '/PREP7';
+        mac{end+1} = 'ET, 1, BEAM188';
+        mac{end+1} = 'KEYOPT, 1, 4, 2';
+        mac{end+1} = '';
+        mac{end+1} = 'MP, EX, 1, 2.06e5';
+        mac{end+1} = 'MP, PRXY, 1, 0.3';
+        mac{end+1} = 'MP, DENS, 1, 7.85e-9';
+        mac{end+1} = '';
+
+        % Section definitions
+        mac{end+1} = sprintf('SECTYPE, 1, BEAM, I, LONG_C, 5');
+        mac{end+1} = sprintf('SECDATA, %g, %g, %g, %g, %g, %g', ...
+            b_bot_L1, b_top_long, h_total_L1, t_bot_L1, t_top, t_web_L1);
+        mac{end+1} = sprintf('SECTYPE, 2, BEAM, I, LONG_S, 5');
+        mac{end+1} = sprintf('SECDATA, %g, %g, %g, %g, %g, %g', ...
+            b_bot_L2, b_top_long, h_total_L2, t_bot_L2, t_top, t_web_L2);
+        mac{end+1} = sprintf('SECTYPE, 3, BEAM, I, RIB, 5');
+        mac{end+1} = sprintf('SECDATA, %g, %g, %g, %g, %g, %g', ...
+            b_bot_R, b_top_rib, h_total_R, t_bot_R, t_top, t_web_R);
+
+        if n_long >= 5
+            h_web_L3 = x(13); t_web_L3 = x(14); b_bot_L3 = x(15); t_bot_L3 = x(16);
+            h_total_L3 = t_bot_L3 + h_web_L3 + t_top;
+            mac{end+1} = sprintf('SECTYPE, 4, BEAM, I, LONG_O, 5');
+            mac{end+1} = sprintf('SECDATA, %g, %g, %g, %g, %g, %g', ...
+                b_bot_L3, b_top_long, h_total_L3, t_bot_L3, t_top, t_web_L3);
+        end
+        mac{end+1} = '';
+
+        % --- Keypoints ---
+        pprow = n_rib + 2;  % points per longitudinal row (incl. extensions)
+
+        % Longitudinal keypoints: KP(i,j) = i*pprow + j + 1
+        for ii = 0:n_long-1
+            Y_i = ii * s_long;
+            for jj = 0:pprow-1
+                kp = ii * pprow + jj + 1;
+                if jj == 0
+                    X_j = X_left;
+                elseif jj == pprow - 1
+                    X_j = X_right;
+                else
+                    X_j = (jj - 1) * s_rib;
+                end
+                mac{end+1} = sprintf('K, %d, %g, %g, 0', kp, X_j, Y_i);
+            end
+        end
+
+        % Rib extension keypoints
+        kp_base_rib = n_long * pprow;
+        for rr = 0:n_rib-1
+            X_r = rr * s_rib;
+            kp_bot = kp_base_rib + 2*rr + 1;
+            kp_top_r = kp_base_rib + 2*rr + 2;
+            mac{end+1} = sprintf('K, %d, %g, %g, 0', kp_bot, X_r, Y_bottom);
+            mac{end+1} = sprintf('K, %d, %g, %g, 0', kp_top_r, X_r, Y_top);
+        end
+        mac{end+1} = '';
+
+        % --- Lines ---
+        line_num = 0;
+        long_line_ranges = zeros(n_long, 2);  % [first, last] line per longitudinal
+
+        % Longitudinal lines
+        for ii = 0:n_long-1
+            first_line = line_num + 1;
+            for jj = 0:pprow-2
+                kp1 = ii * pprow + jj + 1;
+                kp2 = ii * pprow + jj + 2;
+                mac{end+1} = sprintf('L, %d, %d', kp1, kp2);
+                line_num = line_num + 1;
+            end
+            long_line_ranges(ii+1, :) = [first_line, line_num];
+        end
+
+        % Rib lines
+        rib_line_ranges = zeros(n_rib, 2);
+        for rr = 0:n_rib-1
+            first_line = line_num + 1;
+            kp_bot = kp_base_rib + 2*rr + 1;
+            kp_top_r = kp_base_rib + 2*rr + 2;
+
+            % Bottom extension to first longitudinal
+            kp_long_0 = 0 * pprow + (rr + 1) + 1;
+            mac{end+1} = sprintf('L, %d, %d', kp_bot, kp_long_0);
+            line_num = line_num + 1;
+
+            % Between adjacent longitudinals
+            for ii = 0:n_long-2
+                kp1 = ii * pprow + (rr + 1) + 1;
+                kp2 = (ii + 1) * pprow + (rr + 1) + 1;
+                mac{end+1} = sprintf('L, %d, %d', kp1, kp2);
+                line_num = line_num + 1;
+            end
+
+            % Last longitudinal to top extension
+            kp_last = (n_long - 1) * pprow + (rr + 1) + 1;
+            mac{end+1} = sprintf('L, %d, %d', kp_last, kp_top_r);
+            line_num = line_num + 1;
+
+            rib_line_ranges(rr+1, :) = [first_line, line_num];
+        end
+        mac{end+1} = '';
+
+        % --- Orientation keypoints ---
+        % Longitudinals: KP 1001+2*i (left), 1001+2*i+1 (right)
+        for ii = 0:n_long-1
+            Y_i = ii * s_long;
+            kp_ori = 1001 + 2*ii;
+            mac{end+1} = sprintf('K, %d, %g, %g, -1000', kp_ori, X_left, Y_i);
+            mac{end+1} = sprintf('K, %d, %g, %g, -1000', kp_ori+1, X_right, Y_i);
+        end
+        % Ribs: KP 2001+2*r (bottom), 2001+2*r+1 (top)
+        for rr = 0:n_rib-1
+            X_r = rr * s_rib;
+            kp_ori = 2001 + 2*rr;
+            mac{end+1} = sprintf('K, %d, %g, %g, -1000', kp_ori, X_r, Y_bottom);
+            mac{end+1} = sprintf('K, %d, %g, %g, -1000', kp_ori+1, X_r, Y_top);
+        end
+        mac{end+1} = '';
+
+        % --- Mesh attributes ---
+        % Longitudinals
+        for ii = 0:n_long-1
+            l1 = long_line_ranges(ii+1, 1);
+            l2 = long_line_ranges(ii+1, 2);
+            kp_ori = 1001 + 2*ii;
+            sec = sec_map(ii+1);
+            mac{end+1} = sprintf('LSEL, S, LINE, , %d, %d', l1, l2);
+            mac{end+1} = sprintf('LATT, 1, , 1, , %d, , %d', kp_ori, sec);
+            mac{end+1} = 'LESIZE, ALL, , , 6';
+        end
+        % Ribs
+        for rr = 0:n_rib-1
+            l1 = rib_line_ranges(rr+1, 1);
+            l2 = rib_line_ranges(rr+1, 2);
+            kp_ori = 2001 + 2*rr;
+            mac{end+1} = sprintf('LSEL, S, LINE, , %d, %d', l1, l2);
+            mac{end+1} = sprintf('LATT, 1, , 1, , %d, , 3', kp_ori);
+            mac{end+1} = 'LESIZE, ALL, , , 6';
+        end
+        mac{end+1} = '';
+
+        % Mesh
+        mac{end+1} = 'ALLSEL, ALL';
+        mac{end+1} = 'LMESH, ALL';
+        mac{end+1} = 'ALLSEL, ALL';
+        mac{end+1} = '';
+
+        % Boundary conditions
+        mac{end+1} = sprintf('NSEL, S, LOC, X, %g', X_left);
+        mac{end+1} = 'D, ALL, UX, 0';
+        mac{end+1} = 'D, ALL, UY, 0';
+        mac{end+1} = 'D, ALL, UZ, 0';
+        mac{end+1} = 'D, ALL, ROTX, 0';
+        mac{end+1} = 'D, ALL, ROTY, 0';
+        mac{end+1} = 'D, ALL, ROTZ, 0';
+        mac{end+1} = 'ALLSEL, ALL';
+        mac{end+1} = sprintf('NSEL, S, LOC, X, %g', X_right);
+        mac{end+1} = 'D, ALL, UX, 0';
+        mac{end+1} = 'D, ALL, UY, 0';
+        mac{end+1} = 'D, ALL, UZ, 0';
+        mac{end+1} = 'D, ALL, ROTX, 0';
+        mac{end+1} = 'D, ALL, ROTY, 0';
+        mac{end+1} = 'D, ALL, ROTZ, 0';
+        mac{end+1} = 'ALLSEL, ALL';
+        mac{end+1} = sprintf('NSEL, S, LOC, Y, %g', Y_bottom);
+        mac{end+1} = 'D, ALL, UX, 0';
+        mac{end+1} = 'D, ALL, UY, 0';
+        mac{end+1} = 'D, ALL, UZ, 0';
+        mac{end+1} = 'ALLSEL, ALL';
+        mac{end+1} = sprintf('NSEL, S, LOC, Y, %g', Y_top);
+        mac{end+1} = 'D, ALL, UX, 0';
+        mac{end+1} = 'D, ALL, UZ, 0';
+        mac{end+1} = 'ALLSEL, ALL';
+        mac{end+1} = '';
+
+        % Load (applied to ribs only)
+        mac{end+1} = 'ESEL, S, SEC, , 3';
+        mac{end+1} = sprintf('SFBEAM, ALL, 1, PRES, %g, %g', q1, q1);
+        mac{end+1} = 'ALLSEL, ALL';
+        mac{end+1} = '';
+
+        % Solve
+        mac{end+1} = 'FINISH';
+        mac{end+1} = '/SOLU';
+        mac{end+1} = 'ANTYPE, STATIC';
+        mac{end+1} = 'OUTRES, ALL, LAST';
+        mac{end+1} = 'OUTRES, MISC, LAST';
+        mac{end+1} = 'SOLVE';
+        mac{end+1} = 'FINISH';
+        mac{end+1} = '';
+
+        % Post-processing: write results to file
+        mac{end+1} = '/POST1';
+        mac{end+1} = 'SET, LAST';
+        mac{end+1} = 'RSYS, SOLU';
+        mac{end+1} = '/GRAPHICS, FULL';
+        mac{end+1} = '/ESHAPE, 1';
+        mac{end+1} = '';
+        mac{end+1} = '*GET, sx_max, SECR, ALL, S, X, MAX';
+        mac{end+1} = '*GET, sx_min, SECR, ALL, S, X, MIN';
+        mac{end+1} = '*GET, sxy_max, SECR, ALL, S, XY, MAX';
+        mac{end+1} = '*GET, sxy_min, SECR, ALL, S, XY, MIN';
+        mac{end+1} = '*GET, sxz_max, SECR, ALL, S, XZ, MAX';
+        mac{end+1} = '*GET, sxz_min, SECR, ALL, S, XZ, MIN';
+        mac{end+1} = '';
+        mac{end+1} = '*CFOPEN, results, txt';
+        mac{end+1} = '*VWRITE, sx_max';
+        mac{end+1} = '(F20.6)';
+        mac{end+1} = '*VWRITE, sx_min';
+        mac{end+1} = '(F20.6)';
+        mac{end+1} = '*VWRITE, sxy_max';
+        mac{end+1} = '(F20.6)';
+        mac{end+1} = '*VWRITE, sxy_min';
+        mac{end+1} = '(F20.6)';
+        mac{end+1} = '*VWRITE, sxz_max';
+        mac{end+1} = '(F20.6)';
+        mac{end+1} = '*VWRITE, sxz_min';
+        mac{end+1} = '(F20.6)';
+        mac{end+1} = '';
+        mac{end+1} = '! Total structural mass from FEA model';
+        mac{end+1} = 'ALLSEL, ALL';
+        mac{end+1} = '*GET, total_mass, ELEM, 0, MTOT, Z';
+        mac{end+1} = '*VWRITE, total_mass';
+        mac{end+1} = '(E20.10)';
+        mac{end+1} = '*CFCLOS';
+        mac{end+1} = 'FINISH';
+
+        mac_str = strjoin(mac, newline);
+    end
+
+    function mass = compute_mass(obj, x, task_id)
+        % Compute structural mass (kg) from design variables.
+        % Supports n_long=3 (12 vars) and n_long=5 (16 vars).
+        t = obj.Tasks(task_id);
+        rho = 7.85e-9; % t/mm^3
+
+        h_web_L1 = x(1); t_web_L1 = x(2); b_bot_L1 = x(3); t_bot_L1 = x(4);
+        h_web_L2 = x(5); t_web_L2 = x(6); b_bot_L2 = x(7); t_bot_L2 = x(8);
+        h_web_R  = x(9); t_web_R  = x(10); b_bot_R  = x(11); t_bot_R  = x(12);
+
+        s_long = t.s_long; s_rib = t.s_rib;
+        n_long = t.n_long; n_rib = t.n_rib;
+        t_top = t.t_plate;
+        b_top_long = t.b_top_long;
+        b_top_rib = t.b_top_rib;
+
+        long_ext = s_rib / 2;
+        rib_ext = s_long / 2;
+        L_long = (n_rib - 1) * s_rib + 2 * long_ext;
+        L_rib = (n_long - 1) * s_long + 2 * rib_ext;
+
+        % Cross-section areas
+        A_L1 = h_web_L1 * t_web_L1 + b_bot_L1 * t_bot_L1 + b_top_long * t_top;
+        A_L2 = h_web_L2 * t_web_L2 + b_bot_L2 * t_bot_L2 + b_top_long * t_top;
+        A_R  = h_web_R  * t_web_R  + b_bot_R  * t_bot_R  + b_top_rib * t_top;
+
+        % Count longitudinals by section type
+        center = floor(n_long / 2);
+        n_L1 = 1;  % center
+        n_L2 = 0;  % inner side
+        n_L3 = 0;  % outer
+        for ii = 0:n_long-1
+            if ii == center, continue; end
+            if abs(ii - center) == 1
+                n_L2 = n_L2 + 1;
+            else
+                n_L3 = n_L3 + 1;
+            end
+        end
+
+        vol = A_L1 * L_long * n_L1 + A_L2 * L_long * n_L2 + A_R * L_rib * n_rib;
+
+        if n_L3 > 0 && length(x) >= 16
+            h_web_L3 = x(13); t_web_L3 = x(14); b_bot_L3 = x(15); t_bot_L3 = x(16);
+            A_L3 = h_web_L3 * t_web_L3 + b_bot_L3 * t_bot_L3 + b_top_long * t_top;
+            vol = vol + A_L3 * L_long * n_L3;
+        end
+
+        mass = rho * vol * 1e3; % convert from tonnes to kg
+    end
+end
+end

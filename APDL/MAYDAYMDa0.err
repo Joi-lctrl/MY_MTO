@@ -1,0 +1,35 @@
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       20:06:41
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       20:08:46
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       20:17:17
+
+ *** WARNING ***                         CP =       5.094   TIME= 20:17:46
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         
+
+ *** WARNING ***                         CP =       7.453   TIME= 20:20:21
+ No element table items are available.  The PLLS command is ignored.     
+
+ *** WARNING ***                         CP =       8.047   TIME= 20:20:47
+ No element table items are available.  The PLLS command is ignored.     
+
+ *** WARNING ***                         CP =       8.547   TIME= 20:21:16
+ CLEAR is not a recognized POST1 command, abbreviation, or macro.        
+  This command will be ignored.                                          
+
+ *** WARNING ***                         CP =      41.750   TIME= 20:32:14
+ Invalid label SDI.  The PLLS command is ignored.                        
+
+ *** WARNING ***                         CP =      43.875   TIME= 20:32:53
+ Invalid label SDI.  The PLLS command is ignored.                        
+
+ *** WARNING ***                         CP =      74.531   TIME= 20:45:37
+ No element table items are available.  The PLLS command is ignored.     
+
+ *** WARNING ***                         CP =      75.250   TIME= 20:45:56
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       01:52:49
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       02:07:56
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       14:21:50
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       02:52:36
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       16:54:03

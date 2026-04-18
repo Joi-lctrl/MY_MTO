@@ -1,0 +1,382 @@
+
+ *** WARNING ***
+  Requested job name (eval_t9_tp8d61fc6f_768d_41b0_9afe_654b14bb83db) is longer than 32 characters.  Some ANSYS features may not work properly.
+
+ Ansys Mechanical Enterprise                       
+
+
+ *------------------------------------------------------------------*
+ |                                                                  |
+ |   W E L C O M E   T O   T H E   A N S Y S (R)  P R O G R A M     |
+ |                                                                  |
+ *------------------------------------------------------------------*
+
+
+
+
+ ***************************************************************
+ *         ANSYS MAPDL 2024 R1          LEGAL NOTICES          *
+ ***************************************************************
+ *                                                             *
+ * Copyright 1971-2024 Ansys, Inc.  All rights reserved.       *
+ * Unauthorized use, distribution or duplication is            *
+ * prohibited.                                                 *
+ *                                                             *
+ * Ansys is a registered trademark of Ansys, Inc. or its       *
+ * subsidiaries in the United States or other countries.       *
+ * See the Ansys, Inc. online documentation or the Ansys, Inc. *
+ * documentation CD or online help for the complete Legal      *
+ * Notice.                                                     *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * THIS ANSYS SOFTWARE PRODUCT AND PROGRAM DOCUMENTATION       *
+ * INCLUDE TRADE SECRETS AND CONFIDENTIAL AND PROPRIETARY      *
+ * PRODUCTS OF ANSYS, INC., ITS SUBSIDIARIES, OR LICENSORS.    *
+ * The software products and documentation are furnished by    *
+ * Ansys, Inc. or its subsidiaries under a software license    *
+ * agreement that contains provisions concerning               *
+ * non-disclosure, copying, length and nature of use,          *
+ * compliance with exporting laws, warranties, disclaimers,    *
+ * limitations of liability, and remedies, and other           *
+ * provisions.  The software products and documentation may be *
+ * used, disclosed, transferred, or copied only in accordance  *
+ * with the terms and conditions of that software license      *
+ * agreement.                                                  *
+ *                                                             *
+ * Ansys, Inc. is a UL registered                              *
+ * ISO 9001:2015 company.                                      *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * This product is subject to U.S. laws governing export and   *
+ * re-export.                                                  *
+ *                                                             *
+ * For U.S. Government users, except as specifically granted   *
+ * by the Ansys, Inc. software license agreement, the use,     *
+ * duplication, or disclosure by the United States Government  *
+ * is subject to restrictions stated in the Ansys, Inc.        *
+ * software license agreement and FAR 12.212 (for non-DOD      *
+ * licenses).                                                  *
+ *                                                             *
+ ***************************************************************
+
+ 2024 R1 
+     
+ Point Releases and Patches installed:   
+     
+ Ansys, Inc. License Manager 2024 R1 
+ Discovery 2024 R1   
+ SpaceClaim 2024 R1  
+ Icepak (includes CFD-Post) 2024 R1  
+ Fluids 2024 R1  
+ Ansys Dynamic Reporting 2024 R1 
+ CFD-Post only 2024 R1   
+ CFX (includes CFD-Post) 2024 R1 
+ Chemkin 2024 R1 
+ EnSight 2024 R1 
+ FENSAP-ICE 2024 R1  
+ Fluent (includes CFD-Post) 2024 R1  
+ Polyflow (includes CFD-Post) 2024 R1
+ Forte (includes EnSight) 2024 R1
+ ICEM CFD 2024 R1
+ TurboGrid 2024 R1   
+ ACIS Geometry Interface 2024 R1 
+ AutoCAD Geometry Interface 2024 R1  
+ Catia, Version 4 Geometry Interface 2024 R1 
+ Catia, Version 5 Geometry Interface 2024 R1 
+ Catia, Version 6 Geometry Interface 2024 R1 
+ Creo Elements/Direct Modeling Geometry Interface 2024 R1
+ Creo Parametric Geometry Interface 2024 R1  
+ Inventor Geometry Interface 2024 R1 
+ JTOpen Geometry Interface 2024 R1   
+ NX Geometry Interface 2024 R1   
+ Parasolid Geometry Interface  2024 R1   
+ Solid Edge Geometry Interface 2024 R1   
+ SOLIDWORKS Geometry Interface 2024 R1   
+ Speos 2024 R1   
+ Speos HPC 2024 R1   
+ optiSLang 2024 R1   
+ Remote Solve Manager Standalone Services 2024 R1
+ Additive 2024 R1
+ Aqwa 2024 R1
+ Autodyn 2024 R1 
+ Customization Files for User Programmable Features 2024 R1  
+ LS-DYNA 2024 R1 
+ Material Calibration App 2024 R1
+ Mechanical Products 2024 R1 
+ Motion 2024 R1  
+ Sherlock 2024 R1
+ Sound - SAS 2024 R1 
+
+
+          *****  MAPDL COMMAND LINE ARGUMENTS  *****
+  INITIAL JOBNAME              = eval_t9_tp8d61fc6f_768d_41b0_9afe_654b14bb83db                                                                                                                                                                                                          
+  BATCH MODE REQUESTED (-b)    = LIST
+  INPUT FILE COPY MODE (-c)    = COPY
+       2 PARALLEL PROCESSES REQUESTED WITH SINGLE THREAD PER PROCESS
+    TOTAL OF     2 CORES REQUESTED
+  INPUT FILE NAME              = C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDLRESULTS_MTO\task9\eval_t9_tp8d61fc6f_768d_41b0_9afe_654b14bb83db.mac
+  OUTPUT FILE NAME             = C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDLRESULTS_MTO\task9\eval_t9_tp8d61fc6f_768d_41b0_9afe_654b14bb83db.out
+  INITIAL DIRECTORY = C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDLRESULTS_MTO\task9
+
+ RELEASE= 2024 R1              BUILD= 24.1      UP20231106   VERSION=WINDOWS x64 
+ CURRENT JOBNAME=eval_t9_tp8d61fc6f_768d_41b0_9afe_654b14bb83db0  05:15:13  APR 12, 2026 CP=      0.047
+
+     1  FINISH  
+     2  /CLEAR, START   
+     3  /TITLE, Task9_opt   
+     4  /NOPR   
+     5  RESUME, task9_base_model, db
+     6  /PREP7  
+     7      
+     8  SECTYPE, 1, BEAM, I, LONG_1, 5  
+     9  SECDATA, 163.362, 300, 563.337, 19.7611, 12, 6.68093
+    10  SECTYPE, 2, BEAM, I, LONG_2, 5  
+    11  SECDATA, 149.411, 300, 273.093, 11.0935, 12, 4.01286
+    12  SECTYPE, 3, BEAM, I, LONG_3, 5  
+    13  SECDATA, 151.683, 300, 537.807, 12.4753, 12, 8.09769
+    14  SECTYPE, 4, BEAM, I, LONG_4, 5  
+    15  SECDATA, 124.974, 300, 560.899, 13.6092, 12, 6.391  
+    16  SECTYPE, 5, BEAM, I, RIB_1, 5   
+    17  SECDATA, 179.873, 400, 330.666, 15.6175, 12, 6.84589
+    18  SECTYPE, 6, BEAM, I, RIB_2, 5   
+    19  SECDATA, 152.148, 400, 261.293, 20, 12, 9.67909 
+    20  SECTYPE, 7, BEAM, I, RIB_3, 5   
+    21  SECDATA, 155.554, 400, 327.407, 10, 12, 7.00261 
+    22  SECTYPE, 8, BEAM, I, RIB_4, 5   
+    23  SECDATA, 146.591, 400, 251.247, 10.8905, 12, 6.1403 
+    24  SECTYPE, 9, BEAM, I, RIB_5, 5   
+    25  SECDATA, 131.693, 400, 260.334, 15.1791, 12, 4.77162
+    26      
+    27  FINISH  
+    28  FINISH  
+    29  /SOLU   
+    30  ANTYPE, STATIC  
+    31  OUTRES, ALL, LAST   
+    32  OUTRES, MISC, LAST  
+    33  SOLVE   
+    34  FINISH  
+    35      
+    36  /POST1  
+    37  SET, LAST   
+    38  /ESHAPE, 1  
+    39      
+    40  *GET, sx_max, SECR, ALL, S, X, MAX  
+    41  *GET, sx_min, SECR, ALL, S, X, MIN  
+    42  *GET, sxy_max, SECR, ALL, S, XY, MAX
+    43  *GET, sxy_min, SECR, ALL, S, XY, MIN
+    44  *GET, sxz_max, SECR, ALL, S, XZ, MAX
+    45  *GET, sxz_min, SECR, ALL, S, XZ, MIN
+    46      
+    47  max_bend = ABS(sx_max)  
+    48  *IF,ABS(sx_min),GT,max_bend,THEN
+    49  	max_bend = ABS(sx_min) 
+    50  *ENDIF  
+    51      
+    52  max_shear = ABS(sxy_max)
+    53  *IF,ABS(sxy_min),GT,max_shear,THEN  
+    54  	max_shear = ABS(sxy_min)   
+    55  *ENDIF  
+    56  *IF,ABS(sxz_max),GT,max_shear,THEN  
+    57  	max_shear = ABS(sxz_max)   
+    58  *ENDIF  
+    59  *IF,ABS(sxz_min),GT,max_shear,THEN  
+    60  	max_shear = ABS(sxz_min)   
+    61  *ENDIF  
+    62      
+    63  *STATUS,max_bend
+    64  *STATUS,max_shear   
+    65      
+    66  *CFOPEN, eval_t9_tp8d61fc6f_768d_41b0_9afe_654b14bb83db_results, txt
+    67  *VWRITE, sx_max 
+    68  (F20.6) 
+    69  *VWRITE, sx_min 
+    70  (F20.6) 
+    71  *VWRITE, sxy_max
+    72  (F20.6) 
+    73  *VWRITE, sxy_min
+    74  (F20.6) 
+    75  *VWRITE, sxz_max
+    76  (F20.6) 
+    77  *VWRITE, sxz_min
+    78  (F20.6) 
+    79      
+    80  ! Total structural mass from FEA model  
+    81  ALLSEL, ALL 
+    82  *GET, total_mass, ELEM, 0, MTOT, Z  
+    83  *VWRITE, total_mass 
+    84  (E20.10)
+    85  *CFCLOS 
+    86  FINISH  
+
+ RUN SETUP PROCEDURE FROM FILE= e:\Program Files\ANSYS Inc241\v241\ANSYS\apdl\start.ans
+
+ /INPUT FILE= e:\Program Files\ANSYS Inc241\v241\ANSYS\apdl\start.ans  LINE=       0
+
+ CLEAR DATABASE AND RERUN START.ANS
+
+ RUN SETUP PROCEDURE FROM FILE= e:\Program Files\ANSYS Inc241\v241\ANSYS\apdl\start.ans
+
+ Ansys Mechanical Enterprise                       
+
+ /INPUT FILE= e:\Program Files\ANSYS Inc241\v241\ANSYS\apdl\start.ans  LINE=       0
+
+ TITLE= 
+  Task9_opt                                                                    
+
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2024 R1          24.1     ***
+ Ansys Mechanical Enterprise                       
+ 20120530  VERSION=WINDOWS x64   05:15:13  APR 12, 2026 CP=      0.188
+
+  Task9_base                                                                   
+
+
+
+          ***** MAPDL ANALYSIS DEFINITION (PREP7) *****
+
+
+ ***** ROUTINE COMPLETED *****  CP =         0.406
+
+
+
+ *****  MAPDL SOLUTION ROUTINE  *****
+
+ *****  MAPDL SOLVE    COMMAND  *****
+
+ *** SELECTION OF ELEMENT TECHNOLOGIES FOR APPLICABLE ELEMENTS ***
+                ---GIVE SUGGESTIONS ONLY---
+
+ ELEMENT TYPE         1 IS BEAM188 . KEYOPT(1)=1 IS SUGGESTED FOR NON-CIRCULAR CROSS
+ SECTIONS AND KEYOPT(3)=2 IS ALWAYS SUGGESTED.
+
+ ELEMENT TYPE         1 IS BEAM188 . KEYOPT(15) IS ALREADY SET AS SUGGESTED.
+
+
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2024 R1          24.1     ***
+ Ansys Mechanical Enterprise                       
+ 20120530  VERSION=WINDOWS x64   05:15:14  APR 12, 2026 CP=      0.438
+
+  Task9_base                                                                   
+
+
+
+  
+  
+     D I S T R I B U T E D   D O M A I N   D E C O M P O S E R
+  
+  ...Number of elements: 1760
+  ...Number of nodes:    3473
+  ...Decompose to 2 CPU domains
+  ...Element load balance ratio =     1.000
+
+
+ SOLUTION MONITORING INFO IS WRITTEN TO FILE= eval_t9_tp8d61fc6f_768d_41b0_9afe_654b14bb83db.mntr                                                                                                                                                                                                                 
+
+ *** NOTE ***                            CP =       0.562   TIME= 05:15:14
+ Predictor is ON by default for structural elements with rotational      
+ degrees of freedom.  Use the PRED,OFF command to turn the predictor     
+ OFF if it adversely affects the convergence.                            
+
+
+
+                         ***********  PRECISE MASS SUMMARY  ***********
+
+   TOTAL RIGID BODY MASS MATRIX ABOUT ORIGIN
+               Translational mass               |   Coupled translational/rotational mass
+         20.216        0.0000        0.0000     |     0.0000        0.0000      -0.14556E+06
+         0.0000        20.216        0.0000     |     0.0000        0.0000       0.14556E+06
+         0.0000        0.0000        20.216     |    0.14556E+06  -0.14556E+06    0.0000    
+     ------------------------------------------ | ------------------------------------------
+                                                |         Rotational mass (inertia)
+                                                |    0.16115E+10  -0.10480E+10  -0.10501E-10
+                                                |   -0.10480E+10   0.15114E+10  -0.18762E-10
+                                                |   -0.10501E-10  -0.18762E-10   0.31218E+10
+
+   TOTAL MASS =  20.216    
+     The mass principal axes coincide with the global Cartesian axes
+
+   CENTER OF MASS (X,Y,Z)=    7200.0        7200.0        0.0000    
+
+   TOTAL INERTIA ABOUT CENTER OF MASS
+        0.56350E+09  -0.15140E-04  -0.10501E-10
+       -0.15140E-04   0.46335E+09  -0.18762E-10
+       -0.10501E-10  -0.18762E-10   0.10258E+10
+     The inertia principal axes coincide with the global Cartesian axes
+
+
+  *** MASS SUMMARY BY ELEMENT TYPE ***
+
+  TYPE      MASS
+     1   20.2164    
+
+ Range of element maximum matrix coefficients in global coordinates
+ Maximum = 1.366652513E+12 at element 800.                               
+ Minimum = 6.503756174E+10 at element 1435.                              
+
+   *** ELEMENT MATRIX FORMULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      1760  BEAM188       0.391   0.000222
+ Time at end of element matrix formulation CP = 0.78125.                 
+
+ DISTRIBUTED SPARSE MATRIX DIRECT SOLVER.
+  Number of equations =       10140,    Maximum wavefront =     30
+
+  Process memory allocated for solver              =     4.634 MB
+  Process memory required for in-core solution     =     4.478 MB
+  Process memory required for out-of-core solution =     3.865 MB
+
+  Total memory allocated for solver                =     9.193 MB
+  Total memory required for in-core solution       =     8.879 MB
+  Total memory required for out-of-core solution   =     7.557 MB
+
+ *** NOTE ***                            CP =       0.797   TIME= 05:15:14
+ The Distributed Sparse Matrix Solver is currently running in the        
+ in-core memory mode.  This memory mode uses the most amount of memory   
+ in order to avoid using the hard drive as much as possible, which most  
+ often results in the fastest solution time.  This mode is recommended   
+ if enough physical memory is present to accommodate all of the solver   
+ data.                                                                   
+ Distributed sparse solver maximum pivot= 2.733305026E+12 at node 1414   
+ ROTY.                                                                   
+ Distributed sparse solver minimum pivot= 7802.9088 at node 1365 UZ.     
+ Distributed sparse solver minimum pivot in absolute value= 7802.9088 at 
+ node 1365 UZ.                                                           
+
+   *** ELEMENT RESULT CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      1760  BEAM188       1.641   0.000932
+
+   *** NODAL LOAD CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      1760  BEAM188       0.031   0.000018
+ *** LOAD STEP     1   SUBSTEP     1  COMPLETED.    CUM ITER =      1
+ *** TIME =   1.00000         TIME INC =   1.00000      NEW TRIANG MATRIX
+
+
+ *** MAPDL BINARY FILE STATISTICS
+  BUFFER SIZE USED= 16384
+        0.625 MB WRITTEN ON ASSEMBLED MATRIX FILE: eval_t9_tp8d61fc6f_768d_41b0_9afe_654b14bb83db0.full
+       23.062 MB WRITTEN ON RESULTS FILE: eval_t9_tp8d61fc6f_768d_41b0_9afe_654b14bb83db0.rst
+
+ FINISH SOLUTION PROCESSING
+
+
+ ***** ROUTINE COMPLETED *****  CP =         2.062
+
+
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2024 R1          24.1     ***
+ Ansys Mechanical Enterprise                       
+ 20120530  VERSION=WINDOWS x64   05:15:15  APR 12, 2026 CP=      2.094
+
+  Task9_base                                                                   
+
+
+
+          ***** MAPDL RESULTS INTERPRETATION (POST1) *****

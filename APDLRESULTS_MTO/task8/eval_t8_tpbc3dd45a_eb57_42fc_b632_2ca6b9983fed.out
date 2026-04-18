@@ -1,0 +1,237 @@
+
+ *** WARNING ***
+  Requested job name (eval_t8_tpbc3dd45a_eb57_42fc_b632_2ca6b9983fed) is longer than 32 characters.  Some ANSYS features may not work properly.
+
+ Ansys Mechanical Enterprise                       
+
+
+ *------------------------------------------------------------------*
+ |                                                                  |
+ |   W E L C O M E   T O   T H E   A N S Y S (R)  P R O G R A M     |
+ |                                                                  |
+ *------------------------------------------------------------------*
+
+
+
+
+ ***************************************************************
+ *         ANSYS MAPDL 2024 R1          LEGAL NOTICES          *
+ ***************************************************************
+ *                                                             *
+ * Copyright 1971-2024 Ansys, Inc.  All rights reserved.       *
+ * Unauthorized use, distribution or duplication is            *
+ * prohibited.                                                 *
+ *                                                             *
+ * Ansys is a registered trademark of Ansys, Inc. or its       *
+ * subsidiaries in the United States or other countries.       *
+ * See the Ansys, Inc. online documentation or the Ansys, Inc. *
+ * documentation CD or online help for the complete Legal      *
+ * Notice.                                                     *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * THIS ANSYS SOFTWARE PRODUCT AND PROGRAM DOCUMENTATION       *
+ * INCLUDE TRADE SECRETS AND CONFIDENTIAL AND PROPRIETARY      *
+ * PRODUCTS OF ANSYS, INC., ITS SUBSIDIARIES, OR LICENSORS.    *
+ * The software products and documentation are furnished by    *
+ * Ansys, Inc. or its subsidiaries under a software license    *
+ * agreement that contains provisions concerning               *
+ * non-disclosure, copying, length and nature of use,          *
+ * compliance with exporting laws, warranties, disclaimers,    *
+ * limitations of liability, and remedies, and other           *
+ * provisions.  The software products and documentation may be *
+ * used, disclosed, transferred, or copied only in accordance  *
+ * with the terms and conditions of that software license      *
+ * agreement.                                                  *
+ *                                                             *
+ * Ansys, Inc. is a UL registered                              *
+ * ISO 9001:2015 company.                                      *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * This product is subject to U.S. laws governing export and   *
+ * re-export.                                                  *
+ *                                                             *
+ * For U.S. Government users, except as specifically granted   *
+ * by the Ansys, Inc. software license agreement, the use,     *
+ * duplication, or disclosure by the United States Government  *
+ * is subject to restrictions stated in the Ansys, Inc.        *
+ * software license agreement and FAR 12.212 (for non-DOD      *
+ * licenses).                                                  *
+ *                                                             *
+ ***************************************************************
+
+ 2024 R1 
+     
+ Point Releases and Patches installed:   
+     
+ Ansys, Inc. License Manager 2024 R1 
+ Discovery 2024 R1   
+ SpaceClaim 2024 R1  
+ Icepak (includes CFD-Post) 2024 R1  
+ Fluids 2024 R1  
+ Ansys Dynamic Reporting 2024 R1 
+ CFD-Post only 2024 R1   
+ CFX (includes CFD-Post) 2024 R1 
+ Chemkin 2024 R1 
+ EnSight 2024 R1 
+ FENSAP-ICE 2024 R1  
+ Fluent (includes CFD-Post) 2024 R1  
+ Polyflow (includes CFD-Post) 2024 R1
+ Forte (includes EnSight) 2024 R1
+ ICEM CFD 2024 R1
+ TurboGrid 2024 R1   
+ ACIS Geometry Interface 2024 R1 
+ AutoCAD Geometry Interface 2024 R1  
+ Catia, Version 4 Geometry Interface 2024 R1 
+ Catia, Version 5 Geometry Interface 2024 R1 
+ Catia, Version 6 Geometry Interface 2024 R1 
+ Creo Elements/Direct Modeling Geometry Interface 2024 R1
+ Creo Parametric Geometry Interface 2024 R1  
+ Inventor Geometry Interface 2024 R1 
+ JTOpen Geometry Interface 2024 R1   
+ NX Geometry Interface 2024 R1   
+ Parasolid Geometry Interface  2024 R1   
+ Solid Edge Geometry Interface 2024 R1   
+ SOLIDWORKS Geometry Interface 2024 R1   
+ Speos 2024 R1   
+ Speos HPC 2024 R1   
+ optiSLang 2024 R1   
+ Remote Solve Manager Standalone Services 2024 R1
+ Additive 2024 R1
+ Aqwa 2024 R1
+ Autodyn 2024 R1 
+ Customization Files for User Programmable Features 2024 R1  
+ LS-DYNA 2024 R1 
+ Material Calibration App 2024 R1
+ Mechanical Products 2024 R1 
+ Motion 2024 R1  
+ Sherlock 2024 R1
+ Sound - SAS 2024 R1 
+
+
+          *****  MAPDL COMMAND LINE ARGUMENTS  *****
+  INITIAL JOBNAME              = eval_t8_tpbc3dd45a_eb57_42fc_b632_2ca6b9983fed                                                                                                                                                                                                          
+  BATCH MODE REQUESTED (-b)    = LIST
+  INPUT FILE COPY MODE (-c)    = COPY
+       2 PARALLEL PROCESSES REQUESTED WITH SINGLE THREAD PER PROCESS
+    TOTAL OF     2 CORES REQUESTED
+  INPUT FILE NAME              = C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDLRESULTS_MTO\task8\eval_t8_tpbc3dd45a_eb57_42fc_b632_2ca6b9983fed.mac
+  OUTPUT FILE NAME             = C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDLRESULTS_MTO\task8\eval_t8_tpbc3dd45a_eb57_42fc_b632_2ca6b9983fed.out
+  INITIAL DIRECTORY = C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDLRESULTS_MTO\task8
+
+ RELEASE= 2024 R1              BUILD= 24.1      UP20231106   VERSION=WINDOWS x64 
+ CURRENT JOBNAME=eval_t8_tpbc3dd45a_eb57_42fc_b632_2ca6b9983fed0  06:46:07  APR 16, 2026 CP=      0.047
+
+     1  FINISH  
+     2  /CLEAR, START   
+     3  /TITLE, Task8_opt   
+     4  /NOPR   
+     5  RESUME, task8_base_model, db
+     6  /PREP7  
+     7      
+     8  SECTYPE, 1, BEAM, I, LONG_1, 5  
+     9  SECDATA, 155.005, 1600, 414.346, 19.5604, 10, 6.67339   
+    10  SECTYPE, 2, BEAM, I, LONG_2, 5  
+    11  SECDATA, 192.824, 1600, 503.494, 11.7604, 10, 6.5263
+    12  SECTYPE, 3, BEAM, I, LONG_3, 5  
+    13  SECDATA, 126.03, 1600, 287.36, 11.569, 10, 7.71034  
+    14  SECTYPE, 4, BEAM, I, LONG_4, 5  
+    15  SECDATA, 148.567, 1200, 394.888, 11.9776, 10, 9.43497   
+    16  SECTYPE, 5, BEAM, I, RIB_1, 5   
+    17  SECDATA, 213.31, 1200, 338.622, 10.7406, 10, 7.92958
+    18  SECTYPE, 6, BEAM, I, RIB_2, 5   
+    19  SECDATA, 140.505, 1200, 493.377, 13.0607, 10, 4.08899   
+    20  SECTYPE, 7, BEAM, I, RIB_3, 5   
+    21  SECDATA, 217.37, 1200, 385.451, 17.6252, 10, 6.39614
+    22  SECTYPE, 8, BEAM, I, RIB_4, 5   
+    23  SECDATA, 167.893, 1200, 318.608, 18.6592, 10, 8.65753   
+    24  SECTYPE, 9, BEAM, I, RIB_5, 5   
+    25  SECDATA, 210.136, 1200, 290.646, 14.3753, 10, 5.59977   
+    26      
+    27  FINISH  
+    28  FINISH  
+    29  /SOLU   
+    30  ANTYPE, STATIC  
+    31  OUTRES, ALL, LAST   
+    32  OUTRES, MISC, LAST  
+    33  SOLVE   
+    34  FINISH  
+    35      
+    36  /POST1  
+    37  SET, LAST   
+    38  /ESHAPE, 1  
+    39      
+    40  *GET, sx_max, SECR, ALL, S, X, MAX  
+    41  *GET, sx_min, SECR, ALL, S, X, MIN  
+    42  *GET, sxy_max, SECR, ALL, S, XY, MAX
+    43  *GET, sxy_min, SECR, ALL, S, XY, MIN
+    44  *GET, sxz_max, SECR, ALL, S, XZ, MAX
+    45  *GET, sxz_min, SECR, ALL, S, XZ, MIN
+    46      
+    47  max_bend = ABS(sx_max)  
+    48  *IF,ABS(sx_min),GT,max_bend,THEN
+    49  	max_bend = ABS(sx_min) 
+    50  *ENDIF  
+    51      
+    52  max_shear = ABS(sxy_max)
+    53  *IF,ABS(sxy_min),GT,max_shear,THEN  
+    54  	max_shear = ABS(sxy_min)   
+    55  *ENDIF  
+    56  *IF,ABS(sxz_max),GT,max_shear,THEN  
+    57  	max_shear = ABS(sxz_max)   
+    58  *ENDIF  
+    59  *IF,ABS(sxz_min),GT,max_shear,THEN  
+    60  	max_shear = ABS(sxz_min)   
+    61  *ENDIF  
+    62      
+    63  *STATUS,max_bend
+    64  *STATUS,max_shear   
+    65      
+    66  *CFOPEN, eval_t8_tpbc3dd45a_eb57_42fc_b632_2ca6b9983fed_results, txt
+    67  *VWRITE, sx_max 
+    68  (F20.6) 
+    69  *VWRITE, sx_min 
+    70  (F20.6) 
+    71  *VWRITE, sxy_max
+    72  (F20.6) 
+    73  *VWRITE, sxy_min
+    74  (F20.6) 
+    75  *VWRITE, sxz_max
+    76  (F20.6) 
+    77  *VWRITE, sxz_min
+    78  (F20.6) 
+    79      
+    80  ! Total structural mass from FEA model  
+    81  ALLSEL, ALL 
+    82  *GET, total_mass, ELEM, 0, MTOT, Z  
+    83  *VWRITE, total_mass 
+    84  (E20.10)
+    85  *CFCLOS 
+    86  FINISH  
+
+ RUN SETUP PROCEDURE FROM FILE= e:\Program Files\ANSYS Inc241\v241\ANSYS\apdl\start.ans
+
+ /INPUT FILE= e:\Program Files\ANSYS Inc241\v241\ANSYS\apdl\start.ans  LINE=       0
+
+ CLEAR DATABASE AND RERUN START.ANS
+
+ RUN SETUP PROCEDURE FROM FILE= e:\Program Files\ANSYS Inc241\v241\ANSYS\apdl\start.ans
+
+ Ansys Mechanical Enterprise                       
+
+ /INPUT FILE= e:\Program Files\ANSYS Inc241\v241\ANSYS\apdl\start.ans  LINE=       0
+
+ TITLE= 
+  Task8_opt                                                                    
+
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2024 R1          24.1     ***
+ Ansys Mechanical Enterprise                       
+ 20120530  VERSION=WINDOWS x64   06:46:07  APR 16, 2026 CP=      0.234
+
+  Task8_base                                                                   
+
+
+
+          ***** MAPDL ANALYSIS DEFINITION (PREP7) *****

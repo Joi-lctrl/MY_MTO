@@ -1,0 +1,354 @@
+
+ *** WARNING ***
+  Requested job name (eval_t6_tp2ed1e947_9f7c_4e89_a494_75366989c50f) is longer than 32 characters.  Some ANSYS features may not work properly.
+
+ Ansys Mechanical Enterprise                       
+
+
+ *------------------------------------------------------------------*
+ |                                                                  |
+ |   W E L C O M E   T O   T H E   A N S Y S (R)  P R O G R A M     |
+ |                                                                  |
+ *------------------------------------------------------------------*
+
+
+
+
+ ***************************************************************
+ *         ANSYS MAPDL 2024 R1          LEGAL NOTICES          *
+ ***************************************************************
+ *                                                             *
+ * Copyright 1971-2024 Ansys, Inc.  All rights reserved.       *
+ * Unauthorized use, distribution or duplication is            *
+ * prohibited.                                                 *
+ *                                                             *
+ * Ansys is a registered trademark of Ansys, Inc. or its       *
+ * subsidiaries in the United States or other countries.       *
+ * See the Ansys, Inc. online documentation or the Ansys, Inc. *
+ * documentation CD or online help for the complete Legal      *
+ * Notice.                                                     *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * THIS ANSYS SOFTWARE PRODUCT AND PROGRAM DOCUMENTATION       *
+ * INCLUDE TRADE SECRETS AND CONFIDENTIAL AND PROPRIETARY      *
+ * PRODUCTS OF ANSYS, INC., ITS SUBSIDIARIES, OR LICENSORS.    *
+ * The software products and documentation are furnished by    *
+ * Ansys, Inc. or its subsidiaries under a software license    *
+ * agreement that contains provisions concerning               *
+ * non-disclosure, copying, length and nature of use,          *
+ * compliance with exporting laws, warranties, disclaimers,    *
+ * limitations of liability, and remedies, and other           *
+ * provisions.  The software products and documentation may be *
+ * used, disclosed, transferred, or copied only in accordance  *
+ * with the terms and conditions of that software license      *
+ * agreement.                                                  *
+ *                                                             *
+ * Ansys, Inc. is a UL registered                              *
+ * ISO 9001:2015 company.                                      *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * This product is subject to U.S. laws governing export and   *
+ * re-export.                                                  *
+ *                                                             *
+ * For U.S. Government users, except as specifically granted   *
+ * by the Ansys, Inc. software license agreement, the use,     *
+ * duplication, or disclosure by the United States Government  *
+ * is subject to restrictions stated in the Ansys, Inc.        *
+ * software license agreement and FAR 12.212 (for non-DOD      *
+ * licenses).                                                  *
+ *                                                             *
+ ***************************************************************
+
+ 2024 R1 
+     
+ Point Releases and Patches installed:   
+     
+ Ansys, Inc. License Manager 2024 R1 
+ Discovery 2024 R1   
+ SpaceClaim 2024 R1  
+ Icepak (includes CFD-Post) 2024 R1  
+ Fluids 2024 R1  
+ Ansys Dynamic Reporting 2024 R1 
+ CFD-Post only 2024 R1   
+ CFX (includes CFD-Post) 2024 R1 
+ Chemkin 2024 R1 
+ EnSight 2024 R1 
+ FENSAP-ICE 2024 R1  
+ Fluent (includes CFD-Post) 2024 R1  
+ Polyflow (includes CFD-Post) 2024 R1
+ Forte (includes EnSight) 2024 R1
+ ICEM CFD 2024 R1
+ TurboGrid 2024 R1   
+ ACIS Geometry Interface 2024 R1 
+ AutoCAD Geometry Interface 2024 R1  
+ Catia, Version 4 Geometry Interface 2024 R1 
+ Catia, Version 5 Geometry Interface 2024 R1 
+ Catia, Version 6 Geometry Interface 2024 R1 
+ Creo Elements/Direct Modeling Geometry Interface 2024 R1
+ Creo Parametric Geometry Interface 2024 R1  
+ Inventor Geometry Interface 2024 R1 
+ JTOpen Geometry Interface 2024 R1   
+ NX Geometry Interface 2024 R1   
+ Parasolid Geometry Interface  2024 R1   
+ Solid Edge Geometry Interface 2024 R1   
+ SOLIDWORKS Geometry Interface 2024 R1   
+ Speos 2024 R1   
+ Speos HPC 2024 R1   
+ optiSLang 2024 R1   
+ Remote Solve Manager Standalone Services 2024 R1
+ Additive 2024 R1
+ Aqwa 2024 R1
+ Autodyn 2024 R1 
+ Customization Files for User Programmable Features 2024 R1  
+ LS-DYNA 2024 R1 
+ Material Calibration App 2024 R1
+ Mechanical Products 2024 R1 
+ Motion 2024 R1  
+ Sherlock 2024 R1
+ Sound - SAS 2024 R1 
+
+
+          *****  MAPDL COMMAND LINE ARGUMENTS  *****
+  INITIAL JOBNAME              = eval_t6_tp2ed1e947_9f7c_4e89_a494_75366989c50f                                                                                                                                                                                                          
+  BATCH MODE REQUESTED (-b)    = LIST
+  INPUT FILE COPY MODE (-c)    = COPY
+       2 PARALLEL PROCESSES REQUESTED WITH SINGLE THREAD PER PROCESS
+    TOTAL OF     2 CORES REQUESTED
+  INPUT FILE NAME              = C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDLRESULTS_MTO\task6\eval_t6_tp2ed1e947_9f7c_4e89_a494_75366989c50f.mac
+  OUTPUT FILE NAME             = C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDLRESULTS_MTO\task6\eval_t6_tp2ed1e947_9f7c_4e89_a494_75366989c50f.out
+  INITIAL DIRECTORY = C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDLRESULTS_MTO\task6
+
+ RELEASE= 2024 R1              BUILD= 24.1      UP20231106   VERSION=WINDOWS x64 
+ CURRENT JOBNAME=eval_t6_tp2ed1e947_9f7c_4e89_a494_75366989c50f0  09:20:56  MAR 30, 2026 CP=      0.109
+
+     1  FINISH  
+     2  /CLEAR, START   
+     3  /TITLE, Task6_opt   
+     4  /NOPR   
+     5      
+     6  /PREP7  
+     7  ET, 1, BEAM188  
+     8  KEYOPT, 1, 4, 2 
+     9      
+    10  MP, EX, 1, 2.06e5   
+    11  MP, PRXY, 1, 0.3
+    12  MP, DENS, 1, 7.85e-9
+    13      
+    14  SECTYPE, 1, BEAM, I, LONG_C, 5  
+    15  SECDATA, 164.453, 133, 442.363, 8.75026, 12, 7.36954
+    16  SECTYPE, 2, BEAM, I, LONG_S, 5  
+    17  SECDATA, 129.115, 133, 396.644, 10.0775, 12, 7.00143
+    18  SECTYPE, 3, BEAM, I, RIB, 5 
+    19  SECDATA, 50.7827, 400, 138.465, 6.46481, 12, 6.09214
+    20      
+    21  K, 1, -400, 0, 0
+    22  K, 2, 0, 0, 0   
+    23  K, 3, 800, 0, 0 
+    24  K, 4, 1600, 0, 0
+    25  K, 5, 2400, 0, 0
+    26  K, 6, 3200, 0, 0
+    27  K, 7, 4000, 0, 0
+    28  K, 8, 4400, 0, 0
+    29  K, 9, -400, 2400, 0 
+    30  K, 10, 0, 2400, 0   
+    31  K, 11, 800, 2400, 0 
+    32  K, 12, 1600, 2400, 0
+    33  K, 13, 2400, 2400, 0
+    34  K, 14, 3200, 2400, 0
+    35  K, 15, 4000, 2400, 0
+    36  K, 16, 4400, 2400, 0
+    37  K, 17, -400, 4800, 0
+    38  K, 18, 0, 4800, 0   
+    39  K, 19, 800, 4800, 0 
+    40  K, 20, 1600, 4800, 0
+    41  K, 21, 2400, 4800, 0
+    42  K, 22, 3200, 4800, 0
+    43  K, 23, 4000, 4800, 0
+    44  K, 24, 4400, 4800, 0
+    45  K, 25, 0, -1200, 0  
+    46  K, 26, 0, 6000, 0   
+    47  K, 27, 800, -1200, 0
+    48  K, 28, 800, 6000, 0 
+    49  K, 29, 1600, -1200, 0   
+    50  K, 30, 1600, 6000, 0
+    51  K, 31, 2400, -1200, 0   
+    52  K, 32, 2400, 6000, 0
+    53  K, 33, 3200, -1200, 0   
+    54  K, 34, 3200, 6000, 0
+    55  K, 35, 4000, -1200, 0   
+    56  K, 36, 4000, 6000, 0
+    57      
+    58  L, 1, 2 
+    59  L, 2, 3 
+    60  L, 3, 4 
+    61  L, 4, 5 
+    62  L, 5, 6 
+    63  L, 6, 7 
+    64  L, 7, 8 
+    65  L, 9, 10
+    66  L, 10, 11   
+    67  L, 11, 12   
+    68  L, 12, 13   
+    69  L, 13, 14   
+    70  L, 14, 15   
+    71  L, 15, 16   
+    72  L, 17, 18   
+    73  L, 18, 19   
+    74  L, 19, 20   
+    75  L, 20, 21   
+    76  L, 21, 22   
+    77  L, 22, 23   
+    78  L, 23, 24   
+    79  L, 25, 2
+    80  L, 2, 10
+    81  L, 10, 18   
+    82  L, 18, 26   
+    83  L, 27, 3
+    84  L, 3, 11
+    85  L, 11, 19   
+    86  L, 19, 28   
+    87  L, 29, 4
+    88  L, 4, 12
+    89  L, 12, 20   
+    90  L, 20, 30   
+    91  L, 31, 5
+    92  L, 5, 13
+    93  L, 13, 21   
+    94  L, 21, 32   
+    95  L, 33, 6
+    96  L, 6, 14
+    97  L, 14, 22   
+    98  L, 22, 34   
+    99  L, 35, 7
+   100  L, 7, 15
+   101  L, 15, 23   
+   102  L, 23, 36   
+   103      
+   104  K, 1001, -400, 0, -1000 
+   105  K, 1002, 4400, 0, -1000 
+   106  K, 1003, -400, 2400, -1000  
+   107  K, 1004, 4400, 2400, -1000  
+   108  K, 1005, -400, 4800, -1000  
+   109  K, 1006, 4400, 4800, -1000  
+   110  K, 2001, 0, -1200, -1000
+   111  K, 2002, 0, 6000, -1000 
+   112  K, 2003, 800, -1200, -1000  
+   113  K, 2004, 800, 6000, -1000   
+   114  K, 2005, 1600, -1200, -1000 
+   115  K, 2006, 1600, 6000, -1000  
+   116  K, 2007, 2400, -1200, -1000 
+   117  K, 2008, 2400, 6000, -1000  
+   118  K, 2009, 3200, -1200, -1000 
+   119  K, 2010, 3200, 6000, -1000  
+   120  K, 2011, 4000, -1200, -1000 
+   121  K, 2012, 4000, 6000, -1000  
+   122      
+   123  LSEL, S, LINE, , 1, 7   
+   124  LATT, 1, , 1, , 1001, , 2   
+   125  LESIZE, ALL, , , 20 
+   126  LSEL, S, LINE, , 8, 14  
+   127  LATT, 1, , 1, , 1003, , 1   
+   128  LESIZE, ALL, , , 20 
+   129  LSEL, S, LINE, , 15, 21 
+   130  LATT, 1, , 1, , 1005, , 2   
+   131  LESIZE, ALL, , , 20 
+   132  LSEL, S, LINE, , 22, 25 
+   133  LATT, 1, , 1, , 2001, , 3   
+   134  LESIZE, ALL, , , 5  
+   135  LSEL, S, LINE, , 26, 29 
+   136  LATT, 1, , 1, , 2003, , 3   
+   137  LESIZE, ALL, , , 5  
+   138  LSEL, S, LINE, , 30, 33 
+   139  LATT, 1, , 1, , 2005, , 3   
+   140  LESIZE, ALL, , , 5  
+   141  LSEL, S, LINE, , 34, 37 
+   142  LATT, 1, , 1, , 2007, , 3   
+   143  LESIZE, ALL, , , 5  
+   144  LSEL, S, LINE, , 38, 41 
+   145  LATT, 1, , 1, , 2009, , 3   
+   146  LESIZE, ALL, , , 5  
+   147  LSEL, S, LINE, , 42, 45 
+   148  LATT, 1, , 1, , 2011, , 3   
+   149  LESIZE, ALL, , , 5  
+   150      
+   151  ALLSEL, ALL 
+   152  LMESH, ALL  
+   153  ALLSEL, ALL 
+   154      
+   155  NSEL, S, LOC, X, -400   
+   156  D, ALL, UX, 0   
+   157  D, ALL, UY, 0   
+   158  D, ALL, UZ, 0   
+   159  D, ALL, ROTX, 0 
+   160  D, ALL, ROTY, 0 
+   161  D, ALL, ROTZ, 0 
+   162  ALLSEL, ALL 
+   163  NSEL, S, LOC, X, 4400   
+   164  D, ALL, UX, 0   
+   165  D, ALL, UY, 0   
+   166  D, ALL, UZ, 0   
+   167  D, ALL, ROTX, 0 
+   168  D, ALL, ROTY, 0 
+   169  D, ALL, ROTZ, 0 
+   170  ALLSEL, ALL 
+   171  NSEL, S, LOC, Y, -1200  
+   172  D, ALL, UX, 0   
+   173  D, ALL, UY, 0   
+   174  D, ALL, UZ, 0   
+   175  ALLSEL, ALL 
+   176  NSEL, S, LOC, Y, 6000   
+   177  D, ALL, UX, 0   
+   178  D, ALL, UY, 0   
+   179  D, ALL, UZ, 0   
+   180  ALLSEL, ALL 
+   181      
+   182  ESEL, S, SEC, , 3   
+   183  SFBEAM, ALL, 1, PRES, 18, 18
+   184  ALLSEL, ALL 
+   185      
+   186  FINISH  
+   187  /SOLU   
+   188  ANTYPE, STATIC  
+   189  OUTRES, ALL, LAST   
+   190  OUTRES, MISC, LAST  
+   191  SOLVE   
+   192  FINISH  
+   193      
+   194  /POST1  
+   195  SET, LAST   
+   196  RSYS, SOLU  
+   197  /GRAPHICS, FULL 
+   198  /ESHAPE, 1  
+   199      
+   200  *GET, sx_max, SECR, ALL, S, X, MAX  
+   201  *GET, sx_min, SECR, ALL, S, X, MIN  
+   202  *GET, sxy_max, SECR, ALL, S, XY, MAX
+   203  *GET, sxy_min, SECR, ALL, S, XY, MIN
+   204  *GET, sxz_max, SECR, ALL, S, XZ, MAX
+   205  *GET, sxz_min, SECR, ALL, S, XZ, MIN
+   206      
+   207  *CFOPEN, eval_t6_tp2ed1e947_9f7c_4e89_a494_75366989c50f_results, txt
+   208  *VWRITE, sx_max 
+   209  (F20.6) 
+   210  *VWRITE, sx_min 
+   211  (F20.6) 
+   212  *VWRITE, sxy_max
+   213  (F20.6) 
+   214  *VWRITE, sxy_min
+   215  (F20.6) 
+   216  *VWRITE, sxz_max
+   217  (F20.6) 
+   218  *VWRITE, sxz_min
+   219  (F20.6) 
+   220      
+   221  ! Total structural mass from FEA model  
+   222  ALLSEL, ALL 
+   223  *GET, total_mass, ELEM, 0, MTOT, Z  
+   224  *VWRITE, total_mass 
+   225  (E20.10)
+   226  *CFCLOS 
+   227  FINISH  
+
+ RUN SETUP PROCEDURE FROM FILE= e:\Program Files\ANSYS Inc241\v241\ANSYS\apdl\start.ans

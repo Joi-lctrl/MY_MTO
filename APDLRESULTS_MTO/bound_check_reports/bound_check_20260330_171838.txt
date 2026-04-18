@@ -1,0 +1,16 @@
+===== Bound Feasibility Check =====
+
+--- Task 7 ---
+q1=25.00, bend_allow=120.00, shear_allow=60.00
+[LOWER] expected=VIOLATE, status=VIOLATE, PASS=1
+  Obj=2035.2852, Con=[252.8147  41.0581   0.0000   0.0000], CV=293.8728
+  max_bend=372.8147, max_shear=101.0581
+  geom(hL2-hL1)=0.0000 (<=0 means satisfied)
+  geom(hL3-hL2)=0.0000 (<=0 means satisfied)
+[UPPER] expected=FEASIBLE, status=FEASIBLE, PASS=1
+  Obj=3463.3572, Con=[-26.0859 -25.0994   0.0000   0.0000], CV=0.0000
+  max_bend=93.9141, max_shear=34.9006
+  geom(hL2-hL1)=0.0000 (<=0 means satisfied)
+  geom(hL3-hL2)=0.0000 (<=0 means satisfied)
+
+===== Check Complete =====

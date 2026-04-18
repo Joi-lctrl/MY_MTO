@@ -1,0 +1,160 @@
+<section class="module" id="module-6">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">06</span>
+      <h1 class="module-title">Runtime Start</h1>
+      <p class="module-subtitle">
+        这一节不再按“代码逐行翻译”的方式讲, 而是直接跟着 MATLAB 的真实运行轨迹走: 先启动会话, 再把问题对象搭起来, 然后把后续循环需要的结果容器一次性铺好。
+      </p>
+    </header>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Trace 1: 运行一开始, MATLAB 先清场再定位脚本目录</h2>
+      <div class="callout callout-info animate-in">
+        <div class="callout-icon">i</div>
+        <div class="callout-content">
+          <strong class="callout-title">这里看的不是“语法”, 而是“启动顺序”</strong>
+          <p>
+            主脚本刚被执行时, 先发生的是环境整理和路径准备. 这一步不会产生优化结果, 但它决定了后面类文件、问题文件和辅助函数能不能被 MATLAB 找到.
+          </p>
+        </div>
+      </div>
+
+      <div class="pattern-cards stagger-children">
+        <div class="pattern-card runtime-card animate-in">
+          <div class="pattern-icon">1</div>
+          <h4 class="pattern-title">Current line</h4>
+          <p class="pattern-desc"><code>cmd_interleave.m:L4-L6</code></p>
+          <h4 class="pattern-title">What happens here</h4>
+          <p class="pattern-desc">
+            <code>clear; clc; close all;</code> 先把旧状态清掉; <code>cd(fileparts(mfilename('fullpath')))</code> 把当前工作目录切到脚本所在位置; <code>addpath(genpath(pwd))</code> 再把仓库里的子目录全部放进搜索路径.
+          </p>
+          <h4 class="pattern-title">Next jump</h4>
+          <p class="pattern-desc">
+            不跳文件, 继续留在 <code>cmd_interleave.m</code> 里往下执行.
+          </p>
+          <h4 class="pattern-title">Return point</h4>
+          <p class="pattern-desc">
+            直接推进到 <code>cmd_interleave.m:L8</code> 的配置区.
+          </p>
+        </div>
+
+        <div class="pattern-card runtime-card animate-in">
+          <div class="pattern-icon">2</div>
+          <h4 class="pattern-title">Current line</h4>
+          <p class="pattern-desc"><code>cmd_interleave.m:L8-L21</code></p>
+          <h4 class="pattern-title">What happens here</h4>
+          <p class="pattern-desc">
+            这里不是算法在跑, 而是在写运行参数: 哪些任务要启用、重复几次、总 FE 上限是多少、收敛曲线要记录多少点, 以及早停和画图范围的阈值都先固定下来.
+          </p>
+          <h4 class="pattern-title">Next jump</h4>
+          <p class="pattern-desc">
+            仍然不离开 <code>cmd_interleave.m</code>; 这些值只是给后面的对象初始化和循环控制提供输入.
+          </p>
+          <h4 class="pattern-title">Return point</h4>
+          <p class="pattern-desc">
+            继续到 <code>cmd_interleave.m:L24</code> 的问题对象创建段.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Trace 2: 问题对象先出现, `setTasks()` 才是真正的跨文件入口</h2>
+      <div class="pattern-card runtime-card animate-in">
+        <div class="pattern-icon">3</div>
+        <h4 class="pattern-title">Current line</h4>
+        <p class="pattern-desc"><code>cmd_interleave.m:L24-L29</code></p>
+        <h4 class="pattern-title">What happens here</h4>
+        <p class="pattern-desc">
+          <code>prob = Ship_Panel_MTSO()</code> 先把船板优化问题对象造出来; 接着把 <code>N</code>, <code>maxFE</code>, <code>Cleanup</code> 和 <code>ActiveTasks</code> 写进去; 最后在 <code>prob.setTasks()</code> 这一步让问题对象根据当前任务组合重新装配边界、维度和目标函数句柄.
+        </p>
+        <h4 class="pattern-title">Next jump</h4>
+        <p class="pattern-desc">
+          <code>prob.setTasks()</code> -> <code>Ship_Panel_MTSO.setTasks</code>.
+        </p>
+        <h4 class="pattern-title">Return point</h4>
+        <p class="pattern-desc">
+          返回 <code>cmd_interleave.m:L31</code>, 也就是继续构造算法对象的地方.
+        </p>
+      </div>
+
+      <div class="callout callout-info animate-in">
+        <div class="callout-icon">i</div>
+        <div class="callout-content">
+          <strong class="callout-title">为什么这一步必须单独点出来</strong>
+          <p>
+            <code>Ship_Panel_MTSO.setTasks</code> 会在内部把 active task 映射成真正的设计空间, 组装 <code>T</code>, <code>D</code>, <code>Lb</code>, <code>Ub</code> 和 <code>Fnc</code>. 这意味着主脚本不是“猜”任务信息, 而是把控制权交给问题类去完成初始化, 然后再回到 <code>cmd_interleave.m</code> 继续执行。
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Trace 3: 结果容器先占位, 后面的循环才有地方写数据</h2>
+      <div class="callout callout-info animate-in">
+        <div class="callout-icon">i</div>
+        <div class="callout-content">
+          <strong class="callout-title">MATLAB 里的三个“第一次出现”</strong>
+          <p>
+            这几个构造不是算法本身, 而是运行时的存储骨架. 你可以把它们看成“先把抽屉摆好, 后面每次 rep / 每个任务 / 每条曲线只负责往里放东西”.
+          </p>
+        </div>
+      </div>
+
+      <div class="pattern-cards stagger-children">
+        <div class="pattern-card runtime-card animate-in">
+          <div class="pattern-icon">cell</div>
+          <h4 class="pattern-title">First appearance</h4>
+          <p class="pattern-desc"><code>cell(nAlgo, 1)</code> / <code>cell(nTask, 1)</code></p>
+          <h4 class="pattern-title">MATLAB meaning</h4>
+          <p class="pattern-desc">
+            <code>cell(...)</code> 创建的是 cell 容器, 里面每个格子都可以装不同大小、不同类型的内容. 这里用它装每个算法自己的结果表, 因为每个算法的收敛历史长度和嵌套层级都不一样.
+          </p>
+          <h4 class="pattern-title">Why it fits the trace</h4>
+          <p class="pattern-desc">
+            这让主脚本可以先完成“架子”初始化, 等算法真正跑完再按算法索引把数据填进去.
+          </p>
+        </div>
+
+        <div class="pattern-card runtime-card animate-in">
+          <div class="pattern-icon">nan</div>
+          <h4 class="pattern-title">First appearance</h4>
+          <p class="pattern-desc"><code>nan(nAlgo, Reps, nTask)</code></p>
+          <h4 class="pattern-title">MATLAB meaning</h4>
+          <p class="pattern-desc">
+            <code>nan(...)</code> 先用 NaN 占住数值数组的位置. 这比全零更适合结果预分配, 因为未写入的位置一眼就能看出来, 后面统计时也不会把“没结果”误认成真实的 0.
+          </p>
+          <h4 class="pattern-title">Why it fits the trace</h4>
+          <p class="pattern-desc">
+            在 runtime 里, 这相当于先留白, 再让每次 rep 的最终最佳值逐格落位.
+          </p>
+        </div>
+
+        <div class="pattern-card runtime-card animate-in">
+          <div class="pattern-icon">g</div>
+          <h4 class="pattern-title">First appearance</h4>
+          <p class="pattern-desc"><code>gobjects(1, nTask)</code> / <code>gobjects(nAlgo, nTask)</code></p>
+          <h4 class="pattern-title">MATLAB meaning</h4>
+          <p class="pattern-desc">
+            <code>gobjects(...)</code> 预先创建图形句柄数组. 这些位置以后会装进 <code>subplot</code>、<code>animatedline</code> 之类的对象, 所以先给它们一个“句柄型”的空壳最合适.
+          </p>
+          <h4 class="pattern-title">Why it fits the trace</h4>
+          <p class="pattern-desc">
+            这不是在画图, 而是在为后面的实时曲线更新准备控制点. 当你进入下一模块时, 它们就会立刻被拿去连接每个任务子图.
+          </p>
+        </div>
+      </div>
+
+      <div class="callout callout-info animate-in">
+        <div class="callout-icon">i</div>
+        <div class="callout-content">
+          <strong class="callout-title">这一步结束后, 脚本才真正准备好进入循环</strong>
+          <p>
+            到这里为止, 主脚本已经完成启动、问题装配和结果占位. 下一模块才会接着讲图窗句柄如何建立、以及 <code>algo.run(prob)</code> 触发的主循环轨迹。
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

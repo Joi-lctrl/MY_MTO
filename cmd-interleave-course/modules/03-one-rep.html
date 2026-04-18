@@ -1,0 +1,160 @@
+<section class="module" id="module-3">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">03</span>
+      <h1 class="module-title">一次 rep 是怎么推进的</h1>
+      <p class="module-subtitle">
+        `rep` 可以理解成“同一实验再独立重来一次”。它的存在不是为了热闹, 而是为了防止你被一次好运气或坏运气骗到。
+      </p>
+    </header>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">一轮 rep 的骨架非常朴素</h2>
+      <div class="step-cards stagger-children">
+        <div class="step-card animate-in">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <strong>先固定随机种子</strong>
+            <p>这样这次 rep 的随机数来源就被钉住了, 两个算法可以共享同一把“骰子”。</p>
+          </div>
+        </div>
+        <div class="step-card animate-in">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <strong>重新设置问题对象</strong>
+            <p>脚本会再次调用 `prob.setTasks()`。这能保证任务边界和函数句柄是干净的一套。</p>
+          </div>
+        </div>
+        <div class="step-card animate-in">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <strong>给算法塞配置</strong>
+            <p>`Result_Num` 决定收敛历史最终保留多少点, `Save_Dec` 决定是否把决策变量也存下来。</p>
+          </div>
+        </div>
+        <div class="step-card animate-in">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <strong>算法开始代际循环</strong>
+            <p>GA 和 CEDA-DW 都会一代一代提出候选解, 评估后再筛一轮, 直到 FE 用完或早停触发。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">脚本在每次开跑前做了什么</h2>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>rng(seeds(rep));
+prob.setTasks();
+algo = algos{a};
+algo.Result_Num = Results_Num;
+algo.Save_Dec = false;
+if Disable_Swap && isprop(algo, 'Swap')
+    algo.Swap = 1;
+end
+algo.reset();</code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">先把这次 rep 的随机源锁到固定种子上。</p>
+            <p class="tl">把问题对象重新整理一遍, 避免上一个算法留下的状态影响这一个。</p>
+            <p class="tl">取出当前要跑的算法对象。</p>
+            <p class="tl">告诉算法: 收敛结果最后只留 `Results_Num` 个采样点。</p>
+            <p class="tl">这里明确不保存每代 `Dec`, 所以默认只保留目标值轨迹和最终最优解。</p>
+            <p class="tl">如果算法带 `Swap` 属性, 这里统一把它关成脚本想要的模式。</p>
+            <p class="tl">最后重置算法内部状态, 让它像刚开机一样开始这一轮。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="badge-list animate-in">
+        <div class="badge-item">
+          <code class="badge-code">Global_Seed = 2604</code>
+          <span class="badge-desc">全局起点种子, 用来生成每个 rep 的实际种子</span>
+        </div>
+        <div class="badge-item">
+          <code class="badge-code">rep_seeds = (0:Reps-1) + Global_Seed</code>
+          <span class="badge-desc">每次重复实验真正喂给 `rng()` 的数字</span>
+        </div>
+        <div class="badge-item">
+          <code class="badge-code">Result_Num = 50</code>
+          <span class="badge-desc">收敛历史不会原样保存全部代数, 最后会重采样成 50 个点</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">算法基类每一代都会顺手记账</h2>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>flag = Algo.FE < Prob.maxFE;
+
+gen = Algo.Gen;
+isSingleObj = max(Prob.M) == 1;
+for t = 1:Prob.T
+    if isSingleObj
+        bestSol = Algo.Best{t};
+        Algo.Result(t, gen).Obj = bestSol.Obj;</code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">先判断 FE 预算是否还没花完。没花完才能继续下一代。</p>
+            <p class="tl">取出当前代编号 `gen`。</p>
+            <p class="tl">这条 ship panel 链路是单目标问题, 所以这里会走 `isSingleObj` 分支。</p>
+            <p class="tl">按任务一个个记录当前代结果。</p>
+            <p class="tl">单目标时不保存整个人口, 只记住“这一代当前最优个体”。</p>
+            <p class="tl">第一件被记下来的就是最优目标值 `Obj`。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-accent animate-in">
+        <div class="callout-icon">i</div>
+        <div class="callout-content">
+          <strong class="callout-title">为什么这点很关键</strong>
+          <p>很多人以为 `.mat` 里一定保存了每代每个个体。对这条单目标链路不是这样。默认保存的是“每代最好那一个”的历史, 不是完整人群快照。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">小测: 为什么两个算法共用同一组 seed</h2>
+      <div class="quiz-container animate-in" id="quiz-module3">
+        <div class="quiz-question-block"
+             data-correct="option-a"
+             data-explanation-right="对。共用同一组 seed 的核心价值是公平比较。你更容易把差异归因到算法本身, 而不是随机波动。"
+             data-explanation-wrong="重现只是其中一层价值。更关键的是公平: 两个算法最好在同一组随机条件下被比较。">
+          <div class="scenario-block">
+            <div class="scenario-context">
+              <span class="scenario-label">Scenario</span>
+              <p>你想判断 CEDA-DW 和 GA 谁更强。为什么 `cmd_interleave` 会先固定 seed, 再轮流跑这两个算法?</p>
+            </div>
+          </div>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>为了让比较更公平, 不让算法吃到完全不同的随机运气</span>
+            </button>
+            <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>因为 ANSYS 只能接受固定种子, 不然会报错</span>
+            </button>
+            <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>因为 `Selection_Elit` 只支持偶数种子</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+        <button class="quiz-check-btn" onclick="checkQuiz('quiz-module3')">Check Answers</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module3')">Try Again</button>
+      </div>
+    </div>
+  </div>
+</section>

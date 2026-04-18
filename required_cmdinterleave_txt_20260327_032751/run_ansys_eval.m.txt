@@ -1,0 +1,220 @@
+function [obj, con, extra] = run_ansys_eval(x, task_id, cfg)
+% Run ANSYS APDL evaluation for ship panel grillage optimization.
+%
+% Inputs:
+%   x        - 1x12 design variable vector (real values, not normalized)
+%   task_id  - task index (1 or 2)
+%   cfg      - struct with fields:
+%              .apdl_dir  - path to APDL template directory
+%              .n_proc    - number of ANSYS parallel processes
+%              .cleanup   - logical, remove temp files after evaluation
+%              .work_dir  - working directory for this evaluation
+%
+% Outputs:
+%   obj   - scalar objective (mass in kg)
+%   con   - 1x2 constraint vector [bend_violation, shear_violation]
+%           (positive = violated)
+%   extra - struct with additional info
+
+extra = struct('error', false, 'feasible', false, ...
+    'max_bend', NaN, 'max_shear', NaN, 'mass', NaN);
+
+ship_prob = Ship_Panel_Problem();
+task = ship_prob.Tasks(task_id);
+
+% Compute objective (mass)
+mass = ship_prob.compute_mass(x, task_id);
+extra.mass = mass;
+
+% Prepare working directory
+work_dir = cfg.work_dir;
+if exist(work_dir, 'dir') ~= 7
+    mkdir(work_dir);
+end
+
+job_name = make_job_name(task_id, work_dir);
+results_stem = [job_name '_results'];
+mac_file = fullfile(work_dir, [job_name '.mac']);
+results_file = fullfile(work_dir, [results_stem '.txt']);
+cleanup_enabled = isfield(cfg, 'cleanup') && logical(cfg.cleanup);
+if cleanup_enabled
+    % Ensure temp files are cleaned even when this function returns early.
+    cleanup_guard = onCleanup(@()cleanup_work_dir(work_dir, job_name)); %#ok<NASGU>
+end
+
+% Generate macro with a per-run results file to avoid cross-run collisions.
+mac_str = ship_prob.generate_mac(x, task_id);
+mac_str = strrep(mac_str, '*CFOPEN, results, txt', ...
+    sprintf('*CFOPEN, %s, txt', results_stem));
+
+if isfile(results_file)
+    delete(results_file);
+end
+
+% Write macro file
+fid = fopen(mac_file, 'w');
+if fid == -1
+    warning('run_ansys_eval:fileWrite', 'Cannot write macro file: %s', mac_file);
+    obj = 1e10;
+    con = [100, 100];
+    extra.error = true;
+    return;
+end
+fprintf(fid, '%s\n', mac_str);
+fclose(fid);
+
+% Find ANSYS executable
+ansys_exe = find_ansys_exe();
+if isempty(ansys_exe)
+    warning('run_ansys_eval:noAnsys', 'ANSYS executable not found.');
+    obj = 1e10;
+    con = [100, 100];
+    extra.error = true;
+    return;
+end
+
+% Run ANSYS in batch mode
+n_proc = cfg.n_proc;
+cmd = sprintf('"%s" -b -np %d -j %s -i "%s" -o "%s" -dir "%s"', ...
+    ansys_exe, n_proc, job_name, mac_file, ...
+    fullfile(work_dir, [job_name '.out']), work_dir);
+
+[status, ~] = system(cmd);
+if status ~= 0
+    warning('run_ansys_eval:ansysFail', 'ANSYS returned non-zero status: %d', status);
+    obj = 1e10;
+    con = [100, 100];
+    extra.error = true;
+    return;
+end
+
+% Parse results
+[max_bend, max_shear, fea_mass, parse_ok] = parse_results(results_file);
+
+if ~parse_ok
+    obj = 1e10;
+    con = [100, 100];
+    extra.error = true;
+    return;
+end
+
+extra.max_bend = max_bend;
+extra.max_shear = max_shear;
+extra.mass_analytical = mass;
+extra.mass_fea = fea_mass;
+
+% Objective: use FEA mass (more accurate than analytical formula)
+obj = fea_mass;
+
+% Constraints: g(x) <= 0 form, positive means violated
+con = zeros(1, 2);
+con(1) = max_bend - task.bend_allow;
+con(2) = max_shear - task.shear_allow;
+
+extra.feasible = all(con <= 0);
+end
+
+function [max_bend, max_shear, fea_mass, ok] = parse_results(results_file)
+max_bend = NaN;
+max_shear = NaN;
+fea_mass = NaN;
+ok = false;
+
+if ~isfile(results_file)
+    return;
+end
+
+fid = fopen(results_file, 'r');
+if fid == -1
+    return;
+end
+
+vals = zeros(7, 1);
+for i = 1:7
+    line = fgetl(fid);
+    if ~ischar(line)
+        fclose(fid);
+        return;
+    end
+    vals(i) = str2double(strtrim(line));
+    if isnan(vals(i))
+        fclose(fid);
+        return;
+    end
+end
+fclose(fid);
+
+sx_max  = vals(1);
+sx_min  = vals(2);
+sxy_max = vals(3);
+sxy_min = vals(4);
+sxz_max = vals(5);
+sxz_min = vals(6);
+fea_mass = vals(7) * 1e3; % ANSYS uses tonnes (density 7.85e-9 t/mm^3), convert to kg
+
+max_bend = max(abs([sx_max, sx_min]));
+max_shear = max(abs([sxy_max, sxy_min, sxz_max, sxz_min]));
+ok = true;
+end
+
+function exe = find_ansys_exe()
+exe = '';
+% Common ANSYS installation paths on Windows
+base_paths = {'C:\Program Files\ANSYS Inc', ...
+    'D:\Program Files\ANSYS Inc', ...
+    'E:\Program Files\ANSYS Inc', ...
+    'C:\Program Files\ANSYS Inc241', ...
+    'D:\Program Files\ANSYS Inc241', ...
+    'E:\Program Files\ANSYS Inc241'};
+
+for i = 1:length(base_paths)
+    candidates = dir(fullfile(base_paths{i}, 'v*', 'ANSYS', 'bin', 'winx64', 'MAPDL.exe'));
+    if ~isempty(candidates)
+        exe = fullfile(candidates(end).folder, candidates(end).name);
+        return;
+    end
+    candidates = dir(fullfile(base_paths{i}, 'v*', 'ANSYS', 'bin', 'winx64', 'ansys*.exe'));
+    if ~isempty(candidates)
+        exe = fullfile(candidates(end).folder, candidates(end).name);
+        return;
+    end
+end
+
+% Try system PATH
+[status, result] = system('where MAPDL.exe 2>nul');
+if status == 0
+    exe = strtrim(result);
+    exe = strsplit(exe, newline);
+    exe = strtrim(exe{1});
+    return;
+end
+[status, result] = system('where ansys241.exe 2>nul');
+if status == 0
+    exe = strtrim(result);
+    exe = strsplit(exe, newline);
+    exe = strtrim(exe{1});
+end
+end
+
+function job_name = make_job_name(task_id, work_dir)
+% Generate a unique ANSYS job name to avoid stale .lock collisions.
+tmp_name = tempname(work_dir);
+[~, base_name] = fileparts(tmp_name);
+job_name = sprintf('eval_t%d_%s', task_id, base_name);
+end
+
+function cleanup_work_dir(work_dir, job_name)
+% Remove ANSYS temp files but keep the directory
+patterns = {[job_name '*.rst'], [job_name '*.rth'], [job_name '*.full'], [job_name '*.esav'], ...
+    [job_name '*.mntr'], [job_name '*.err'], [job_name '*.log'], ...
+    [job_name '*.out'], [job_name '*.DSP'], [job_name '*.page'], ...
+    [job_name '*.lock'], [job_name '*.BCS'], [job_name '*.db'], ...
+    [job_name '*.mac'], [job_name '*.bat'], ...
+    [job_name '_results.txt'], '*.png'};
+for i = 1:length(patterns)
+    files = dir(fullfile(work_dir, patterns{i}));
+    for j = 1:length(files)
+        delete(fullfile(work_dir, files(j).name));
+    end
+end
+end

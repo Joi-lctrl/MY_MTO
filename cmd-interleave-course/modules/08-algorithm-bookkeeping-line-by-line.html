@@ -1,0 +1,150 @@
+<section class="module" id="module-8">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">08</span>
+      <h1 class="module-title">Runtime Bookkeeping</h1>
+      <p class="module-subtitle">
+        这一页把 <code>Algorithm.notTerminated</code> 讲成一个执行检查点: 它不只是返回 true / false, 它还会在每代末尾把结果、人口大小、FE 和回调都补齐。
+      </p>
+    </header>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">第 111 到 116 行: 先判断这个检查点是否允许继续</h2>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>111 % Check Termination Condition
+112 if Algo.FE &lt;= 0
+113     flag = true;
+114     return;
+115 end
+116 flag = Algo.FE &lt; Prob.maxFE;</code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">RUNTIME TRACE</span>
+          <div class="translation-lines">
+            <p class="tl"><code>L111</code> 这是一个检查点的入口注释, 提醒你这里先看“要不要继续跑”。</p>
+            <p class="tl"><code>L112</code> 如果 FE 还没被正常推进到正数, 这里先挡住, 不让后面的记账逻辑乱写。</p>
+            <p class="tl"><code>L113</code> 直接把返回值设成 true, 表示当前还没违反运行条件。</p>
+            <p class="tl"><code>L114</code> 然后立刻返回, 这个检查点到此结束。</p>
+            <p class="tl"><code>L115</code> 结束早退分支。</p>
+            <p class="tl"><code>L116</code> 正常情况下, 只要 FE 还小于 maxFE, 算法就还能继续往下跑一个检查周期。</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">第 118 到 146 行: 检查点在每代末尾写结果</h2>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>118 gen = Algo.Gen;
+119 isSingleObj = max(Prob.M) == 1;
+120 for t = 1:Prob.T
+121     if isSingleObj
+122         % Single-objective: Record Best solution
+123         bestSol = Algo.Best{t};
+124         Algo.Result(t, gen).Obj = bestSol.Obj;
+125         Algo.Result(t, gen).CV = bestSol.CV;
+126         if Algo.Save_Dec
+127             Algo.Result(t, gen).Dec = bestSol.Dec;
+128         else
+129             Algo.Result(t, gen).Dec = [];
+130         end
+131     else
+132         % Multi-objective: Record Population
+133         popSol = Pop{t};
+134         Algo.Result(t, gen).Obj = popSol.Objs;
+135         Algo.Result(t, gen).CV = popSol.CVs;
+136         if Algo.Save_Dec
+137             Algo.Result(t, gen).Dec = popSol.Decs;
+138         else
+139             Algo.Result(t, gen).Dec = [];
+140         end
+141     end
+142 end
+143 popSizes = Algo.snapshotPopulationSizes(Prob, Pop);
+144 if ~isempty(popSizes)
+145     Algo.PopSize_Gen(gen, 1:numel(popSizes)) = popSizes;
+146 end</code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">RUNTIME TRACE</span>
+          <div class="translation-lines">
+            <p class="tl"><code>L118</code> 先拿到当前代号, 因为这一整轮的结果都要写进同一个 generation slot。</p>
+            <p class="tl"><code>L119</code> 判断现在跑的是单目标还是多目标, 这会决定后面记“最好个体”还是记“整个人口”。</p>
+            <p class="tl"><code>L120</code> 按任务循环, 每个任务都要单独写一份 checkpoint。</p>
+            <p class="tl"><code>L121</code> 单目标就走这里。</p>
+            <p class="tl"><code>L122</code> 注释直接说明: 这里只记最佳解, 不是整个人口。</p>
+            <p class="tl"><code>L123</code> 取出当前任务已经找到的最佳个体。</p>
+            <p class="tl"><code>L124</code> 把这个个体的目标值写进当前代的结果槽。</p>
+            <p class="tl"><code>L125</code> 同时写入约束违反值。</p>
+            <p class="tl"><code>L126</code> 再看这一轮是否允许保存决策变量。</p>
+            <p class="tl"><code>L127</code> 如果允许, 就把最佳个体的 <code>Dec</code> 也写进去。</p>
+            <p class="tl"><code>L128</code> 否则走这里。</p>
+            <p class="tl"><code>L129</code> 不保存时, 明确写一个空数组, 保持结果结构一致。</p>
+            <p class="tl"><code>L130</code> 结束单目标记录分支。</p>
+            <p class="tl"><code>L131</code> 多目标就走另一条路径。</p>
+            <p class="tl"><code>L132</code> 注释说明多目标模式下要记的是整个人口。</p>
+            <p class="tl"><code>L133</code> 取出当前任务的人口对象。</p>
+            <p class="tl"><code>L134</code> 把整个人口的目标矩阵写进结果结构。</p>
+            <p class="tl"><code>L135</code> 约束违反矩阵也同样写进去。</p>
+            <p class="tl"><code>L136</code> 再检查是否需要保存决策变量。</p>
+            <p class="tl"><code>L137</code> 允许保存时, 整个人口的 <code>Decs</code> 也会被放进结果里。</p>
+            <p class="tl"><code>L138</code> 否则走这里。</p>
+            <p class="tl"><code>L139</code> 不保存时, 还是写空数组以保持结构稳定。</p>
+            <p class="tl"><code>L140</code> 结束多目标记录分支。</p>
+            <p class="tl"><code>L141</code> 结束单目标 / 多目标的总分支。</p>
+            <p class="tl"><code>L142</code> 结束按任务写结果的循环。</p>
+            <p class="tl"><code>L143</code> 现在把当前代的任务人口大小统计出来, 这是检查点里的第二笔账。</p>
+            <p class="tl"><code>L144</code> 只有统计结果非空时才往总表里写。</p>
+            <p class="tl"><code>L145</code> <code>numel(popSizes)</code> 决定要写多少个任务槽位; 这一行就是把行向量按当前 generation 写回去。</p>
+            <p class="tl"><code>L146</code> 结束人口大小记录分支。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-accent animate-in">
+        <div class="callout-icon">i</div>
+        <div class="callout-content">
+          <strong class="callout-title">这一步的本质是“写 checkpoint”, 不是“再跑一次算法”</strong>
+          <p><code>notTerminated</code> 只在代末做收尾: 它把当前代的最佳解或整个人口存进 <code>Algo.Result</code>, 再把人口大小写进 <code>PopSize_Gen</code>。真正的搜索算子并不在这里执行。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">第 147 到 152 行: 记录 FE, 推进代号, 再把控制权交回去</h2>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>147 % Stage update
+148 Algo.FE_Gen(gen) = Algo.FE;
+149 Algo.Gen = Algo.Gen + 1;
+151 drawnow('limitrate');
+152 Algo.Check_Status_Fn();</code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">RUNTIME TRACE</span>
+          <div class="translation-lines">
+            <p class="tl"><code>L147</code> 这一句注释说明下面是阶段性更新, 也就是这个 checkpoint 的收尾动作。</p>
+            <p class="tl"><code>L148</code> 把当前代结束时的 FE 写进历史, 以后画曲线或做分析都靠它。</p>
+            <p class="tl"><code>L149</code> 代号加一, 下一轮检查点就会往前挪一个槽位。</p>
+            <p class="tl"><code>L151</code> 刷新图形事件队列, 但限制刷新频率, 避免每代都把界面拖慢。</p>
+            <p class="tl"><code>L152</code> 调用外层脚本挂进来的状态回调; 到这里, 一个代末检查点才算彻底结束。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-info animate-in">
+        <div class="callout-icon">i</div>
+        <div class="callout-content">
+          <strong class="callout-title">为什么这里像“检查点”而不是“终点”</strong>
+          <p>因为它会先记账、再推进、再回调。只要 <code>flag</code> 还没被外部条件打成 false，算法就会回到主循环继续下一代。这个函数是节拍器, 不是终止按钮。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

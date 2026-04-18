@@ -1,0 +1,86 @@
+FINISH  
+/CLEAR, START   
+/TITLE, Task8_opt   
+/NOPR   
+RESUME, task8_base_model, db
+/PREP7  
+    
+SECTYPE, 1, BEAM, I, LONG_1, 5  
+SECDATA, 155.005, 1600, 414.346, 19.5604, 10, 6.67339   
+SECTYPE, 2, BEAM, I, LONG_2, 5  
+SECDATA, 192.824, 1600, 503.494, 11.7604, 10, 6.5263
+SECTYPE, 3, BEAM, I, LONG_3, 5  
+SECDATA, 126.03, 1600, 287.36, 11.569, 10, 7.71034  
+SECTYPE, 4, BEAM, I, LONG_4, 5  
+SECDATA, 148.567, 1200, 394.888, 11.9776, 10, 9.43497   
+SECTYPE, 5, BEAM, I, RIB_1, 5   
+SECDATA, 213.31, 1200, 338.622, 10.7406, 10, 7.92958
+SECTYPE, 6, BEAM, I, RIB_2, 5   
+SECDATA, 140.505, 1200, 493.377, 13.0607, 10, 4.08899   
+SECTYPE, 7, BEAM, I, RIB_3, 5   
+SECDATA, 217.37, 1200, 385.451, 17.6252, 10, 6.39614
+SECTYPE, 8, BEAM, I, RIB_4, 5   
+SECDATA, 167.893, 1200, 318.608, 18.6592, 10, 8.65753   
+SECTYPE, 9, BEAM, I, RIB_5, 5   
+SECDATA, 210.136, 1200, 290.646, 14.3753, 10, 5.59977   
+    
+FINISH  
+FINISH  
+/SOLU   
+ANTYPE, STATIC  
+OUTRES, ALL, LAST   
+OUTRES, MISC, LAST  
+SOLVE   
+FINISH  
+    
+/POST1  
+SET, LAST   
+/ESHAPE, 1  
+    
+*GET, sx_max, SECR, ALL, S, X, MAX  
+*GET, sx_min, SECR, ALL, S, X, MIN  
+*GET, sxy_max, SECR, ALL, S, XY, MAX
+*GET, sxy_min, SECR, ALL, S, XY, MIN
+*GET, sxz_max, SECR, ALL, S, XZ, MAX
+*GET, sxz_min, SECR, ALL, S, XZ, MIN
+    
+max_bend = ABS(sx_max)  
+*IF,ABS(sx_min),GT,max_bend,THEN
+	max_bend = ABS(sx_min) 
+*ENDIF  
+    
+max_shear = ABS(sxy_max)
+*IF,ABS(sxy_min),GT,max_shear,THEN  
+	max_shear = ABS(sxy_min)   
+*ENDIF  
+*IF,ABS(sxz_max),GT,max_shear,THEN  
+	max_shear = ABS(sxz_max)   
+*ENDIF  
+*IF,ABS(sxz_min),GT,max_shear,THEN  
+	max_shear = ABS(sxz_min)   
+*ENDIF  
+    
+*STATUS,max_bend
+*STATUS,max_shear   
+    
+*CFOPEN, eval_t8_tpbc3dd45a_eb57_42fc_b632_2ca6b9983fed_results, txt
+*VWRITE, sx_max 
+(F20.6) 
+*VWRITE, sx_min 
+(F20.6) 
+*VWRITE, sxy_max
+(F20.6) 
+*VWRITE, sxy_min
+(F20.6) 
+*VWRITE, sxz_max
+(F20.6) 
+*VWRITE, sxz_min
+(F20.6) 
+    
+! Total structural mass from FEA model  
+ALLSEL, ALL 
+*GET, total_mass, ELEM, 0, MTOT, Z  
+*VWRITE, total_mass 
+(E20.10)
+*CFCLOS 
+FINISH  

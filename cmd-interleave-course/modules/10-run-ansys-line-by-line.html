@@ -1,0 +1,127 @@
+<section class="module" id="module-10">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">10</span>
+      <h1 class="module-title">ANSYS Wrapper Trace</h1>
+      <p class="module-subtitle">
+        这一页只看 <code>run_ansys_eval</code> 怎么把一条真实尺寸向量交给 ANSYS, 哪些地方会提前失败, 以及失败时为什么统一改成惩罚值而不是直接抛断整轮优化。
+      </p>
+    </header>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Trace 1: 先建 <code>extra</code> 结构体, 再准备工作目录和输入文件</h2>
+      <div class="pattern-card runtime-card animate-in">
+        <div class="pattern-icon">1</div>
+        <h4 class="pattern-title">Current line</h4>
+        <p class="pattern-desc"><code>run_ansys_eval.m:L20-L46</code></p>
+        <h4 class="pattern-title">What happens here</h4>
+        <p class="pattern-desc">
+          <code>extra = struct(...)</code> 先创建一个固定字段的诊断包: <code>error</code>、<code>feasible</code>、质量、最大应力和几何差值都先占位。后面就算某一步失败, 调用者也还能拿到结构化状态。
+        </p>
+        <h4 class="pattern-title">Next jump</h4>
+        <p class="pattern-desc">
+          接着会实例化 <code>Ship_Panel_Problem</code>, 计算解析质量, 建工作目录, 再把 <code>cleanup</code> 包装成 <code>onCleanup</code> 守卫。
+        </p>
+        <h4 class="pattern-title">Return point</h4>
+        <p class="pattern-desc">如果前面的准备都成功, 控制权继续流向宏文件生成和 ANSYS 启动阶段; 如果还没出错, 这里不会 return。</p>
+      </div>
+
+      <div class="callout callout-info animate-in">
+        <div class="callout-icon">i</div>
+        <div class="callout-content">
+          <strong class="callout-title">为什么要用 <code>struct(...)</code></strong>
+          <p>这不是随手拼一个杂物袋, 而是把每次评估要汇报的状态字段一次性定死。调用者后面只要看 <code>extra.error</code>、<code>extra.feasible</code> 和各个测量值, 就知道这次评估是成功、失败, 还是只拿到了部分诊断数据。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Trace 2: 三个早退点都走同一套惩罚路线</h2>
+      <div class="pattern-cards stagger-children" style="grid-template-columns: 1fr; margin-top: var(--space-6);">
+        <div class="pattern-card runtime-card animate-in" style="border-top-color: var(--color-error);">
+          <div class="pattern-icon">2</div>
+          <h4 class="pattern-title">Failure path</h4>
+          <p class="pattern-desc"><code>run_ansys_eval.m:L57-L77</code></p>
+          <h4 class="pattern-title">What fails</h4>
+          <p class="pattern-desc">
+            这一段只处理真正的前置失败: <code>fopen(mac_file, 'w')</code> 打不开宏文件, 或者 <code>find_ansys_exe()</code> 找不到可执行文件。
+          </p>
+          <h4 class="pattern-title">Penalty behavior</h4>
+          <p class="pattern-desc">
+            这两个前置失败都会先发 <code>warning(...)</code>, 然后把 <code>obj</code> 设成 <code>1e10</code>, <code>con</code> 设成 <code>[100 100 100 100]</code>, 再把 <code>extra.error = true</code>, 最后直接 <code>return</code>。
+          </p>
+          <h4 class="pattern-title">Why this matters</h4>
+          <p class="pattern-desc">
+            这一步的作用是把“连输入文件都没准备好”这种问题尽早拦住, 不让后面的 ANSYS 运行阶段接着浪费时间。
+          </p>
+        </div>
+
+        <div class="pattern-card runtime-card animate-in" style="border-top-color: var(--color-actor-4);">
+          <div class="pattern-icon">3</div>
+          <h4 class="pattern-title">Failure path</h4>
+          <p class="pattern-desc"><code>run_ansys_eval.m:L79-L102</code></p>
+          <h4 class="pattern-title">What fails</h4>
+          <p class="pattern-desc">
+            这一段只管 ANSYS 真正跑起来之后的失败: <code>system(cmd)</code> 返回非零状态, 或者结果文件存在但 <code>parse_results</code> 读不出有效数值。
+          </p>
+          <h4 class="pattern-title">Penalty behavior</h4>
+          <p class="pattern-desc">
+            两个后置失败都会沿用同样的惩罚输出, 这样调用方不用区分是哪一步崩了, 只要知道这次评估不可用即可。
+          </p>
+          <h4 class="pattern-title">Return point</h4>
+          <p class="pattern-desc">失败后直接退回 <code>Ship_Panel_MTSO.evalTaskBatch</code>, 由上一层决定是否把这次错误再显式重罚一次。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Trace 3: 成功时, 先收集结果, 再组装约束, 最后判断可行性</h2>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>104 extra.max_bend = max_bend;
+105 extra.max_shear = max_shear;
+106 extra.mass_analytical = mass;
+107 extra.mass_fea = fea_mass;
+109 obj = fea_mass;
+113 con = zeros(1, 4);
+114 con(1) = max_bend - task.bend_allow;
+115 con(2) = max_shear - task.shear_allow;
+140 extra.feasible = all(con &lt;= 0);</code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">RUNTIME TRACE</span>
+          <div class="translation-lines">
+            <p class="tl"><code>L104-L107</code> 成功跑完后, 先把最大弯曲应力、最大剪应力、解析质量和 FEA 质量都写回 <code>extra</code>。</p>
+            <p class="tl"><code>L109</code> 目标值最终采用 FEA 质量, 这意味着优化器比较的是 ANSYS 结果, 不是解析估算值。</p>
+            <p class="tl"><code>L113-L115</code> 约束向量先清零, 再填入弯曲和剪切的超限量; 这里的正值就是违反, 负值或零就是满足。</p>
+            <p class="tl"><code>L140</code> <code>all(con &lt;= 0)</code> 只有在四条约束都不超限时才会给 <code>extra.feasible = true</code>。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-warning animate-in">
+        <div class="callout-icon">!</div>
+        <div class="callout-content">
+          <strong class="callout-title">错误到惩罚的路径是双层防线</strong>
+          <p><code>run_ansys_eval</code> 自己会在失败时返回惩罚值; 进入 <code>Ship_Panel_MTSO.evalTaskBatch</code> 之后, 还会再看 <code>extra.error</code>, 把这次解显式记成高惩罚, 保证优化器看到的始终是稳定的数值输出, 而不是中断。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Trace 4: 回到批量评估器, 这里把错误翻译成最终记录值</h2>
+      <div class="pattern-card runtime-card animate-in">
+        <div class="pattern-icon">4</div>
+        <h4 class="pattern-title">Current line</h4>
+        <p class="pattern-desc"><code>Ship_Panel_MTSO.m:L83-L91</code></p>
+        <h4 class="pattern-title">What happens here</h4>
+        <p class="pattern-desc">
+          如果 <code>extra.error</code> 为 true, 这一层会把目标值重写成 <code>1e10</code>, 把四条约束写成一整行大正违反, 然后继续打印调试信息。这样做的目的不是“报错退出”, 而是让优化器把坏解自然排到后面。
+        </p>
+        <h4 class="pattern-title">Return point</h4>
+        <p class="pattern-desc">等这一行个体处理完, 结果再回到 <code>Problem.evaluate</code>, 最终回到 <code>Algorithm.Evaluation</code> 去完成 FE 和记账。</p>
+      </div>
+    </div>
+  </div>
+</section>

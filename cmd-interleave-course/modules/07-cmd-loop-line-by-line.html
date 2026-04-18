@@ -1,0 +1,246 @@
+<section class="module" id="module-7">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">07</span>
+      <h1 class="module-title">Runtime Loop</h1>
+      <p class="module-subtitle">
+        这一页不再做普通逐行翻译, 而是盯住一次真实运行: 先把随机状态和回调挂好, 然后在 <code>algo.run(prob)</code> 处跳走, 最后再回来收尸、记账、保存。
+      </p>
+    </header>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">第 97 到 119 行: 先把这次运行的环境钉死</h2>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>97         rng(seeds(rep));
+98         prob.setTasks();
+99         algo = algos{a};
+100        algo.Result_Num = Results_Num;
+101        algo.Save_Dec = false;
+102        if Disable_Swap && isprop(algo, 'Swap')
+103            algo.Swap = 1;
+104        end
+105        algo.reset();
+107        es = containers.Map();
+108        es('prev_best') = inf(1, nTask);
+109        es('stall_count') = 0;
+110        es('min_fe') = maxFE * EarlyStop_MinFE_Ratio;
+111        es('patience') = EarlyStop_Patience;
+112        es('triggered') = false;
+114        cur_a = a;
+115        algo.Check_Status_Fn = @() live_update_with_earlystop( ...
+116            algo, cur_a, nTask, h_obj, h_cv, active_tasks, fig1, es);
+118        algo.run(prob);
+119        PopulationSizeStats{a, rep} = algo.PopSize_Gen;</code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">RUNTIME TRACE</span>
+          <div class="translation-lines">
+            <p class="tl"><code>L97</code> 这次重复实验先把随机数流切到固定 seed, 所以同一轮 rep 的结果可复现。</p>
+            <p class="tl"><code>L98</code> 重新生成问题任务配置, 让当前算法拿到干净的任务定义。</p>
+            <p class="tl"><code>L99</code> 从算法列表里取出当前要跑的对象, 之后所有状态都挂在这个对象上。</p>
+            <p class="tl"><code>L100</code> 设定收敛曲线最终要采样多少个点。</p>
+            <p class="tl"><code>L101</code> 明确这次不保存决策变量, 只保留摘要结果。</p>
+            <p class="tl"><code>L102</code> 如果算法有 <code>Swap</code> 参数, 这里就把它压到关闭状态。</p>
+            <p class="tl"><code>L103</code> 在这个代码库里, <code>Swap=1</code> 表示不做变量交换。</p>
+            <p class="tl"><code>L104</code> 结束这个可选参数分支。</p>
+            <p class="tl"><code>L105</code> 重置算法对象, 让 FE、Gen、历史缓存都回到起点。</p>
+            <p class="tl"><code>L107</code> 新建一个 <code>containers.Map</code> 来装早停状态; 它是键值对容器, 回调里改它会直接改到同一个对象。</p>
+            <p class="tl"><code>L108</code> 这里存的是“上一次最好值”, 初始用 <code>inf(1, nTask)</code> 占位。</p>
+            <p class="tl"><code>L109</code> 停滞代数先记为 0。</p>
+            <p class="tl"><code>L110</code> 记录允许开始早停检查的最低 FE 门槛。</p>
+            <p class="tl"><code>L111</code> 记录容忍的连续无改进代数。</p>
+            <p class="tl"><code>L112</code> 早停开关先关着。</p>
+            <p class="tl"><code>L114</code> 把当前算法编号单独存一份, 方便匿名函数捕获。</p>
+            <p class="tl"><code>L115</code> 这一行不是立即执行回调, 而是造出一个匿名函数句柄, 等算法每代末尾再来调用。</p>
+            <p class="tl"><code>L116</code> 匿名函数把绘图句柄、任务编号、图窗和 <code>containers.Map</code> 一起封进去, 形成一个可回放的 runtime hook。</p>
+            <p class="tl"><code>L118</code> 真正的运行从这里开始, 后面会跳进算法类自己的 <code>run</code> 方法。</p>
+            <p class="tl"><code>L119</code> 算法返回后, 这里接住并保存每代的种群大小快照。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-info animate-in">
+        <div class="callout-icon">i</div>
+        <div class="callout-content">
+          <strong class="callout-title">MATLAB basics: rng / containers.Map / anonymous function</strong>
+          <p><code>rng(seeds(rep))</code> 不是“随机一下”, 而是把随机流重置到一个固定起点, 所以这次 rep 里所有后续采样都能复现。</p>
+          <p><code>containers.Map</code> 像一个可共享的字典, 适合把“跨函数要继续更新”的状态放进去。</p>
+          <p><code>@() live_update_with_earlystop(...)</code> 是匿名函数句柄, 这里的作用是延迟执行: 先把上下文捕获好, 等 <code>notTerminated</code> 的时机再真正跑。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">第 118 行: <code>algo.run(prob)</code> 是显式跳转卡</h2>
+      <div class="pattern-card runtime-card animate-in">
+        <div class="pattern-icon">J</div>
+        <h4 class="pattern-title">Current line</h4>
+        <p class="pattern-desc"><code>cmd_interleave.m:L118</code></p>
+        <h4 class="pattern-title">What happens here</h4>
+        <p class="pattern-desc">脚本把控制权交给当前算法对象。这个调用会进入所选算法类的 <code>run(prob)</code>，里面才是真正的初始化、繁殖、选择和代际循环。</p>
+        <h4 class="pattern-title">Next jump</h4>
+        <p class="pattern-desc">跳进 <code>algo</code> 的类实现，沿着 <code>run</code> 和它内部调用的 <code>notTerminated</code> 往下走。</p>
+        <h4 class="pattern-title">Return point</h4>
+        <p class="pattern-desc">算法结束后回到 <code>cmd_interleave.m:L119</code>，继续保存 <code>PopulationSizeStats</code> 和后面的结果提取。</p>
+      </div>
+      <div class="callout callout-accent animate-in">
+        <div class="callout-icon">i</div>
+        <div class="callout-content">
+          <strong class="callout-title">这里要把“调用”理解成一次上下文切换</strong>
+          <p>外层脚本并没有自己做进化，它只是把已经配置好的 <code>algo</code> 交出去。真正跑循环的是算法对象，外层只在返回后继续收尾。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">第 119 到 188 行: 算法回来以后, 先把本轮结果封存</h2>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>119        PopulationSizeStats{a, rep} = algo.PopSize_Gen;
+121        if es('triggered')
+122            fprintf('  [早停] %s 停止（连续%d代无改进）\n', ...
+123                algo_names{a}, es('patience'));
+124        end
+126        for t = 1:nTask
+127            if ~isempty(algo.Best) && numel(algo.Best) &gt;= t && ~isempty(algo.Best{t})
+128                d = prob.D(t);
+129                dec_norm = algo.Best{t}.Dec(1:d);
+130                BestDecNorm{a, rep, t} = dec_norm;
+131                BestDecReal{a, rep, t} = prob.Lb{t} + dec_norm .* (prob.Ub{t} - prob.Lb{t});
+132                BestCV(a, rep, t) = algo.Best{t}.CV;
+133            end
+134        end
+136        tmp = algo.getResult(prob);
+137        fe_gen = algo.FE_Gen;
+138        if ~isempty(fe_gen)
+139            nPoints = size(tmp, 2);
+140            fe_axis_real = linspace(fe_gen(1), fe_gen(end), nPoints);
+141            if isempty(ConvergeFE{a})
+142                ConvergeFE{a} = nan(Reps, nPoints);
+143            end
+144            ConvergeFE{a}(rep, :) = fe_axis_real;
+145        end
+146        for t = 1:nTask
+147            obj_hist = [tmp(t, :).Obj];
+148            if isempty(ConvergeObj{a}{t})
+149                ConvergeObj{a}{t} = nan(Reps, numel(obj_hist));
+150            end
+151            ConvergeObj{a}{t}(rep, :) = obj_hist;
+152            BestObj(a, rep, t) = obj_hist(end);
+153        end
+171 %% ===== 汇总 =====
+184 save_name = sprintf('interleave_%s.mat', datestr(now, 'yyyymmdd_HHMMSS'));
+185 save(save_name, 'BestObj', 'BestCV', 'BestDecNorm', 'BestDecReal', ...
+186     'ConvergeObj', 'ConvergeFE', 'algo_names', 'active_tasks', ...
+187     'Reps', 'maxFE', 'Disable_Swap', 'Global_Seed', 'rep_seeds', ...
+188     'PopulationSizeStats');</code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">RUNTIME TRACE</span>
+          <div class="translation-lines">
+            <p class="tl"><code>L119</code> 把每代的种群大小历史接走, 这是算法返回后的第一份账单。</p>
+            <p class="tl"><code>L121</code> 早停标记若已触发, 这里会打印停止原因。</p>
+            <p class="tl"><code>L122</code> 输出算法名, 让这次停止对应到具体运行对象。</p>
+            <p class="tl"><code>L126</code> 开始按任务封存最终最佳解。</p>
+            <p class="tl"><code>L127</code> <code>numel(algo.Best)</code> 先确认这个 cell 容器里已经有第 <code>t</code> 个任务的最佳解槽位。</p>
+            <p class="tl"><code>L128</code> 读出该任务的维度 <code>d</code>。</p>
+            <p class="tl"><code>L129</code> 切出最佳个体里真正需要的前 <code>d</code> 个归一化决策变量。</p>
+            <p class="tl"><code>L130</code> 把归一化最优解写进最终结果容器。</p>
+            <p class="tl"><code>L131</code> 立刻映射回真实物理量并写入另一份结果槽位。</p>
+            <p class="tl"><code>L132</code> 记录该任务的约束违反值。</p>
+            <p class="tl"><code>L136</code> 开始提取完整收敛历史。</p>
+            <p class="tl"><code>L137</code> 读出逐代 FE 历史。</p>
+            <p class="tl"><code>L139</code> <code>size(tmp, 2)</code> 数的是重采样结果的列数, 也就是这条收敛轨迹里有多少个点; 同族里的 <code>size(x,1)</code> 会数行数。</p>
+            <p class="tl"><code>L140</code> 用首尾 FE 拉出一条同长度的真实横轴。</p>
+            <p class="tl"><code>L142</code> <code>nan(Reps, nPoints)</code> 这里是预分配: <code>NaN</code> 标出“还没写入”, 而 <code>zeros(...)</code> 则是全零预分配的同族写法, 只适合零可以当安全默认值的场景。</p>
+            <p class="tl"><code>L144</code> 把这次重复的 FE 横轴写回去。</p>
+            <p class="tl"><code>L147</code> 从重采样结果里拼出该任务的目标值历史。</p>
+            <p class="tl"><code>L149</code> <code>numel(obj_hist)</code> 数的是这条历史向量里共有多少个采样点, 正好拿来分配列数。</p>
+            <p class="tl"><code>L151</code> 把当前 rep 的目标值历史写入对应行。</p>
+            <p class="tl"><code>L152</code> 取最后一个点作为这一轮的最终最佳目标值。</p>
+            <p class="tl"><code>L184</code> 生成带时间戳的结果文件名。</p>
+            <p class="tl"><code>L185</code> 开始写盘保存核心结果。</p>
+            <p class="tl"><code>L188</code> 把逐代种群大小统计一并落盘。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-info animate-in">
+        <div class="callout-icon">i</div>
+        <div class="callout-content">
+          <strong class="callout-title">MATLAB basics: size(x,1), numel(x), zeros(...)</strong>
+          <p><code>size(x,1)</code> 是同一类 <code>size(...)</code> 写法里的“数行数”形式。这里代码实际用的是 <code>size(tmp, 2)</code> 来数列数, 因为它在追踪重采样结果的列宽。</p>
+          <p><code>numel(x)</code> 统计的是总元素数。这里它对应 <code>numel(obj_hist)</code>, 用来知道这条目标历史到底有多少个采样点, 好分配 <code>ConvergeObj</code> 的列数。</p>
+          <p><code>zeros(...)</code> 是全零预分配的同类写法。这里附近用的是 <code>nan(Reps, nPoints)</code>, 因为 <code>NaN</code> 更适合标出“还没写入”的空位, 不会把缺失数据伪装成真实的 0。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">第 193 到 220 行: 回调函数在每代末尾追踪运行态</h2>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>193 function live_update_with_earlystop(algo, algo_idx, nTask, h_obj, h_cv, active_tasks, fig1, es)
+194 % 每代由 Algorithm.notTerminated 调用，实时更新图形 + 早停检查
+195 if ~isvalid(fig1), return; end
+197 fe = algo.FE;
+198 cur_best = inf(1, nTask);
+199 for t = 1:nTask
+200     if ~isempty(algo.Best) && numel(algo.Best) &gt;= t && ~isempty(algo.Best{t})
+201         addpoints(h_obj(algo_idx, t), fe, algo.Best{t}.Obj);
+202         addpoints(h_cv(algo_idx, t),  fe, algo.Best{t}.CV);
+203         cur_best(t) = algo.Best{t}.Obj;
+204     end
+205 end
+207 drawnow('limitrate');
+209 % 早停检查：超过最低FE后，连续patience代无改进则强制终止
+210 if fe &gt;= es('min_fe')
+211     prev_best = es('prev_best');
+212     improved = any(cur_best &lt; prev_best - 1e-6);
+213     if improved
+214         es('stall_count') = 0;
+215         es('prev_best') = min(cur_best, prev_best);
+216     else
+217         es('stall_count') = es('stall_count') + 1;
+218     end
+219     if es('stall_count') &gt;= es('patience')
+220         es('triggered') = true;</code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">RUNTIME TRACE</span>
+          <div class="translation-lines">
+            <p class="tl"><code>L193</code> 这是回调入口, 不是主流程; 它只会在算法每代收尾时被叫到。</p>
+            <p class="tl"><code>L194</code> 注释已经把职责写死: 更新图形, 顺便检查要不要早停。</p>
+            <p class="tl"><code>L195</code> 如果图窗被关掉, 这条回调直接退场, 避免在失效句柄上画图。</p>
+            <p class="tl"><code>L197</code> 把当前 FE 读出来, 因为图上的点要标在这一代的位置。</p>
+            <p class="tl"><code>L198</code> 先造一个“当前最好值”向量, 初始全是正无穷。</p>
+            <p class="tl"><code>L199</code> 按任务走一遍, 把每个任务的点都检查一遍。</p>
+            <p class="tl"><code>L200</code> 只有已经有最佳解的任务才往图上加新点。</p>
+            <p class="tl"><code>L201</code> 给目标值曲线追加一个新采样点。</p>
+            <p class="tl"><code>L202</code> 给约束违反曲线也追加一个新采样点。</p>
+            <p class="tl"><code>L203</code> 顺手更新当前代看到的最好目标值。</p>
+            <p class="tl"><code>L204</code> 结束这个任务是否可画的分支。</p>
+            <p class="tl"><code>L205</code> 结束按任务收集曲线数据的循环。</p>
+            <p class="tl"><code>L207</code> 刷新图窗, 但限制刷新频率, 防止 UI 被拖慢。</p>
+            <p class="tl"><code>L209</code> 下面开始做早停逻辑。</p>
+            <p class="tl"><code>L210</code> 只有 FE 已经过了门槛, 才允许把停滞当成“真停滞”来判断。</p>
+            <p class="tl"><code>L211</code> 读出上一次记录的最好值。</p>
+            <p class="tl"><code>L212</code> 只要当前任何任务比历史最好好一点点, 就算本代有改进。</p>
+            <p class="tl"><code>L213</code> 如果改进了, 走这个分支。</p>
+            <p class="tl"><code>L214</code> 有改进就把停滞计数清零。</p>
+            <p class="tl"><code>L215</code> 并把历史最好值更新成更小的那个。</p>
+            <p class="tl"><code>L216</code> 如果没有改进, 就走这里。</p>
+            <p class="tl"><code>L217</code> 没改进就把停滞代数加一。</p>
+            <p class="tl"><code>L218</code> 结束“是否改进”的分支。</p>
+            <p class="tl"><code>L219</code> 如果停滞代数已经顶到上限, 这次回调就会准备结束算法。</p>
+            <p class="tl"><code>L220</code> 把触发标记置位, 后面 <code>notTerminated</code> 会因此返回 false。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

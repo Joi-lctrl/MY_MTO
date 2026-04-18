@@ -15,9 +15,12 @@ properties
     FE double = 0 % Function evaluations
     Gen double = 1 % Generations
     FE_Gen double % FE in each Gen
+    TaskFE double = [] % Task-wise cumulative evaluations
+    TaskFE_Gen double = [] % Task-wise FE snapshot in each generation
     Best cell % Best individual found
     Mean cell % Mean of distribution
     Result struct % Result structure array
+    PopSize_Gen double = [] % Population size snapshot in each generation
     Result_Num double % Convergence Results Num
     Save_Dec logical = false % Save Decision Variables Flag
     Check_Status_Fn = @(varargin)[]
@@ -42,8 +45,11 @@ methods
         Algo.FE = 0;
         Algo.Gen = 1;
         Algo.FE_Gen = [];
+        Algo.TaskFE = [];
+        Algo.TaskFE_Gen = [];
         Algo.Best = {};
         Algo.Result = struct('Obj', {}, 'CV', {}, 'Dec', {});
+        Algo.PopSize_Gen = [];
     end
 
     function Parameter = getParameter(Algo)
@@ -138,8 +144,15 @@ methods
                 end
             end
         end
+        popSizes = Algo.snapshotPopulationSizes(Prob, Pop);
+        if ~isempty(popSizes)
+            Algo.PopSize_Gen(gen, 1:numel(popSizes)) = popSizes;
+        end
         % Stage update
         Algo.FE_Gen(gen) = Algo.FE;
+        if ~isempty(Algo.TaskFE)
+            Algo.TaskFE_Gen(gen, 1:numel(Algo.TaskFE)) = Algo.TaskFE;
+        end
         Algo.Gen = Algo.Gen + 1;
 
         drawnow('limitrate');
@@ -177,7 +190,12 @@ methods
         % Problem Evaluation
         [Objs, Cons] = Prob.evaluate(x, t);
         % Update FE count based on actual evaluations performed
-        Algo.FE = Algo.FE + size(x, 1);
+        eval_count = size(x, 1);
+        Algo.FE = Algo.FE + eval_count;
+        if isempty(Algo.TaskFE)
+            Algo.TaskFE = zeros(1, Prob.T);
+        end
+        Algo.TaskFE(t) = Algo.TaskFE(t) + eval_count;
 
         % Update Population
         PopObjs = Objs(1:lenPop, :);
@@ -223,6 +241,43 @@ methods
                 end
             end
         end
+    end
+
+    function popSizes = snapshotPopulationSizes(~, Prob, Pop)
+        popSizes = nan(1, Prob.T);
+        if nargin < 3 || isempty(Pop)
+            return;
+        end
+
+        if iscell(Pop)
+            upper = min(Prob.T, numel(Pop));
+            for t = 1:upper
+                popSizes(t) = numel(Pop{t});
+            end
+            return;
+        end
+
+        if Prob.T == 1
+            popSizes(1) = numel(Pop);
+            return;
+        end
+
+        if isobject(Pop) || isstruct(Pop)
+            try
+                mfFactor = [Pop.MFFactor];
+                if ~isempty(mfFactor)
+                    for t = 1:Prob.T
+                        popSizes(t) = sum(mfFactor == t);
+                    end
+                    return;
+                end
+            catch
+            end
+        end
+
+        % Fall back to recording only the total population size when the
+        % task-wise split cannot be inferred from the container shape.
+        popSizes(1) = numel(Pop);
     end
 end
 

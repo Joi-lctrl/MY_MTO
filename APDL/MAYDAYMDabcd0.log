@@ -1,0 +1,4931 @@
+/BATCH  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       21:33:08
+/input,menust,tmp,''
+/GRA,POWER
+/GST,ON
+/PLO,INFO,3
+/GRO,CURL,ON
+/CPLANE,1   
+/REPLOT,RESIZE  
+WPSTYLE,,,,,,,,0
+/INPUT,'Task2_lower.mac','txt','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       21:34:59
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+EPLOT   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/INPUT,'Task3_lower','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       21:35:52
+EPLOT   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+!*  
+/EFACET,1   
+PLNSOL, S,X, 0,1.0  
+!*  
+/SHRINK,0   
+/ESHAPE,1   
+/EFACET,1   
+/RATIO,1,1,1
+/CFORMAT,32,0   
+/REPLOT 
+!*  
+/GRAPHICS,POWER 
+!*  
+/TYPE,1,6   
+/CPLANE,0   
+/SHADE,1,1  
+/HBC,1,0
+/REPLOT 
+!*  
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/ZOOM,1,RECT,0.540306,0.60754 ,1.22776607844 ,0.156229850856
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/ZOOM,1,RECT,-0.244521,-0.236085 ,0.817650173939 ,-0.970569418971   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/ZOOM,1,RECT,-0.0910959,0.675383 ,0.844204441137 ,-0.180040088307   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/ZOOM,1,RECT,-0.533667,0.250621 ,0.0741306923966 ,-0.221336396625   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/ZOOM,1,RECT,0.991728,-0.256733 ,1.35168599203 ,-0.675595788126 
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/VIEW,1,,,1 
+/ANG,1  
+/REP,FAST   
+/VIEW,1,1   
+/ANG,1  
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/ANG,1,-30,YS,1 
+/REP,FAST   
+/ANG,1,-30,YS,1 
+/REP,FAST   
+/ANG,1,-30,YS,1 
+/REP,FAST   
+/ANG,1,-30,YS,1 
+/REP,FAST   
+/ANG,1,-30,YS,1 
+/REP,FAST   
+/ANG,1,-30,YS,1 
+/REP,FAST   
+/ANG,1,30,YS,1  
+/REP,FAST   
+/ANG,1,30,XS,1  
+/REP,FAST   
+/ANG,1,30,XS,1  
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/VIEW,1,1,2,3   
+/ANG,1  
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/VIEW,1,,,-1
+/ANG,1  
+/REP,FAST   
+/VIEW,1,-1  
+/ANG,1  
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/VIEW,1,,-1 
+/ANG,1  
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/ZOOM,1,RECT,-0.970337,0.283069 ,0.71438357928 ,-0.351124794197 
+/FOC,   1,   611.806788654    ,   2516.61559632    ,  -602.568461802
+/REPLO  
+/FOC,   1,   611.806788654    ,   2516.61559632    ,  -983.622623303
+/REPLO  
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/VIEW,  1, -0.546159720293E-01,  0.891251661002E-01,  0.994521895368
+/ANG,   1,   148.359610047  
+/REPLO  
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/INPUT,'Task3_lower','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       00:31:30
+EPLOT   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/USER,  1   
+/DIST,  1,   4160.61674703  
+/ANG,   1,  -64.2000000000  
+/REPLO  
+/VIEW,  1,  0.834963661672    , -0.339587234262    , -0.433031400726
+/ANG,   1,   114.459952591  
+/REPLO  
+/ZOOM,1,RECT,-0.628082,-0.0620506 ,1.25727081977 ,-0.536958181629   
+/VIEW,1,1   
+/ANG,1  
+/REP,FAST   
+/VIEW,1,,,1 
+/ANG,1  
+/REP,FAST   
+/VIEW,1,1   
+/ANG,1  
+/REP,FAST   
+/ANG,1,-30,YS,1 
+/REP,FAST   
+/ANG,1,30,YS,1  
+/REP,FAST   
+/ANG,1,-30,XS,1 
+/REP,FAST   
+/ANG,1,-30,XS,1 
+/REP,FAST   
+/ANG,1,-30,XS,1 
+/REP,FAST   
+/ANG,1,30,XS,1  
+/REP,FAST   
+/ANG,1,30,XS,1  
+/REP,FAST   
+/ANG,1,30,XS,1  
+/REP,FAST   
+/ANG,1,-30,ZS,1 
+/REP,FAST   
+/ANG,1,-30,ZS,1 
+/REP,FAST   
+/ANG,1,-30,ZS,1 
+/REP,FAST   
+/ANG,1,-30,ZS,1 
+/REP,FAST   
+/ANG,1,-30,ZS,1 
+/REP,FAST   
+/ANG,1,-30,ZS,1 
+/REP,FAST   
+/ANG,1,-30,ZS,1 
+/REP,FAST   
+/ANG,1,-30,ZS,1 
+/REP,FAST   
+/ANG,1,-30,ZS,1 
+/REP,FAST   
+/ANG,1,-30,YS,1 
+/REP,FAST   
+/ANG,1,30,YS,1  
+/REP,FAST   
+/ANG,1,30,XS,1  
+/REP,FAST   
+/ANG,1,-30,XS,1 
+/REP,FAST   
+/ANG,1,-30,ZS,1 
+/REP,FAST   
+/ANG,1,30,ZS,1  
+/REP,FAST   
+/ANG,1,-30,YS,1 
+/REP,FAST   
+/ANG,1,-30,YS,1 
+/REP,FAST   
+/ANG,1,-30,YS,1 
+/REP,FAST   
+/ANG,1,-30,YS,1 
+/REP,FAST   
+/ANG,1,-30,YS,1 
+/REP,FAST   
+/ANG,1,-30,YS,1 
+/REP,FAST   
+/ANG,1,-30,XS,1 
+/REP,FAST   
+/ANG,1,-30,XS,1 
+/REP,FAST   
+/ANG,1,-30,XS,1 
+/REP,FAST   
+/ANG,1,-30,XS,1 
+/REP,FAST   
+/ANG,1,-30,XS,1 
+/REP,FAST   
+/ANG,1,-30,XS,1 
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/ANG,1,30,ZS,1  
+/REP,FAST   
+/ANG,1,30,ZS,1  
+/REP,FAST   
+/ANG,1,30,ZS,1  
+/REP,FAST   
+/ANG,1,30,ZS,1  
+/REP,FAST   
+/GRAPHICS,POWER 
+!*  
+/TYPE,1,6   
+/CPLANE,0   
+/SHADE,1,1  
+/HBC,1,0
+/REPLOT 
+!*  
+/GRAPHICS,POWER 
+!*  
+/TYPE,1,6   
+/CPLANE,0   
+/SHADE,1,1  
+/HBC,1,0
+/REPLOT 
+!*  
+!*  
+/EFACET,1   
+PLNSOL, S,X, 0,1.0  
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/ZOOM,1,RECT,-0.197313,0.463002 ,0.572760820891 ,-0.147592988914
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/ZOOM,1,RECT,-0.182561,0.763876 ,1.02418336326 ,0.12968222408   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/VIEW,1,,,1 
+/ANG,1  
+/REP,FAST   
+/VIEW,1,1,2,3   
+/ANG,1  
+/REP,FAST   
+/VIEW,1,,,-1
+/ANG,1  
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/VIEW,1,,-1 
+/ANG,1  
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/ZOOM,1,RECT,-0.813962,0.330264 ,0.678977889683 ,-0.253783496018
+/ANG,1,-30,XS,1 
+/REP,FAST   
+/ANG,1,30,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/INPUT,'Task3_lower','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       00:36:06
+EPLOT   
+/VIEW,1,,,-1
+/ANG,1  
+/REP,FAST   
+/VIEW,1,,1  
+/ANG,1  
+/REP,FAST   
+/VIEW,1,,-1 
+/ANG,1  
+/REP,FAST   
+/VIEW,1,-1  
+/ANG,1  
+/REP,FAST   
+/VIEW,1,-1  
+/ANG,1  
+/REP,FAST   
+/VIEW,1,,-1 
+/ANG,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,1,ZS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+FINISH  
+! /EXIT,NOSAV   
+/BATCH  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       00:37:54
+/input,menust,tmp,''
+/GRA,POWER
+/GST,ON
+/PLO,INFO,3
+/GRO,CURL,ON
+/INPUT,'Task3_lower','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       00:38:13
+/CPLANE,1   
+/REPLOT,RESIZE  
+WPSTYLE,,,,,,,,0
+EPLOT   
+/VIEW,1,,-1 
+/ANG,1  
+/REP,FAST   
+/ANG,1,-30,XS,1 
+/REP,FAST   
+/VIEW,1,,-1 
+/ANG,1  
+/REP,FAST   
+/FOC,1,0.01,,,1 
+/REP,FAST   
+/FOC,1,-0.01,,,1
+/REP,FAST   
+/FOC,1,,-0.01,,1
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/INPUT,'Task3_lower','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       00:46:47
+EPLOT   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/VIEW,1,,-1 
+/ANG,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,1,ZS,1   
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/VIEW,1,-1  
+/ANG,1  
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/VIEW,1,,,-1
+/ANG,1  
+/REP,FAST   
+/VIEW,1,,1  
+/ANG,1  
+/REP,FAST   
+/VIEW,1,1   
+/ANG,1  
+/REP,FAST   
+/VIEW,1,,-1 
+/ANG,1  
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/ZOOM,1,RECT,-0.619231,0.412857 ,1.2690727163 ,-0.463214773918  
+/ZOOM,1,RECT,-0.86412,0.557394 ,1.49035827629 ,-0.463214773918  
+/ZOOM,1,RECT,-0.766754,0.457103 ,1.46085353496 ,-0.545807390554 
+/ZOOM,1,RECT,-0.716596,0.315516 ,1.44020021602 ,-0.321627431112 
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/REPLOT,RESIZE  
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/INPUT,'Task4_lower','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       01:23:50
+EPLOT   
+/VIEW,1,,-1 
+/ANG,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/INPUT,'Task2_lower.mac','txt','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       01:25:01
+EPLOT   
+/VIEW,1,,-1 
+/ANG,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ZOOM,1,RECT,-0.851901,0.588869 ,0.647148910017 ,-0.416159159967
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,1,ZS,1   
+/REP,FAST   
+/ANG,1,1,ZS,1   
+/REP,FAST   
+/ANG,1,1,ZS,1   
+/REP,FAST   
+/ANG,1,1,ZS,1   
+/REP,FAST   
+/ANG,1,1,ZS,1   
+/REP,FAST   
+/ANG,1,1,ZS,1   
+/REP,FAST   
+/ANG,1,1,ZS,1   
+/REP,FAST   
+/ANG,1,1,ZS,1   
+/REP,FAST   
+/ANG,1,1,ZS,1   
+/REP,FAST   
+/ZOOM,1,RECT,-0.29604,0.577045 ,1.09361141561 ,-0.362951772827  
+/VIEW,1,,-1 
+/ANG,1  
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/VIEW,1,,,1 
+/ANG,1  
+/REP,FAST   
+/VIEW,1,,1  
+/ANG,1  
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/FOC,1,0.01,,,1 
+/REP,FAST   
+/FOC,1,0.01,,,1 
+/REP,FAST   
+/FOC,1,0.01,,,1 
+/REP,FAST   
+/FOC,1,0.01,,,1 
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/VIEW,1,,-1 
+/ANG,1  
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/VIEW,1,,,-1
+/ANG,1  
+/REP,FAST   
+/VIEW,1,,1  
+/ANG,1  
+/REP,FAST   
+/VIEW,1,1   
+/ANG,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/VIEW,1,,,1 
+/ANG,1  
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/AUTO,1 
+/REP,FAST   
+/VIEW,1,,-1 
+/ANG,1  
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/ZOOM,1,RECT,0.865945,0.423335 ,1.38336853845 ,-0.0407514840394 
+/ZOOM,1,RECT,1.00787,0.387864 ,1.37745512778 ,-0.324524215449   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/AUTO,1 
+/REP,FAST   
+/ZOOM,1,RECT,1.06996,0.568178 ,1.71156283064 ,-0.0643992116569  
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ZOOM,1,RECT,-0.387698,-0.00823586 ,1.32719113708 ,-0.930497235647  
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/DIST,  1,   1313.99714886  
+/ANG,   1,  -7.59201102619  
+/REPLO  
+/DIST,  1,   1320.38100511  
+/ANG,   1,  -11.8020110262  
+/REPLO  
+/DIST,  1,   1325.39869320  
+/ANG,   1,  -16.0220110262  
+/REPLO  
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+FINISH  
+/PREP7  
+SECPLOT,1,0 
+SECPLOT,2,0 
+SECPLOT,3,0 
+/INPUT,'Task2_lower.mac','txt','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       01:33:00
+EPLOT   
+/VIEW,1,,-1 
+/ANG,1  
+/REP,FAST   
+/VIEW,1,,,-1
+/ANG,1  
+/REP,FAST   
+/VIEW,1,-1  
+/ANG,1  
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/USER,  1   
+/VIEW,  1, -0.998737341563    ,  0.411754668746E-01, -0.287802622617E-01
+/ANG,   1, -0.219515203784E-01  
+/REPLO  
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/VIEW,1,1   
+/ANG,1  
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/VIEW,  1,  0.999095470024    ,  0.382083855147E-01,  0.186644328773E-01
+/ANG,   1,  0.169676713682E-01  
+/REPLO  
+/VIEW,1,,,-1
+/ANG,1  
+/REP,FAST   
+/VIEW,1,-1  
+/ANG,1  
+/REP,FAST   
+/ZOOM,1,RECT,0.691499,0.751447 ,1.66721225062 ,-0.880245814459  
+/ZOOM,1,RECT,0.0380676,0.509058 ,1.31240761041 ,-0.696975925424 
+/ZOOM,1,RECT,-0.532577,0.597737 ,0.670802552698 ,-0.563957457576
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/AUTO,1 
+/REP,FAST   
+/VIEW,1,1   
+/ANG,1  
+/REP,FAST   
+/VIEW,1,,,1 
+/ANG,1  
+/REP,FAST   
+/VIEW,1,-1  
+/ANG,1  
+/REP,FAST   
+/VIEW,1,,-1 
+/ANG,1  
+/REP,FAST   
+/ZOOM,1,RECT,-0.934688,0.509058 ,1.3035374944 ,-0.519617968293  
+/ZOOM,1,RECT,-0.993823,0.512014 ,0.895512158163 ,-0.575781321385
+/ZOOM,1,RECT,-0.355174,0.7278 ,1.14091870097 ,-0.289052624023   
+/ZOOM,1,RECT,-0.183685,0.757359 ,1.33014784242 ,-0.543265695911 
+/ZOOM,1,RECT,-0.801637,0.71302 ,0.629408678006 ,-0.241757168788 
+/ZOOM,1,RECT,-0.585797,0.665724 ,0.77133053409 ,-0.123518530701 
+/ZOOM,1,RECT,-0.30491,0.609561 ,0.892555452828 ,-0.439806887584 
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+FINISH  
+! /EXIT,NOSAV   
+/BATCH  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       01:38:58
+/input,menust,tmp,''
+/GRA,POWER
+/GST,ON
+/PLO,INFO,3
+/GRO,CURL,ON
+/CPLANE,1   
+/REPLOT,RESIZE  
+WPSTYLE,,,,,,,,0
+/INPUT,'Task3_lower','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       01:39:30
+EPLOT   
+/VIEW,1,,-1 
+/ANG,1  
+/REP,FAST   
+/ANG,1,-30,YS,1 
+/REP,FAST   
+/ANG,1,-30,YS,1 
+/REP,FAST   
+/ANG,1,-30,YS,1 
+/REP,FAST   
+/ANG,1,-30,YS,1 
+/REP,FAST   
+/ANG,1,-30,YS,1 
+/REP,FAST   
+/ANG,1,30,XS,1  
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/VIEW,1,,,-1
+/ANG,1  
+/REP,FAST   
+/VIEW,1,,1  
+/ANG,1  
+/REP,FAST   
+/VIEW,1,,-1 
+/ANG,1  
+/REP,FAST   
+/VIEW,1,-1  
+/ANG,1  
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/INPUT,'Task3_lower','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       01:42:45
+EPLOT   
+/VIEW,1,,-1 
+/ANG,1  
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+!*  
+!*  
+/EFACET,1   
+PLNSOL, S,X, 0,1.0  
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/INPUT,'Task3_lower','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       01:44:59
+EPLOT   
+!*  
+/EFACET,1   
+PLNSOL, S,X, 0,1.0  
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/AUTO,1 
+/REP,FAST   
+/ZOOM,1,RECT,-0.182561,0.755026 ,1.16285564751 ,-0.702143414902 
+/ZOOM,1,RECT,-0.259273,0.4866 ,0.794046380874 ,-0.569405281022  
+/ZOOM,1,RECT,-0.215016,0.666534 ,1.09499474245 ,-0.545807390554 
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/VIEW,1,-1  
+/ANG,1  
+/REP,FAST   
+/VIEW,1,,,-1
+/ANG,1  
+/REP,FAST   
+/AUTO,1 
+/REP,FAST   
+/VIEW,1,,,-1
+/ANG,1  
+/REP,FAST   
+/VIEW,1,,,-1
+/ANG,1  
+/REP,FAST   
+/VIEW,1,,1  
+/ANG,1  
+/REP,FAST   
+/VIEW,1,1   
+/ANG,1  
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/ANG,1,-30,ZS,1 
+/REP,FAST   
+/ANG,1,-30,ZS,1 
+/REP,FAST   
+/ANG,1,-30,ZS,1 
+/REP,FAST   
+/ANG,1,-30,XS,1 
+/REP,FAST   
+/ANG,1,30,XS,1  
+/REP,FAST   
+/ANG,1,30,XS,1  
+/REP,FAST   
+/ANG,1,-30,XS,1 
+/REP,FAST   
+/ANG,1,-30,XS,1 
+/REP,FAST   
+/ANG,1,-30,XS,1 
+/REP,FAST   
+/ANG,1,-30,XS,1 
+/REP,FAST   
+/ANG,1,-30,XS,1 
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/VIEW,1,,,-1
+/ANG,1  
+/REP,FAST   
+/VIEW,1,,1  
+/ANG,1  
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/ZOOM,1,RECT,-0.442202,0.291918 ,1.2867755611 ,-0.26853217756   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/ZOOM,1,RECT,0.593414,0.353862 ,1.3664383627 ,-0.197738506157   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/INPUT,'Task3_lower','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       02:00:54
+EPLOT   
+!*  
+/EFACET,1   
+PLNSOL, S,X, 0,1.0  
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/ZOOM,1,RECT,0.283614,0.200476 ,1.07434142352 ,-0.398320575132  
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/AUTO,1 
+/REP,FAST   
+/ZOOM,1,RECT,0.106586,0.353862 ,0.62881982942 ,-0.377672420973  
+/ZOOM,1,RECT,-0.209115,0.539696 ,0.897312975533 ,-0.55465659948 
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/AUTO,1 
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/INPUT,'Task3_lower','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       02:24:17
+EPLOT   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+!*  
+/EFACET,1   
+PLNSOL, S,X, 0,1.0  
+/ZOOM,1,RECT,0.469494,0.0470896 ,1.2602212939 ,-0.578254489947  
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/AUTO,1 
+/REP,FAST   
+/ZOOM,1,RECT,0.00331931,0.401058 ,0.912065346198 ,-0.404220047749   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/AUTO,1 
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/ZOOM,1,RECT,0.139041,0.589841 ,1.37233931096 ,-0.693294205977  
+/ZOOM,1,RECT,0.0918335,-0.194789 ,1.02418336326 ,-0.595952907798
+/ZOOM,1,RECT,-0.545469,0.27127 ,0.478345648632 ,-0.312778222187 
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/AUTO,1 
+/REP,FAST   
+/ZOOM,1,RECT,-0.0940463,0.412857 ,0.900263449666 ,-0.365873475739   
+/ZOOM,1,RECT,-0.536617,0.548545 ,0.540305605427 ,-0.392421102515
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/AUTO,1 
+/REP,FAST   
+/ZOOM,1,RECT,-0.156006,0.412857 ,1.21891465604 ,-0.424868201908 
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/INPUT,'Task3_lower','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       03:58:43
+EPLOT   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+!*  
+/EFACET,1   
+PLNSOL, S,X, 0,1.0  
+/ZOOM,1,RECT,0.596365,-0.0178046 ,1.18940991471 ,-0.528108972704
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/AUTO,1 
+/REP,FAST   
+/ZOOM,1,RECT,-0.0910959,0.442354 ,1.27202319044 ,-0.59300317149 
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,1,ZS,1   
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/INPUT,'Task3_lower','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       04:01:45
+EPLOT   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+!*  
+/EFACET,1   
+PLNSOL, S,X, 0,1.0  
+/ZOOM,1,RECT,-0.235669,0.468902 ,1.2690727163 ,-0.72574130537   
+/INPUT,'Task3_lower','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       04:05:40
+EPLOT   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+!*  
+/EFACET,1   
+PLNSOL, S,X, 0,1.0  
+/ZOOM,1,RECT,-0.0291359,0.197526 ,0.587513191557 ,-0.333426376346   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/AUTO,1 
+/REP,FAST   
+/ZOOM,1,RECT,0.605216,-0.00305591 ,1.13925185445 ,-0.492712137002   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/AUTO,1 
+/REP,FAST   
+/ZOOM,1,RECT,-0.0350369,0.283069 ,0.726185475813 ,-0.315727958495   
+PLDISP,0
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/AUTO,1 
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+!*  
+/EFACET,1   
+PLNSOL, S,X, 0,1.0  
+/ZOOM,1,RECT,0.094784,0.185727 ,0.587513191557 ,-0.233135341859 
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/AUTO,1 
+/REP,FAST   
+/ZOOM,1,RECT,0.0416755,0.27127 ,1.00057957019 ,-0.448466092376  
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/AUTO,1 
+/REP,FAST   
+/AUTO,1 
+/REP,FAST   
+/AUTO,1 
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/ZOOM,1,RECT,-0.259273,0.660635 ,1.16580612165 ,-0.578254489947 
+/ZOOM,1,RECT,-0.362539,0.291918 ,0.858956811802 ,-0.584153962564
+/AUTO,1 
+/REP,FAST   
+/ZOOM,1,RECT,0.38098,0.144431 ,1.19826133711 ,-0.613651325649   
+/INPUT,'Task3_lower','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       04:13:58
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/VIEW,1,1,2,3   
+/ANG,1  
+/REP,FAST   
+NPLOT   
+EPLOT   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+!*  
+/EFACET,1   
+PLNSOL, S,X, 0,1.0  
+/ZOOM,1,RECT,0.498999,0.00874304 ,1.41069547469 ,-0.657897370275
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/AUTO,1 
+/REP,FAST   
+/ZOOM,1,RECT,-0.0969968,0.362711 ,0.850105389403 ,-0.395370838824   
+/AUTO,1 
+/REP,FAST   
+/ZOOM,1,RECT,0.463593,0.132632 ,1.40774500056 ,-0.598902644106  
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/VIEW,1,1,2,3   
+/ANG,1  
+/REP,FAST   
+/VIEW,1,,,1 
+/ANG,1  
+/REP,FAST   
+/AUTO,1 
+/REP,FAST   
+/VIEW,1,-1  
+/ANG,1  
+/REP,FAST   
+/VIEW,1,,1  
+/ANG,1  
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/ZOOM,1,RECT,0.268862,0.306666 ,1.2867755611 ,-0.646098425042   
+/ZOOM,1,RECT,-0.235669,0.176878 ,1.12449948378 ,-0.793585240464 
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ZOOM,1,RECT,0.000368839,0.238822 ,1.08909379418 ,-0.171190879381   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/AUTO,1 
+/REP,FAST   
+/INPUT,'Task3_lower','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       07:10:21
+EPLOT   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+!*  
+/EFACET,1   
+PLNSOL, S,X, 0,1.0  
+/ZOOM,1,RECT,0.286565,0.132632 ,1.28087461284 ,-0.681495260743  
+/INPUT,'Task3_upper','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       07:11:45
+EPLOT   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/VIEW,1,1   
+/ANG,1  
+/REP,FAST   
+/VIEW,1,,1  
+/ANG,1  
+/REP,FAST   
+/VIEW,1,,,-1
+/ANG,1  
+/REP,FAST   
+/AUTO,1 
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,1,XS,1   
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/VIEW,1,,-1 
+/ANG,1  
+/REP,FAST   
+/VIEW,1,-1  
+/ANG,1  
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/INPUT,'Task4_lower','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       07:13:45
+EPLOT   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/ZOOM,1,RECT,-0.436301,0.834669 ,1.2690727163 ,-0.778836558922  
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/INPUT,'Task4_upper','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       07:15:10
+EPLOT   
+/INPUT,'Task4_lower','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       07:27:35
+/INPUT,'Task4_lower','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       07:27:41
+EPLOT   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/DIST, 1 ,0.997369,1
+/REP,FAST   
+/ZOOM,1,RECT,-0.527766,0.878915 ,1.41364594883 ,-0.755238668454 
+/INPUT,'Task4_lower','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       07:37:11
+EPLOT   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/INPUT,'Task4_upper','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       07:37:54
+EPLOT   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/ZOOM,1,RECT,-0.132402,0.775674 ,1.03008431152 ,-0.734590514295 
+/ZOOM,1,RECT,-0.330084,0.648836 ,0.79994732914 ,-0.716892096444 
+!*  
+/EFACET,1   
+PLNSOL, S,X, 0,1.0  
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/ZOOM,1,RECT,-0.0379873,0.442354 ,1.00353004432 ,-0.289180331719
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,ZS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,XS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,-1,YS,1  
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/ANG,1,1,YS,1   
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/DIST, 1 ,1.002637,1
+/REP,FAST   
+/INPUT,'Task3_lower','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       07:39:04
+EPLOT   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/INPUT,'Task4_lower','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       07:51:38
+EPLOT   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/INPUT,'Task4_upper','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       07:52:57
+/INPUT,'Task3_lower','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       07:53:29
+/INPUT,'Task3_upper','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       07:56:16
+FINISH  
+! /EXIT,NOSAV   
+/BATCH  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       18:21:45
+/input,menust,tmp,''
+/GRA,POWER
+/GST,ON
+/PLO,INFO,3
+/GRO,CURL,ON
+/CPLANE,1   
+/REPLOT,RESIZE  
+WPSTYLE,,,,,,,,0
+/INPUT,'renwu3duorenwu','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0   
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       19:35:45
+EPLOT   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/VIEW,1,1   
+/ANG,1  
+/REP,FAST   
+/VIEW,1,,,-1
+/ANG,1  
+/REP,FAST   
+/VIEW,1,-1  
+/ANG,1  
+/REP,FAST   
+/VIEW,1,,,1 
+/ANG,1  
+/REP,FAST   
+/VIEW,1,,1  
+/ANG,1  
+/REP,FAST   
+/INPUT,'renwu3ga','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0 
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       19:54:04
+EPLOT   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/VIEW,1,,,1 
+/ANG,1  
+/REP,FAST   
+/VIEW,1,1   
+/ANG,1  
+/REP,FAST   
+/VIEW,1,,1  
+/ANG,1  
+/REP,FAST   
+!*  
+!*  
+/EFACET,1   
+PLNSOL, S,X, 0,1.0  
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/ZOOM,1,RECT,-0.0556902,0.510198 ,1.29267650937 ,-0.536958181629
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/INPUT,'renwu3duorenwu','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0   
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       19:57:51
+EPLOT   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+FINISH  
+/SOL
+FINISH  
+/POST1  
+!*  
+/EFACET,1   
+PLNSOL, S,X, 0,1.0  
+/ZOOM,1,RECT,-0.0999473,0.457103 ,1.03303478566 ,-0.590053435181
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/VIEW,1,,,1 
+/ANG,1  
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/VIEW,1,,1  
+/ANG,1  
+/REP,FAST   
+/ZOOM,1,RECT,-0.831665,0.212275 ,1.23366702671 ,-0.191839033541 
+/VIEW,1,,1  
+/ANG,1  
+/REP,FAST   
+/VIEW,1,,,-1
+/ANG,1  
+/REP,FAST   
+/VIEW,1,-1  
+/ANG,1  
+/REP,FAST   
+/ZOOM,1,RECT,0.177397,0.666534 ,0.717334053413 ,-0.728691041678 
+/VIEW,1,1   
+/ANG,1  
+/REP,FAST   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/ANG,1,-30,YS,1 
+/REP,FAST   
+/ANG,1,-30,YS,1 
+/REP,FAST   
+/ANG,1,-30,YS,1 
+/REP,FAST   
+/ANG,1,-30,YS,1 
+/REP,FAST   
+/ANG,1,-30,YS,1 
+/REP,FAST   
+/ANG,1,-30,YS,1 
+/REP,FAST   
+/ANG,1,-30,ZS,1 
+/REP,FAST   
+/ANG,1,-30,XS,1 
+/REP,FAST   
+/ANG,1,-30,XS,1 
+/REP,FAST   
+/ANG,1,30,XS,1  
+/REP,FAST   
+/ANG,1,30,XS,1  
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/ZOOM,1,RECT,-0.468757,-0.374723 ,1.01533194086 ,-0.731640777987
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+/DIST, 1 ,1.082226,1
+/REP,FAST   
+FINISH  
+! /EXIT,NOSAV   
+/BATCH  
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       03:07:26
+/input,menust,tmp,''
+/GRA,POWER
+/GST,ON
+/PLO,INFO,3
+/GRO,CURL,ON
+/CPLANE,1   
+/REPLOT,RESIZE  
+WPSTYLE,,,,,,,,0
+/INPUT,'renwu3duorenwu','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0   
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       03:09:16
+EPLOT   
+!*  
+/EFACET,1   
+PLNSOL, S,X, 0,1.0  
+/INPUT,'renwu3ga','mac','C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL\',, 0 
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       03:50:30
+NPLOT   
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+/VIEW,1,,,1 
+/ANG,1  
+/REP,FAST   
+/VIEW,1,,1  
+/ANG,1  
+/REP,FAST   
+EPLOT   
+!*  
+/EFACET,1   
+PLNSOL, S,X, 0,1.0  
+/VIEW,1,1,1,1   
+/ANG,1  
+/REP,FAST   
+NPLOT   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+/DIST, 1 ,0.924021,1
+/REP,FAST   
+FINISH  
+! /EXIT,NOSAV   

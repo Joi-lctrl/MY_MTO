@@ -1,0 +1,227 @@
+FINISH  
+/CLEAR, START   
+/TITLE, Task6_opt   
+/NOPR   
+    
+/PREP7  
+ET, 1, BEAM188  
+KEYOPT, 1, 4, 2 
+    
+MP, EX, 1, 2.06e5   
+MP, PRXY, 1, 0.3
+MP, DENS, 1, 7.85e-9
+    
+SECTYPE, 1, BEAM, I, LONG_C, 5  
+SECDATA, 164.453, 133, 442.363, 8.75026, 12, 7.36954
+SECTYPE, 2, BEAM, I, LONG_S, 5  
+SECDATA, 129.115, 133, 396.644, 10.0775, 12, 7.00143
+SECTYPE, 3, BEAM, I, RIB, 5 
+SECDATA, 50.7827, 400, 138.465, 6.46481, 12, 6.09214
+    
+K, 1, -400, 0, 0
+K, 2, 0, 0, 0   
+K, 3, 800, 0, 0 
+K, 4, 1600, 0, 0
+K, 5, 2400, 0, 0
+K, 6, 3200, 0, 0
+K, 7, 4000, 0, 0
+K, 8, 4400, 0, 0
+K, 9, -400, 2400, 0 
+K, 10, 0, 2400, 0   
+K, 11, 800, 2400, 0 
+K, 12, 1600, 2400, 0
+K, 13, 2400, 2400, 0
+K, 14, 3200, 2400, 0
+K, 15, 4000, 2400, 0
+K, 16, 4400, 2400, 0
+K, 17, -400, 4800, 0
+K, 18, 0, 4800, 0   
+K, 19, 800, 4800, 0 
+K, 20, 1600, 4800, 0
+K, 21, 2400, 4800, 0
+K, 22, 3200, 4800, 0
+K, 23, 4000, 4800, 0
+K, 24, 4400, 4800, 0
+K, 25, 0, -1200, 0  
+K, 26, 0, 6000, 0   
+K, 27, 800, -1200, 0
+K, 28, 800, 6000, 0 
+K, 29, 1600, -1200, 0   
+K, 30, 1600, 6000, 0
+K, 31, 2400, -1200, 0   
+K, 32, 2400, 6000, 0
+K, 33, 3200, -1200, 0   
+K, 34, 3200, 6000, 0
+K, 35, 4000, -1200, 0   
+K, 36, 4000, 6000, 0
+    
+L, 1, 2 
+L, 2, 3 
+L, 3, 4 
+L, 4, 5 
+L, 5, 6 
+L, 6, 7 
+L, 7, 8 
+L, 9, 10
+L, 10, 11   
+L, 11, 12   
+L, 12, 13   
+L, 13, 14   
+L, 14, 15   
+L, 15, 16   
+L, 17, 18   
+L, 18, 19   
+L, 19, 20   
+L, 20, 21   
+L, 21, 22   
+L, 22, 23   
+L, 23, 24   
+L, 25, 2
+L, 2, 10
+L, 10, 18   
+L, 18, 26   
+L, 27, 3
+L, 3, 11
+L, 11, 19   
+L, 19, 28   
+L, 29, 4
+L, 4, 12
+L, 12, 20   
+L, 20, 30   
+L, 31, 5
+L, 5, 13
+L, 13, 21   
+L, 21, 32   
+L, 33, 6
+L, 6, 14
+L, 14, 22   
+L, 22, 34   
+L, 35, 7
+L, 7, 15
+L, 15, 23   
+L, 23, 36   
+    
+K, 1001, -400, 0, -1000 
+K, 1002, 4400, 0, -1000 
+K, 1003, -400, 2400, -1000  
+K, 1004, 4400, 2400, -1000  
+K, 1005, -400, 4800, -1000  
+K, 1006, 4400, 4800, -1000  
+K, 2001, 0, -1200, -1000
+K, 2002, 0, 6000, -1000 
+K, 2003, 800, -1200, -1000  
+K, 2004, 800, 6000, -1000   
+K, 2005, 1600, -1200, -1000 
+K, 2006, 1600, 6000, -1000  
+K, 2007, 2400, -1200, -1000 
+K, 2008, 2400, 6000, -1000  
+K, 2009, 3200, -1200, -1000 
+K, 2010, 3200, 6000, -1000  
+K, 2011, 4000, -1200, -1000 
+K, 2012, 4000, 6000, -1000  
+    
+LSEL, S, LINE, , 1, 7   
+LATT, 1, , 1, , 1001, , 2   
+LESIZE, ALL, , , 20 
+LSEL, S, LINE, , 8, 14  
+LATT, 1, , 1, , 1003, , 1   
+LESIZE, ALL, , , 20 
+LSEL, S, LINE, , 15, 21 
+LATT, 1, , 1, , 1005, , 2   
+LESIZE, ALL, , , 20 
+LSEL, S, LINE, , 22, 25 
+LATT, 1, , 1, , 2001, , 3   
+LESIZE, ALL, , , 5  
+LSEL, S, LINE, , 26, 29 
+LATT, 1, , 1, , 2003, , 3   
+LESIZE, ALL, , , 5  
+LSEL, S, LINE, , 30, 33 
+LATT, 1, , 1, , 2005, , 3   
+LESIZE, ALL, , , 5  
+LSEL, S, LINE, , 34, 37 
+LATT, 1, , 1, , 2007, , 3   
+LESIZE, ALL, , , 5  
+LSEL, S, LINE, , 38, 41 
+LATT, 1, , 1, , 2009, , 3   
+LESIZE, ALL, , , 5  
+LSEL, S, LINE, , 42, 45 
+LATT, 1, , 1, , 2011, , 3   
+LESIZE, ALL, , , 5  
+    
+ALLSEL, ALL 
+LMESH, ALL  
+ALLSEL, ALL 
+    
+NSEL, S, LOC, X, -400   
+D, ALL, UX, 0   
+D, ALL, UY, 0   
+D, ALL, UZ, 0   
+D, ALL, ROTX, 0 
+D, ALL, ROTY, 0 
+D, ALL, ROTZ, 0 
+ALLSEL, ALL 
+NSEL, S, LOC, X, 4400   
+D, ALL, UX, 0   
+D, ALL, UY, 0   
+D, ALL, UZ, 0   
+D, ALL, ROTX, 0 
+D, ALL, ROTY, 0 
+D, ALL, ROTZ, 0 
+ALLSEL, ALL 
+NSEL, S, LOC, Y, -1200  
+D, ALL, UX, 0   
+D, ALL, UY, 0   
+D, ALL, UZ, 0   
+ALLSEL, ALL 
+NSEL, S, LOC, Y, 6000   
+D, ALL, UX, 0   
+D, ALL, UY, 0   
+D, ALL, UZ, 0   
+ALLSEL, ALL 
+    
+ESEL, S, SEC, , 3   
+SFBEAM, ALL, 1, PRES, 18, 18
+ALLSEL, ALL 
+    
+FINISH  
+/SOLU   
+ANTYPE, STATIC  
+OUTRES, ALL, LAST   
+OUTRES, MISC, LAST  
+SOLVE   
+FINISH  
+    
+/POST1  
+SET, LAST   
+RSYS, SOLU  
+/GRAPHICS, FULL 
+/ESHAPE, 1  
+    
+*GET, sx_max, SECR, ALL, S, X, MAX  
+*GET, sx_min, SECR, ALL, S, X, MIN  
+*GET, sxy_max, SECR, ALL, S, XY, MAX
+*GET, sxy_min, SECR, ALL, S, XY, MIN
+*GET, sxz_max, SECR, ALL, S, XZ, MAX
+*GET, sxz_min, SECR, ALL, S, XZ, MIN
+    
+*CFOPEN, eval_t6_tp2ed1e947_9f7c_4e89_a494_75366989c50f_results, txt
+*VWRITE, sx_max 
+(F20.6) 
+*VWRITE, sx_min 
+(F20.6) 
+*VWRITE, sxy_max
+(F20.6) 
+*VWRITE, sxy_min
+(F20.6) 
+*VWRITE, sxz_max
+(F20.6) 
+*VWRITE, sxz_min
+(F20.6) 
+    
+! Total structural mass from FEA model  
+ALLSEL, ALL 
+*GET, total_mass, ELEM, 0, MTOT, Z  
+*VWRITE, total_mass 
+(E20.10)
+*CFCLOS 
+FINISH  

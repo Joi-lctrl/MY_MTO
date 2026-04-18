@@ -1,0 +1,265 @@
+%% cmd_interleave.m - GA与MFEA-II交错运行，实时显示收敛曲线+RMP
+% 每代实时更新图形，不满意可随时 Ctrl+C 终止
+
+clear; clc; close all;
+cd(fileparts(mfilename('fullpath')));
+addpath(genpath(pwd));
+
+%% ===== 配置 =====
+active_tasks = [3 5];  % 修改为你想跑的任务组合
+Reps = 1;              % 总重复次数
+maxFE = 2000;          % 每个算法的总FE预算
+N = 32;                % 种群大小
+Results_Num = 50;      % 收敛曲线记录点数
+Global_Seed = 7777;
+EarlyStop_MinFE_Ratio = 0.5;  % 至少跑完总FE的50%后才允许早停
+EarlyStop_Patience = 10;      % 连续多少代无改进就停止
+
+% 收敛曲线Y轴范围（根据经验设置，避免空白太多）
+YLim_Obj = [2000 7000];       % 目标值(质量kg)范围
+YLim_CV  = [0 200];           % 约束违反范围（用第二Y轴时可调）
+
+%% ===== 创建算法和问题对象 =====
+prob = Ship_Panel_MTSO();
+prob.N = N;
+prob.maxFE = maxFE;
+prob.Cleanup = true; % Keep only necessary outputs; remove ANSYS temp files.
+prob.ActiveTasks = active_tasks;
+prob.setTasks();
+
+algo_ga = GA();
+algo_mfea2 = MFEA_II();
+
+algos = {algo_mfea2, algo_ga};
+algo_names = {'MFEA-II', 'GA'};
+nAlgo = numel(algos);
+nTask = prob.T;
+
+%% ===== 预分配结果存储 =====
+ConvergeObj = cell(nAlgo, 1);
+BestObj = nan(nAlgo, Reps, nTask);
+RMPTraceAll = cell(Reps, 1);
+for a = 1:nAlgo
+    ConvergeObj{a} = cell(nTask, 1);
+end
+
+seeds = (0:Reps-1) + Global_Seed;
+
+%% ===== 准备图形 =====
+colors = lines(nAlgo);
+
+% 图1：收敛曲线（每代实时更新）
+fig1 = figure('Name', 'GA vs MFEA-II 收敛对比', 'Position', [50 450 900 400]);
+ax = gobjects(1, nTask);
+h_obj = gobjects(nAlgo, nTask);   % animatedline: 目标值
+h_cv  = gobjects(nAlgo, nTask);   % animatedline: 约束违反
+for t = 1:nTask
+    ax(t) = subplot(1, nTask, t);
+    hold(ax(t), 'on'); grid(ax(t), 'on');
+    title(ax(t), sprintf('Task %d (ActiveTask %d)', active_tasks(t), t));
+    xlabel(ax(t), 'FE');
+    ylabel(ax(t), 'Best Obj / CV');
+    ylim(ax(t), YLim_Obj);
+    for a = 1:nAlgo
+        h_obj(a,t) = animatedline(ax(t), ...
+            'Color', colors(a,:), 'LineWidth', 1.5, ...
+            'Marker', '.', 'MarkerSize', 6, ...
+            'DisplayName', sprintf('%s Obj', algo_names{a}));
+        h_cv(a,t) = animatedline(ax(t), ...
+            'Color', colors(a,:), 'LineStyle', '--', 'LineWidth', 1, ...
+            'DisplayName', sprintf('%s CV', algo_names{a}), ...
+            'HandleVisibility', 'off');
+    end
+    legend(ax(t), 'Location', 'northeast');
+end
+
+% 图2：RMP实时曲线
+nPairs = nTask * (nTask - 1) / 2;
+fig2 = figure('Name', 'MFEA-II RMP 实时曲线', 'Position', [50 20 900 350]);
+ax_rmp = subplot(1, 1, 1);
+hold(ax_rmp, 'on'); grid(ax_rmp, 'on');
+title(ax_rmp, 'MFEA-II 学习到的 RMP 值');
+xlabel(ax_rmp, 'Generation');
+ylabel(ax_rmp, 'RMP');
+ylim(ax_rmp, [0 1]);
+rmp_colors = lines(max(nPairs, 1));
+h_rmp = gobjects(nPairs, 1);
+pair_idx = 0;
+for ti = 1:nTask
+    for tj = (ti+1):nTask
+        pair_idx = pair_idx + 1;
+        h_rmp(pair_idx) = animatedline(ax_rmp, ...
+            'Color', rmp_colors(pair_idx,:), 'LineWidth', 2, ...
+            'Marker', '.', 'MarkerSize', 6, ...
+            'DisplayName', sprintf('RMP(T%d,T%d)', active_tasks(ti), active_tasks(tj)));
+    end
+end
+legend(ax_rmp, 'Location', 'best');
+drawnow;
+
+%% ===== 交错运行 =====
+fprintf('开始交错运行: %d算法 x %d次重复\n', nAlgo, Reps);
+mfea2_idx = find(strcmp(algo_names, 'MFEA-II'));
+
+for rep = 1:Reps
+    for a = 1:nAlgo
+        fprintf('\n--- Rep %d/%d, %s ---\n', rep, Reps, algo_names{a});
+
+        % 清空本轮 animatedline 数据
+        for t = 1:nTask
+            clearpoints(h_obj(a,t));
+            clearpoints(h_cv(a,t));
+        end
+        if a == mfea2_idx
+            for p = 1:nPairs
+                clearpoints(h_rmp(p));
+            end
+        end
+
+        rng(seeds(rep));
+        prob.setTasks();
+        algo = algos{a};
+        algo.Result_Num = Results_Num;
+        algo.Save_Dec = false;
+        algo.reset();
+
+        % 早停状态（用containers.Map实现引用传递）
+        es = containers.Map();
+        es('prev_best') = inf(1, nTask);
+        es('stall_count') = 0;
+        es('min_fe') = maxFE * EarlyStop_MinFE_Ratio;
+        es('patience') = EarlyStop_Patience;
+        es('triggered') = false;
+
+        % 绑定每代实时更新回调（含早停检查）
+        cur_a = a;
+        algo.Check_Status_Fn = @() live_update_with_earlystop( ...
+            algo, cur_a, nTask, h_obj, h_cv, ...
+            h_rmp, mfea2_idx, active_tasks, fig1, fig2, es);
+
+        algo.run(prob);
+
+        if es('triggered')
+            fprintf('  [早停] %s 停止（连续%d代无改进）\n', ...
+                algo_names{a}, es('patience'));
+        end
+
+        % 提取最终收敛结果
+        tmp = algo.getResult(prob);
+        for t = 1:nTask
+            obj_hist = [tmp(t, :).Obj];
+            if isempty(ConvergeObj{a}{t})
+                ConvergeObj{a}{t} = nan(Reps, numel(obj_hist));
+            end
+            ConvergeObj{a}{t}(rep, :) = obj_hist;
+            BestObj(a, rep, t) = obj_hist(end);
+        end
+
+        % 保存RMP轨迹
+        if a == mfea2_idx && isprop(algo, 'RMPTrace') && ~isempty(algo.RMPTrace)
+            RMPTraceAll{rep} = algo.RMPTrace;
+        end
+
+        drawnow;
+
+        fprintf('  %s Rep%d 完成: ', algo_names{a}, rep);
+        for t = 1:nTask
+            fprintf('Task%d=%.2f  ', active_tasks(t), BestObj(a, rep, t));
+        end
+        fprintf('\n');
+
+        % 打印最终RMP
+        if a == mfea2_idx && isprop(algo, 'RMPTrace') && ~isempty(algo.RMPTrace)
+            final_rmp = algo.RMPTrace{end};
+            fprintf('  最终RMP矩阵:\n');
+            for ti = 1:nTask
+                fprintf('    [%s]\n', num2str(final_rmp(ti,:), '%.4f '));
+            end
+        end
+    end
+end
+
+%% ===== 汇总 =====
+fprintf('\n========== 最终结果 ==========\n');
+for t = 1:nTask
+    fprintf('Task %d (ActiveTask %d):\n', t, active_tasks(t));
+    for a = 1:nAlgo
+        vals = BestObj(a, :, t);
+        fprintf('  %s: mean=%.2f, std=%.2f, best=%.2f, [%s]\n', ...
+            algo_names{a}, mean(vals), std(vals), min(vals), ...
+            num2str(vals, '%.2f '));
+    end
+end
+
+fprintf('\n========== RMP 汇总 ==========\n');
+for rep = 1:Reps
+    if ~isempty(RMPTraceAll{rep})
+        final_rmp = RMPTraceAll{rep}{end};
+        fprintf('Rep%d 最终RMP: ', rep);
+        for ti = 1:nTask
+            for tj = (ti+1):nTask
+                fprintf('RMP(T%d,T%d)=%.4f ', active_tasks(ti), active_tasks(tj), final_rmp(ti,tj));
+            end
+        end
+        fprintf('\n');
+    end
+end
+
+%% ===== 保存 =====
+save_name = sprintf('interleave_%s.mat', datestr(now, 'yyyymmdd_HHMMSS'));
+save(save_name, 'BestObj', 'ConvergeObj', 'RMPTraceAll', 'algo_names', 'active_tasks', 'Reps', 'maxFE');
+fprintf('结果已保存到 %s\n', save_name);
+
+%% ======================== Local Functions ================================
+
+function live_update_with_earlystop(algo, algo_idx, nTask, h_obj, h_cv, h_rmp, mfea2_idx, active_tasks, fig1, fig2, es)
+% 每代由 Algorithm.notTerminated 调用，实时更新图形 + 早停检查
+if ~isvalid(fig1), return; end
+
+fe = algo.FE;
+cur_best = inf(1, nTask);
+for t = 1:nTask
+    if ~isempty(algo.Best) && numel(algo.Best) >= t && ~isempty(algo.Best{t})
+        addpoints(h_obj(algo_idx, t), fe, algo.Best{t}.Obj);
+        addpoints(h_cv(algo_idx, t),  fe, algo.Best{t}.CV);
+        cur_best(t) = algo.Best{t}.Obj;
+    end
+end
+
+% MFEA-II: 实时更新RMP曲线
+if algo_idx == mfea2_idx && isprop(algo, 'RMPTrace') && ~isempty(algo.RMPTrace)
+    if isvalid(fig2)
+        gen = numel(algo.RMPTrace);
+        cur_rmp = algo.RMPTrace{gen};
+        pair_idx = 0;
+        for ti = 1:nTask
+            for tj = (ti+1):nTask
+                pair_idx = pair_idx + 1;
+                addpoints(h_rmp(pair_idx), gen, cur_rmp(ti, tj));
+            end
+        end
+    end
+end
+
+drawnow('limitrate');
+
+% 早停检查：超过最低FE后，连续patience代无改进则强制终止
+if fe >= es('min_fe')
+    prev_best = es('prev_best');
+    improved = any(cur_best < prev_best - 1e-6);
+    if improved
+        es('stall_count') = 0;
+        es('prev_best') = min(cur_best, prev_best);
+    else
+        es('stall_count') = es('stall_count') + 1;
+    end
+    if es('stall_count') >= es('patience')
+        es('triggered') = true;
+        % 强制FE超过maxFE，让notTerminated返回false
+        algo.FE = inf;
+    end
+else
+    % 未到最低FE，持续更新prev_best
+    es('prev_best') = min(cur_best, es('prev_best'));
+end
+end

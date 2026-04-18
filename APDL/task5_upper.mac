@@ -1,0 +1,342 @@
+FINISH
+/CLEAR, START
+/TITLE, Task5_upper
+
+E_val = 2.06e5
+nu_val = 0.3
+rho_val = 7.85e-9
+
+n_long = 5
+n_rib = 5
+s_long = 2400
+s_rib = 800
+long_ext = s_rib/2
+rib_ext = s_long/2
+
+t_plate = 12
+b_top_long = 133
+b_top_rib = 400
+t_top = t_plate
+
+h_web_L1 = 450
+t_web_L1 = 12
+b_bot_L1 = 200
+t_bot_L1 = 14
+
+h_web_L2 = 450
+t_web_L2 = 12
+b_bot_L2 = 200
+t_bot_L2 = 14
+
+h_web_R = 250
+t_web_R = 11
+b_bot_R = 120
+t_bot_R = 12
+
+q1 = 25/3
+bend_allow = 162
+shear_allow = 81
+
+n_div = 20
+n_div_rib = 5
+
+L_span = (n_rib-1)*s_rib
+W_span = (n_long-1)*s_long
+X_left = -long_ext
+X_right = L_span + long_ext
+Y_bottom = -rib_ext
+Y_top = rib_ext + W_span
+
+h_total_L1 = t_bot_L1 + h_web_L1 + t_top
+h_total_L2 = t_bot_L2 + h_web_L2 + t_top
+h_total_R = t_bot_R + h_web_R + t_top
+L_long_beam = L_span + 2*long_ext
+L_rib_beam = W_span + 2*rib_ext
+
+/PREP7
+
+ET, 1, BEAM188
+
+KEYOPT, 1, 4, 2
+
+MP, EX, 1, E_val
+MP, PRXY, 1, nu_val
+MP, DENS, 1, rho_val
+
+SECTYPE, 1, BEAM, I, LONG_C, 5
+SECDATA, b_bot_L1, b_top_long, h_total_L1, t_bot_L1, t_top, t_web_L1
+SECTYPE, 2, BEAM, I, LONG_S, 5
+SECDATA, b_bot_L2, b_top_long, h_total_L2, t_bot_L2, t_top, t_web_L2
+SECTYPE, 3, BEAM, I, RIB, 5
+SECDATA, b_bot_R, b_top_rib, h_total_R, t_bot_R, t_top, t_web_R
+
+K, 1, X_left, 0, 0
+K, 2, 0, 0, 0
+K, 3, s_rib, 0, 0
+K, 4, 2*s_rib, 0, 0
+K, 5, 3*s_rib, 0, 0
+K, 6, 4*s_rib, 0, 0
+K, 7, X_right, 0, 0
+
+K, 8, X_left, s_long, 0
+K, 9, 0, s_long, 0
+K, 10, s_rib, s_long, 0
+K, 11, 2*s_rib, s_long, 0
+K, 12, 3*s_rib, s_long, 0
+K, 13, 4*s_rib, s_long, 0
+K, 14, X_right, s_long, 0
+
+K, 15, X_left, 2*s_long, 0
+K, 16, 0, 2*s_long, 0
+K, 17, s_rib, 2*s_long, 0
+K, 18, 2*s_rib, 2*s_long, 0
+K, 19, 3*s_rib, 2*s_long, 0
+K, 20, 4*s_rib, 2*s_long, 0
+K, 21, X_right, 2*s_long, 0
+
+K, 22, X_left, 3*s_long, 0
+K, 23, 0, 3*s_long, 0
+K, 24, s_rib, 3*s_long, 0
+K, 25, 2*s_rib, 3*s_long, 0
+K, 26, 3*s_rib, 3*s_long, 0
+K, 27, 4*s_rib, 3*s_long, 0
+K, 28, X_right, 3*s_long, 0
+
+K, 29, X_left, 4*s_long, 0
+K, 30, 0, 4*s_long, 0
+K, 31, s_rib, 4*s_long, 0
+K, 32, 2*s_rib, 4*s_long, 0
+K, 33, 3*s_rib, 4*s_long, 0
+K, 34, 4*s_rib, 4*s_long, 0
+K, 35, X_right, 4*s_long, 0
+
+K, 36, 0, Y_bottom, 0
+K, 37, 0, Y_top, 0
+K, 38, s_rib, Y_bottom, 0
+K, 39, s_rib, Y_top, 0
+K, 40, 2*s_rib, Y_bottom, 0
+K, 41, 2*s_rib, Y_top, 0
+K, 42, 3*s_rib, Y_bottom, 0
+K, 43, 3*s_rib, Y_top, 0
+K, 44, 4*s_rib, Y_bottom, 0
+K, 45, 4*s_rib, Y_top, 0
+
+L, 1, 2
+L, 2, 3
+L, 3, 4
+L, 4, 5
+L, 5, 6
+L, 6, 7
+
+L, 8, 9
+L, 9, 10
+L, 10, 11
+L, 11, 12
+L, 12, 13
+L, 13, 14
+
+L, 15, 16
+L, 16, 17
+L, 17, 18
+L, 18, 19
+L, 19, 20
+L, 20, 21
+
+L, 22, 23
+L, 23, 24
+L, 24, 25
+L, 25, 26
+L, 26, 27
+L, 27, 28
+
+L, 29, 30
+L, 30, 31
+L, 31, 32
+L, 32, 33
+L, 33, 34
+L, 34, 35
+
+L, 36, 2
+L, 2, 9
+L, 9, 16
+L, 16, 23
+L, 23, 30
+L, 30, 37
+
+L, 38, 3
+L, 3, 10
+L, 10, 17
+L, 17, 24
+L, 24, 31
+L, 31, 39
+
+L, 40, 4
+L, 4, 11
+L, 11, 18
+L, 18, 25
+L, 25, 32
+L, 32, 41
+
+L, 42, 5
+L, 5, 12
+L, 12, 19
+L, 19, 26
+L, 26, 33
+L, 33, 43
+
+L, 44, 6
+L, 6, 13
+L, 13, 20
+L, 20, 27
+L, 27, 34
+L, 34, 45
+
+K, 1001, X_left, 0, -1000
+K, 1002, X_right, 0, -1000
+K, 1003, X_left, s_long, -1000
+K, 1004, X_right, s_long, -1000
+K, 1005, X_left, 2*s_long, -1000
+K, 1006, X_right, 2*s_long, -1000
+K, 1007, X_left, 3*s_long, -1000
+K, 1008, X_right, 3*s_long, -1000
+K, 1009, X_left, 4*s_long, -1000
+K, 1010, X_right, 4*s_long, -1000
+
+K, 2001, 0, Y_bottom, -1000
+K, 2002, 0, Y_top, -1000
+K, 2003, s_rib, Y_bottom, -1000
+K, 2004, s_rib, Y_top, -1000
+K, 2005, 2*s_rib, Y_bottom, -1000
+K, 2006, 2*s_rib, Y_top, -1000
+K, 2007, 3*s_rib, Y_bottom, -1000
+K, 2008, 3*s_rib, Y_top, -1000
+K, 2009, 4*s_rib, Y_bottom, -1000
+K, 2010, 4*s_rib, Y_top, -1000
+
+LSEL, S, LINE, , 1, 6
+LATT, 1, , 1, , 1001, , 2
+LESIZE, ALL, , , n_div
+
+LSEL, S, LINE, , 7, 12
+LATT, 1, , 1, , 1003, , 2
+LESIZE, ALL, , , n_div
+
+LSEL, S, LINE, , 13, 18
+LATT, 1, , 1, , 1005, , 1
+LESIZE, ALL, , , n_div
+
+LSEL, S, LINE, , 19, 24
+LATT, 1, , 1, , 1007, , 2
+LESIZE, ALL, , , n_div
+
+LSEL, S, LINE, , 25, 30
+LATT, 1, , 1, , 1009, , 2
+LESIZE, ALL, , , n_div
+
+LSEL, S, LINE, , 31, 36
+LATT, 1, , 1, , 2001, , 3
+LESIZE, ALL, , , n_div_rib
+
+LSEL, S, LINE, , 37, 42
+LATT, 1, , 1, , 2003, , 3
+LESIZE, ALL, , , n_div_rib
+
+LSEL, S, LINE, , 43, 48
+LATT, 1, , 1, , 2005, , 3
+LESIZE, ALL, , , n_div_rib
+
+LSEL, S, LINE, , 49, 54
+LATT, 1, , 1, , 2007, , 3
+LESIZE, ALL, , , n_div_rib
+
+LSEL, S, LINE, , 55, 60
+LATT, 1, , 1, , 2009, , 3
+LESIZE, ALL, , , n_div_rib
+
+ALLSEL, ALL
+LMESH, ALL
+ALLSEL, ALL
+
+ALLSEL, ALL
+
+NSEL, S, LOC, X, X_left
+D, ALL, UX, 0
+D, ALL, UY, 0
+D, ALL, UZ, 0
+D, ALL, ROTX, 0
+D, ALL, ROTY, 0
+D, ALL, ROTZ, 0
+
+ALLSEL, ALL
+
+NSEL, S, LOC, X, X_right
+D, ALL, UX, 0
+D, ALL, UY, 0
+D, ALL, UZ, 0
+D, ALL, ROTX, 0
+D, ALL, ROTY, 0
+D, ALL, ROTZ, 0
+
+ALLSEL, ALL
+
+NSEL, S, LOC, Y, Y_bottom
+D, ALL, UX, 0
+D, ALL, UY, 0
+D, ALL, UZ, 0
+
+ALLSEL, ALL
+
+NSEL, S, LOC, Y, Y_top
+D, ALL, UX, 0
+D, ALL, UY, 0
+D, ALL, UZ, 0
+
+ALLSEL, ALL
+
+ALLSEL, ALL
+
+ESEL, S, SEC, , 3
+SFBEAM, ALL, 1, PRES, q1, q1
+ALLSEL, ALL
+
+FINISH
+/SOLU
+ANTYPE, STATIC
+OUTRES, ALL, LAST
+OUTRES, MISC, LAST
+
+SOLVE
+
+FINISH
+
+/POST1
+SET, LAST
+/ESHAPE, 1
+
+*GET, sx_max, SECR, ALL, S, X, MAX
+*GET, sx_min, SECR, ALL, S, X, MIN
+
+max_bend = ABS(sx_max)
+*IF, ABS(sx_min), GT, max_bend, THEN
+    max_bend = ABS(sx_min)
+*ENDIF
+
+*GET, sxy_max, SECR, ALL, S, XY, MAX
+*GET, sxy_min, SECR, ALL, S, XY, MIN
+
+*GET, sxz_max, SECR, ALL, S, XZ, MAX
+*GET, sxz_min, SECR, ALL, S, XZ, MIN
+
+max_shear = ABS(sxy_max)
+*IF, ABS(sxy_min), GT, max_shear, THEN
+    max_shear = ABS(sxy_min)
+*ENDIF
+*IF, ABS(sxz_max), GT, max_shear, THEN
+    max_shear = ABS(sxz_max)
+*ENDIF
+*IF, ABS(sxz_min), GT, max_shear, THEN
+    max_shear = ABS(sxz_min)
+*ENDIF
+
+*STATUS, max_bend
+*STATUS, max_shear

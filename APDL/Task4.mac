@@ -1,0 +1,313 @@
+FINISH
+/CLEAR, START
+/TITLE, Task4
+
+!参数设置和定义
+
+!材料参数定义
+E_val = 2.06e5 !弹性模量
+nu_val = 0.3  !泊松比
+rho_val = 7.85e-9 !密度
+
+!板架总体的尺度参数
+n_long = 3 !交叉构件数量
+n_rib =5 !主向梁数量
+s_long = 2400 !交叉构件之间间距
+s_rib = 1800 !主向梁之间间距
+long_ext = s_rib !交叉构件单侧外伸长度
+rib_ext = s_long/2 !主向梁单侧外伸长度
+
+!每根骨架参数
+t_plate = 12 !等效带板厚度
+b_eq_plate_long = 300 !交叉构件等效带板宽度 min(2400/2, 1800/6)=300
+b_eq_plate_rib = 400 !主向梁等效带板宽度 min(2400/6, 1800/2)=400
+t_eq_plate = t_plate !下翼缘作为等效带板
+
+h_web_L1 = 400 !中间交叉构件腹板高度
+t_web_L1 = 7 !中间交叉构件腹板厚度
+b_bot_L1 = 170 !自由翼缘宽度
+t_bot_L1 = 15 !自由翼缘厚度
+
+h_web_L2 = 400 !两侧交叉构件腹板高度
+t_web_L2 = 7 !两侧交叉构件腹板厚度
+b_bot_L2 = 170 !自由翼缘宽度
+t_bot_L2 = 15 !自由翼缘厚度
+
+h_web_R1 = 210 !主向梁腹板高度
+t_web_R1 = 6 !主向梁腹板厚度
+b_bot_R1 = 150 !主向梁自由翼缘宽度
+t_bot_R1 = 14 !主向梁自由翼缘厚度
+
+!载荷及许用约束
+q1 = 25 !载荷施加在主向梁上
+sigma_allow = 330 !许用应力
+bend_allow = 198 !弯应力0.6倍
+shear_allow = 99 !剪应力0.3倍
+
+n_div = 20 !纵骨单元分割数
+n_div_rib = 5 !横骨单元分割数
+
+L_span = (n_rib-1)*s_rib !沿主向梁方向跨度
+W_span = (n_long-1)*s_long !沿交叉构件方向跨度
+X_left = -long_ext
+X_right = L_span + long_ext
+Y_bottom = -rib_ext
+Y_top = rib_ext+W_span
+
+h_total_L1 = t_bot_L1 + h_web_L1 + t_eq_plate !中间交叉构件总高
+h_total_L2 = t_bot_L2 + h_web_L2 + t_eq_plate !两侧交叉构件总高
+h_total_R1 = t_bot_R1 + h_web_R1 + t_eq_plate !中间主向梁总高
+L_long_beam = L_span + 2*long_ext !结构总长
+L_rib_beam = W_span + 2*rib_ext !结构总宽
+
+/PREP7 !前处理
+
+ET, 1, BEAM188
+
+KEYOPT, 1, 4, 2
+
+MP, EX, 1, E_val
+MP, PRXY, 1, nu_val
+MP, DENS, 1, rho_val
+
+! 长翼缘(W2/t2)表示等效带板，截面对齐保持 ANSYS 默认设置。
+SECTYPE, 1, BEAM, I, LONG_C, 5 !中间交叉构件
+SECDATA, b_bot_L1, b_eq_plate_long, h_total_L1, t_bot_L1, t_eq_plate, t_web_L1
+SECTYPE, 2, BEAM,  I, LONG_S, 5 !两侧交叉构件
+SECDATA, b_bot_L2, b_eq_plate_long, h_total_L2, t_bot_L2, t_eq_plate, t_web_L2
+SECTYPE, 3, BEAM, I, RIB, 5
+SECDATA, b_bot_R1, b_eq_plate_rib, h_total_R1, t_bot_R1, t_eq_plate, t_web_R1
+
+K, 1, X_left, 0, 0
+K, 2, 0, 0, 0
+K, 3, s_rib, 0, 0
+K, 4, 2*s_rib, 0, 0
+K, 5, 3*s_rib, 0, 0
+K, 6, 4*s_rib, 0, 0
+K, 7, X_right, 0, 0
+
+K, 8, X_left, s_long, 0
+K, 9, 0, s_long, 0
+K, 10, s_rib, s_long, 0
+K, 11, 2*s_rib, s_long, 0
+K, 12, 3*s_rib, s_long, 0
+K, 13, 4*s_rib, s_long, 0
+K, 14, X_right, s_long, 0
+
+K, 15, X_left, 2*s_long, 0
+K, 16, 0, 2*s_long, 0
+K, 17, s_rib, 2*s_long, 0
+K, 18, 2*s_rib, 2*s_long, 0
+K, 19, 3*s_rib, 2*s_long, 0
+K, 20, 4*s_rib, 2*s_long, 0
+K, 21, X_right, 2*s_long, 0
+
+K, 22, 0, Y_bottom, 0
+K, 23, 0, Y_top, 0
+K, 24, s_rib, Y_bottom, 0
+K, 25, s_rib, Y_top, 0
+K, 26, 2*s_rib, Y_bottom, 0
+K, 27, 2*s_rib, Y_top, 0
+K, 28, 3*s_rib, Y_bottom, 0
+K, 29, 3*s_rib, Y_top, 0
+K, 30, 4*s_rib, Y_bottom, 0
+K, 31, 4*s_rib, Y_top, 0
+
+
+L, 1, 2
+L, 2, 3
+L, 3, 4
+L, 4, 5
+L, 5, 6
+L, 6, 7
+
+L, 8, 9
+L, 9, 10
+L, 10, 11
+L, 11, 12
+L, 12, 13
+L, 13, 14
+
+L, 15, 16
+L, 16, 17
+L, 17, 18
+L, 18, 19
+L, 19, 20
+L, 20, 21
+
+L, 22, 2
+L, 2, 9
+L, 9, 16
+L, 16, 23
+
+L, 24, 3
+L, 3, 10
+L, 10, 17
+L, 17, 25
+
+L, 26, 4
+L, 4, 11
+L, 11,18
+L, 18, 27
+
+L, 28, 5
+L, 5, 12
+L, 12, 19
+L, 19, 29
+
+L, 30, 6
+L, 6, 13
+L, 13, 20
+L, 20, 31
+
+K, 101, X_left, 0, -1000
+K, 102, X_right, 0, -1000
+K, 103, X_left, s_long, -1000
+K, 104, X_right, s_long, -1000
+K, 105, X_left, 2*s_long, -1000
+K, 106, X_right, 2*s_long, -1000
+
+K, 111, 0, Y_bottom, -1000
+K,112, 0 , Y_top, -1000
+K, 113, s_rib, Y_bottom, -1000
+K, 114, s_rib, Y_top, -1000
+K, 115, 2*s_rib, Y_bottom, -1000
+K, 116, 2*s_rib, Y_top, -1000
+K, 117, 3*s_rib, Y_bottom, -1000
+K, 118, 3*s_rib, Y_top, -1000
+K, 119, 4*s_rib, Y_bottom, -1000
+K, 120, 4*s_rib, Y_top, -1000
+
+LSEL, S, LINE, , 1, 6
+LATT, 1, , 1, , 101, , 2
+LESIZE, ALL, , , n_div
+
+LSEL, S, LINE, , 7, 12
+LATT, 1, , 1, , 103, , 1
+LESIZE, ALL, , , n_div
+
+LSEL, S, LINE, , 13, 18
+LATT, 1, , 1, , 105, , 2
+LESIZE, ALL, , , n_div
+
+LSEL, S, LINE, , 19, 22
+LATT, 1, , 1, , 111, , 3
+LESIZE, ALL, , , n_div_rib
+
+LSEL, S, LINE, , 23, 26
+LATT, 1, , 1, , 113, , 3
+LESIZE, ALL, , , n_div_rib
+
+LSEL, S, LINE, , 27, 30
+LATT, 1, , 1, , 115, , 3
+LESIZE, ALL, , , n_div_rib
+
+LSEL, S, LINE, , 31, 34
+LATT, 1, , 1, , 117, , 3
+LESIZE, ALL, , , n_div_rib
+
+LSEL, S, LINE, , 35, 38
+LATT, 1, , 1, , 119, , 3
+LESIZE, ALL, , , n_div_rib
+
+ALLSEL, ALL
+LMESH, ALL
+ALLSEL, ALL
+
+!边界条件
+ALLSEL, ALL
+
+NSEL, S, LOC, X, X_left
+D, ALL, UX, 0
+D, ALL, UY, 0
+D, ALL, UZ, 0
+D, ALL, ROTX, 0
+D, ALL, ROTY, 0
+D, ALL, ROTZ, 0
+
+ALLSEL, ALL
+
+NSEL, S, LOC, X, X_right
+D, ALL, UX, 0
+D, ALL, UY, 0
+D, ALL, UZ, 0
+D, ALL, ROTX, 0
+D, ALL, ROTY, 0
+D, ALL, ROTZ, 0
+
+ALLSEL, ALL
+
+NSEL, S, LOC, Y, Y_bottom
+D, ALL, UX, 0
+D, ALL, UY, 0
+D, ALL, UZ, 0
+
+ALLSEL, ALL
+
+NSEL, S, LOC, Y, Y_top
+D, ALL, UX, 0
+D, ALL, UY, 0
+D, ALL, UZ, 0
+
+ALLSEL, ALL
+
+ALLSEL, ALL
+
+ESEL, S, SEC, , 3
+SFBEAM, ALL, 1, PRES, q1, q1
+ALLSEL, ALL
+
+FINISH
+/SOLU
+ANTYPE, STATIC
+OUTRES, ALL, LAST
+OUTRES, MISC, LAST
+
+SOLVE
+
+FINISH
+
+!后处理
+/POST1
+SET,LAST
+/ESHAPE,1
+PLDISP,2
+
+
+*GET,sx_max,SECR,ALL,S,X,MAX
+*GET,sx_min,SECR,ALL,S,X,MIN
+
+max_bend = ABS(sx_max)
+*IF,ABS(sx_min),GT,max_bend,THEN
+	max_bend = ABS(sx_min)
+*ENDIF
+
+!剪
+*GET,sxy_max,SECR,ALL,S,XY,MAX
+*GET,sxy_min,SECR,ALL,S,XY,MIN
+
+*GET,sxz_max,SECR,ALL,S,XZ,MAX
+*GET,sxz_min,SECR,ALL,S,XZ,MIN
+
+max_shear = ABS(sxy_max)
+*IF,ABS(sxy_min),GT,max_shear,THEN
+	max_shear = ABS(sxy_min)
+*ENDIF
+*IF,ABS(sxz_max),GT,max_shear,THEN
+	max_shear = ABS(sxz_max)
+*ENDIF
+*IF,ABS(sxz_min),GT,max_shear,THEN
+	max_shear = ABS(sxz_min)
+*ENDIF
+
+*STATUS,max_bend
+*STATUS,max_shear
+
+!总施加载荷
+ALLSEL, ALL
+NSEL, S, LOC, X, X_left
+NSEL, A, LOC, X, X_right
+NSEL, A, LOC, Y, Y_bottom
+NSEL, A, LOC, Y, Y_top
+FSUM
+ALLSEL, ALL

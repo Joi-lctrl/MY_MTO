@@ -1,0 +1,146 @@
+
+ *** WARNING ***
+  Requested job name (eval_t3_tp1f2faa95_884d_452c_a637_e114556e1d00) is longer than 32 characters.  Some ANSYS features may not work properly.
+
+ ANSYS LICENSE MANAGER ERROR:
+ Cannot connect to license server system.
+  The license server manager (lmgrd) has not been started yet,
+  the wrong port@host or license file is being used, or the
+  port or hostname in the license file has been changed.
+ Feature:       ansys
+ Server name:   192.168.124.11
+ License path:  1055@localhost;
+ FlexNet Licensing error:-15,578.  System Error: 10049 "WinSock: Invalid address"
+
+
+ ANSYS LICENSE MANAGER ERROR:
+ Cannot connect to license server system.
+  The license server manager (lmgrd) has not been started yet,
+  the wrong port@host or license file is being used, or the
+  port or hostname in the license file has been changed.
+ Feature:       mech_2
+ Server name:   192.168.124.11
+ License path:  1055@localhost;
+ FlexNet Licensing error:-15,578.  System Error: 10049 "WinSock: Invalid address"
+
+
+ ANSYS LICENSE MANAGER ERROR:
+ Cannot connect to license server system.
+  The license server manager (lmgrd) has not been started yet,
+  the wrong port@host or license file is being used, or the
+  port or hostname in the license file has been changed.
+ Feature:       mech_1
+ Server name:   192.168.124.11
+ License path:  1055@localhost;
+ FlexNet Licensing error:-15,578.  System Error: 10049 "WinSock: Invalid address"
+
+
+ ANSYS LICENSE MANAGER ERROR:
+ Cannot connect to license server system.
+  The license server manager (lmgrd) has not been started yet,
+  the wrong port@host or license file is being used, or the
+  port or hostname in the license file has been changed.
+ Feature:       meba
+ Server name:   192.168.124.11
+ License path:  1055@localhost;
+ FlexNet Licensing error:-15,578.  System Error: 10049 "WinSock: Invalid address"
+
+
+ ANSYS LICENSE MANAGER ERROR:
+ Cannot connect to license server system.
+  The license server manager (lmgrd) has not been started yet,
+  the wrong port@host or license file is being used, or the
+  port or hostname in the license file has been changed.
+ Feature:       preppost
+ Server name:   192.168.124.11
+ License path:  1055@localhost;
+ FlexNet Licensing error:-15,578.  System Error: 10049 "WinSock: Invalid address"
+
+
+ ANSYS LICENSE MANAGER ERROR:
+ Cannot connect to license server system.
+  The license server manager (lmgrd) has not been started yet,
+  the wrong port@host or license file is being used, or the
+  port or hostname in the license file has been changed.
+ Feature:       ane3fl
+ Server name:   192.168.124.11
+ License path:  1055@localhost;
+ FlexNet Licensing error:-15,578.  System Error: 10049 "WinSock: Invalid address"
+
+
+ ANSYS LICENSE MANAGER ERROR:
+ Cannot connect to license server system.
+  The license server manager (lmgrd) has not been started yet,
+  the wrong port@host or license file is being used, or the
+  port or hostname in the license file has been changed.
+ Feature:       ane3
+ Server name:   192.168.124.11
+ License path:  1055@localhost;
+ FlexNet Licensing error:-15,578.  System Error: 10049 "WinSock: Invalid address"
+
+
+ ANSYS LICENSE MANAGER ERROR:
+ Cannot connect to license server system.
+  The license server manager (lmgrd) has not been started yet,
+  the wrong port@host or license file is being used, or the
+  port or hostname in the license file has been changed.
+ Feature:       ancfx
+ Server name:   192.168.124.11
+ License path:  1055@localhost;
+ FlexNet Licensing error:-15,578.  System Error: 10049 "WinSock: Invalid address"
+
+
+ ANSYS LICENSE MANAGER ERROR:
+ Cannot connect to license server system.
+  The license server manager (lmgrd) has not been started yet,
+  the wrong port@host or license file is being used, or the
+  port or hostname in the license file has been changed.
+ Feature:       struct
+ Server name:   192.168.124.11
+ License path:  1055@localhost;
+ FlexNet Licensing error:-15,578.  System Error: 10049 "WinSock: Invalid address"
+
+
+ ANSYS LICENSE MANAGER ERROR:
+ Cannot connect to license server system.
+  The license server manager (lmgrd) has not been started yet,
+  the wrong port@host or license file is being used, or the
+  port or hostname in the license file has been changed.
+ Feature:       prf
+ Server name:   192.168.124.11
+ License path:  1055@localhost;
+ FlexNet Licensing error:-15,578.  System Error: 10049 "WinSock: Invalid address"
+
+
+ ANSYS LICENSE MANAGER ERROR:
+ Cannot connect to license server system.
+  The license server manager (lmgrd) has not been started yet,
+  the wrong port@host or license file is being used, or the
+  port or hostname in the license file has been changed.
+ Feature:       prfnls
+ Server name:   192.168.124.11
+ License path:  1055@localhost;
+ FlexNet Licensing error:-15,578.  System Error: 10049 "WinSock: Invalid address"
+
+
+ ANSYS LICENSE MANAGER ERROR:
+ Cannot connect to license server system.
+  The license server manager (lmgrd) has not been started yet,
+  the wrong port@host or license file is being used, or the
+  port or hostname in the license file has been changed.
+ Feature:       emag
+ Server name:   192.168.124.11
+ License path:  1055@localhost;
+ FlexNet Licensing error:-15,578.  System Error: 10049 "WinSock: Invalid address"
+
+
+ ANSYS LICENSE MANAGER ERROR:
+ Cannot connect to license server system.
+  The license server manager (lmgrd) has not been started yet,
+  the wrong port@host or license file is being used, or the
+  port or hostname in the license file has been changed.
+ Feature:       dynapp
+ Server name:   192.168.124.11
+ License path:  1055@localhost;
+ FlexNet Licensing error:-15,578.  System Error: 10049 "WinSock: Invalid address"
+

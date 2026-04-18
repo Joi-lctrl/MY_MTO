@@ -1,0 +1,78 @@
+FINISH
+/CLEAR, START
+/TITLE, Task9_opt
+/NOPR
+RESUME, task9_base_model, db
+/PREP7
+
+SECTYPE, 1, BEAM, I, LONG_1, 5
+SECDATA, 213.232, 2400, 432.407, 14.2927, 12, 5.74209
+SECTYPE, 2, BEAM, I, LONG_2, 5
+SECDATA, 148.267, 2400, 558.29, 20, 12, 9.7303
+SECTYPE, 3, BEAM, I, LONG_3, 5
+SECDATA, 155.312, 2400, 369.644, 10, 12, 4.32441
+SECTYPE, 4, BEAM, I, LONG_4, 5
+SECDATA, 186.853, 1800, 318.645, 10.5628, 12, 9.89436
+SECTYPE, 5, BEAM, I, RIB, 5
+SECDATA, 130.752, 1800, 484.81, 15.1452, 12, 8.29907
+
+FINISH
+FINISH
+/SOLU
+ANTYPE, STATIC
+OUTRES, ALL, LAST
+OUTRES, MISC, LAST
+SOLVE
+FINISH
+
+/POST1
+SET, LAST
+/ESHAPE, 1
+
+*GET, sx_max, SECR, ALL, S, X, MAX
+*GET, sx_min, SECR, ALL, S, X, MIN
+*GET, sxy_max, SECR, ALL, S, XY, MAX
+*GET, sxy_min, SECR, ALL, S, XY, MIN
+*GET, sxz_max, SECR, ALL, S, XZ, MAX
+*GET, sxz_min, SECR, ALL, S, XZ, MIN
+
+max_bend = ABS(sx_max)
+*IF,ABS(sx_min),GT,max_bend,THEN
+	max_bend = ABS(sx_min)
+*ENDIF
+
+max_shear = ABS(sxy_max)
+*IF,ABS(sxy_min),GT,max_shear,THEN
+	max_shear = ABS(sxy_min)
+*ENDIF
+*IF,ABS(sxz_max),GT,max_shear,THEN
+	max_shear = ABS(sxz_max)
+*ENDIF
+*IF,ABS(sxz_min),GT,max_shear,THEN
+	max_shear = ABS(sxz_min)
+*ENDIF
+
+*STATUS,max_bend
+*STATUS,max_shear
+
+*CFOPEN, eval_t9_tpc9bdcac5_7367_4b57_ba92_cd91b6ec8c8c_results, txt
+*VWRITE, sx_max
+(F20.6)
+*VWRITE, sx_min
+(F20.6)
+*VWRITE, sxy_max
+(F20.6)
+*VWRITE, sxy_min
+(F20.6)
+*VWRITE, sxz_max
+(F20.6)
+*VWRITE, sxz_min
+(F20.6)
+
+! Total structural mass from FEA model
+ALLSEL, ALL
+*GET, total_mass, ELEM, 0, MTOT, Z
+*VWRITE, total_mass
+(E20.10)
+*CFCLOS
+FINISH

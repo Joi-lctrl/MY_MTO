@@ -1,0 +1,140 @@
+<section class="module" id="module-5">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">05</span>
+      <h1 class="module-title">结果文件里到底有什么</h1>
+      <p class="module-subtitle">
+        跑完实验以后, 你最容易误解的地方就在这: `interleave_*.mat` 不是 GUI 里的 `MTOData.mat`。它是 `cmd_interleave` 自己打包出来的一套轻量结果格式。
+      </p>
+    </header>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">脚本最后保存了哪些字段</h2>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>save_name = sprintf('interleave_%s.mat', datestr(now, 'yyyymmdd_HHMMSS'));
+save(save_name, 'BestObj', 'BestCV', 'BestDecNorm', 'BestDecReal', ...
+    'ConvergeObj', 'ConvergeFE', 'algo_names', 'active_tasks', ...
+    'Reps', 'maxFE', 'Disable_Swap', 'Global_Seed', 'rep_seeds', ...
+    'PopulationSizeStats');</code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">文件名会自动带上时间戳, 所以每次运行默认都是一个新文件。</p>
+            <p class="tl">这里真正写入磁盘的是一组普通变量, 不是一个叫 `MTOData` 的总结构体。</p>
+            <p class="tl">`BestObj`、`BestCV`、`BestDecNorm`、`BestDecReal` 是最好结果视角。</p>
+            <p class="tl">`ConvergeObj` 和 `ConvergeFE` 是画收敛曲线用的轨迹。</p>
+            <p class="tl">后面这几个是实验元信息: 算法名、任务、重复次数、预算和 Swap 配置。</p>
+            <p class="tl">这份工作区现在还额外保存了 `Global_Seed`、每次 rep 的实际 `rep_seeds`、以及逐代 `PopulationSizeStats`。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">读这个文件时, 你最关心的通常是这 6 类东西</h2>
+      <div class="pattern-cards stagger-children">
+        <div class="pattern-card animate-in">
+          <div class="pattern-icon" style="background: var(--color-actor-1); color: white;">O</div>
+          <h4 class="pattern-title">BestObj</h4>
+          <p class="pattern-desc">每个算法、每次 rep、每个任务的最终最佳目标值。</p>
+        </div>
+        <div class="pattern-card animate-in">
+          <div class="pattern-icon" style="background: var(--color-actor-2); color: white;">C</div>
+          <h4 class="pattern-title">ConvergeObj</h4>
+          <p class="pattern-desc">收敛曲线主体。画对比图时最常用。</p>
+        </div>
+        <div class="pattern-card animate-in">
+          <div class="pattern-icon" style="background: var(--color-actor-3); color: white;">D</div>
+          <h4 class="pattern-title">BestDecReal</h4>
+          <p class="pattern-desc">最终最优个体的真实尺寸, 不再是 0 到 1 的归一化值。</p>
+        </div>
+        <div class="pattern-card animate-in">
+          <div class="pattern-icon" style="background: var(--color-actor-4); color: white;">F</div>
+          <h4 class="pattern-title">ConvergeFE</h4>
+          <p class="pattern-desc">每个收敛点对应的真实 FE 位置, 不是简单的代编号。</p>
+        </div>
+        <div class="pattern-card animate-in">
+          <div class="pattern-icon" style="background: var(--color-actor-5); color: white;">S</div>
+          <h4 class="pattern-title">Global_Seed / rep_seeds</h4>
+          <p class="pattern-desc">告诉你这次实验随机性从哪里来, 以后怎么复现。</p>
+        </div>
+        <div class="pattern-card animate-in">
+          <div class="pattern-icon" style="background: var(--color-accent); color: white;">P</div>
+          <h4 class="pattern-title">PopulationSizeStats</h4>
+          <p class="pattern-desc">记录每代各任务的种群大小。现在你终于可以回答“这一代到底有多少个体”。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">收敛曲线为什么不是原始每一代原样保存</h2>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>Result = Result_Gen(:, 1:maxGen);
+for k = 1:size(Result_Gen, 1)
+    Gap = FE_Gen(end) ./ (maxGen);
+    idx = 1;
+    i = 1;
+    while i <= length(FE_Gen)</code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">先预留出一个固定长度的新结果容器。</p>
+            <p class="tl">逐个任务或逐条轨迹处理。</p>
+            <p class="tl">用总 FE 除以 `maxGen` 算出采样间隔。</p>
+            <p class="tl">准备好往第几个采样点写数据。</p>
+            <p class="tl">再从原始 FE 序列头开始扫一遍。</p>
+            <p class="tl">这说明保存到 `.mat` 里的收敛历史, 是重采样后的版本, 不是未经压缩的全代历史。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-warning animate-in">
+        <div class="callout-icon">!</div>
+        <div class="callout-content">
+          <strong class="callout-title">两个很容易踩的坑</strong>
+          <p>第一, GUI 的载入按钮默认执行 `load(..., 'MTOData')`, 所以 `interleave_*.mat` 不能直接当 `MTOData.mat` 用。第二, `.mat` 是二进制文件, 如果被文本工具碰坏, 你会看到“文件还在, 但里面像没东西”。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <h2 class="screen-heading animate-in">小测: 现在你想查哪一项</h2>
+      <div class="quiz-container animate-in" id="quiz-module5">
+        <div class="quiz-question-block"
+             data-correct="option-c"
+             data-explanation-right="对。`PopulationSizeStats` 就是为这个问题加进去的。它按算法和 rep 存逐代种群大小。"
+             data-explanation-wrong="别再去 `BestObj` 或 `ConvergeObj` 里找个体个数了。那两类字段关心的是目标值轨迹, 不是人头统计。">
+          <div class="scenario-block">
+            <div class="scenario-context">
+              <span class="scenario-label">Scenario</span>
+              <p>你现在最想知道的是“第 12 代任务 5 子种群里到底有多少个体”。你应该优先查看哪个字段?</p>
+            </div>
+          </div>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>`BestDecReal`</span>
+            </button>
+            <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>`ConvergeFE`</span>
+            </button>
+            <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>`PopulationSizeStats`</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+        <button class="quiz-check-btn" onclick="checkQuiz('quiz-module5')">Check Answers</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module5')">Try Again</button>
+      </div>
+    </div>
+  </div>
+</section>

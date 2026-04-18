@@ -1,0 +1,179 @@
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       18:03:06
+
+ *** FATAL ***                           CP =       0.125   TIME= 18:03:07
+ The memory (-m) size requested [2112 mb] is not currently available.    
+ Re-enter the MAPDL command line with less memory requested.             
+
+ ************************************************************************
+ The above error is non-recoverable by ANSYS                             
+  ANSYS run terminated by the indicated error                            
+  Current data base saved if possible.                                   
+ ************************************************************************
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       18:03:25
+
+ *** ERROR ***                           CP =       9.516   TIME= 18:06:18
+ Data file MAYDAYMDabc.db does not exist for RESUME.                     
+
+ *** ERROR ***                           CP =      22.797   TIME= 18:11:11
+ Data file MAYDAYMDabc.db does not exist for RESUME.                     
+
+ *** WARNING ***                         CP =      63.406   TIME= 18:28:08
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         
+
+ *** WARNING ***                         CP =      68.750   TIME= 18:29:09
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       18:38:08
+
+ *** WARNING ***                         CP =       8.812   TIME= 18:39:41
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         
+
+ *** WARNING ***                         CP =      10.766   TIME= 18:40:06
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         
+
+ *** WARNING ***                         CP =      12.344   TIME= 18:40:17
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         
+
+ *** WARNING ***                         CP =      13.578   TIME= 18:40:53
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         
+
+ *** WARNING ***                         CP =      13.844   TIME= 18:40:57
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         
+
+ *** WARNING ***                         CP =      16.625   TIME= 18:46:44
+ No element table items are available.  The PLETAB command is ignored.   
+
+ *** WARNING ***                         CP =      20.609   TIME= 18:51:26
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         
+
+ *** WARNING ***                         CP =      20.859   TIME= 18:51:27
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         
+
+ *** WARNING ***                         CP =      33.609   TIME= 19:06:42
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         
+
+ *** WARNING ***                         CP =      37.891   TIME= 19:07:15
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         
+
+ *** WARNING ***                         CP =      43.203   TIME= 19:07:58
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       19:22:34
+
+ *** WARNING ***                         CP =       7.281   TIME= 19:23:52
+ /EPLOT is not a recognized POST1 command, abbreviation, or macro.       
+  This command will be ignored.                                          
+
+ *** WARNING ***                         CP =      11.156   TIME= 19:24:42
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       19:30:00
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       19:38:51
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       13:38:57
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       15:40:49
+
+ *** WARNING ***                         CP =      65.984   TIME= 16:04:29
+ REPLOT is not a recognized SOLUTION command, abbreviation, or macro.    
+  This command will be ignored.                                          
+
+ *** WARNING ***                         CP =      81.250   TIME= 16:10:14
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         
+
+ *** WARNING ***                         CP =      81.297   TIME= 16:10:14
+ No data is available for the selected model or data location            
+ specifications.                                                         
+
+ *** WARNING ***                         CP =      82.750   TIME= 16:10:39
+ No data is available for the selected model or data location            
+ specifications.                                                         
+
+ *** WARNING ***                         CP =      91.969   TIME= 16:12:38
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         
+
+ *** WARNING ***                         CP =      92.828   TIME= 16:12:49
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         
+
+ *** WARNING ***                         CP =      93.109   TIME= 16:12:56
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         
+
+ *** WARNING ***                         CP =      93.125   TIME= 16:12:57
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         
+
+ *** WARNING ***                         CP =      97.609   TIME= 16:21:44
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         
+
+ *** WARNING ***                         CP =      98.062   TIME= 16:21:49
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         
+
+ *** WARNING ***                         CP =      99.938   TIME= 16:23:01
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         
+
+ *** WARNING ***                         CP =     100.828   TIME= 16:23:42
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         
+
+ *** WARNING ***                         CP =     106.750   TIME= 16:26:06
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         
+
+ *** WARNING ***                         CP =     108.922   TIME= 16:28:14
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         
+
+ *** WARNING ***                         CP =     109.984   TIME= 16:28:25
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         
+
+ *** WARNING ***                         CP =     115.109   TIME= 16:30:59
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         
+
+ *** WARNING ***                         CP =     126.344   TIME= 16:37:12
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         
+
+ *** WARNING ***                         CP =     134.234   TIME= 16:42:01
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         
+
+ *** WARNING ***                         CP =     134.828   TIME= 16:42:20
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         
+
+ *** WARNING ***                         CP =     135.000   TIME= 16:42:24
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         
+
+ *** WARNING ***                         CP =     136.344   TIME= 16:42:56
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         
+
+ *** WARNING ***                         CP =     137.906   TIME= 16:44:28
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         
+
+ *** WARNING ***                         CP =     139.266   TIME= 16:45:33
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         
+
+ *** WARNING ***                         CP =     139.562   TIME= 16:45:42
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         

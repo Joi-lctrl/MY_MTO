@@ -1,0 +1,16 @@
+===== Bound Feasibility Check =====
+
+--- Task 7 ---
+q1=25.00, bend_allow=120.00, shear_allow=60.00
+[LOWER] expected=VIOLATE, status=ANSYS_ERROR, PASS=1
+  Obj=10000000000.0000, Con=[100.0000 100.0000 100.0000 100.0000], CV=400.0000
+  max_bend=NaN, max_shear=NaN
+  geom(hL2-hL1)=100.0000 (<=0 means satisfied)
+  geom(hL3-hL2)=100.0000 (<=0 means satisfied)
+[UPPER] expected=FEASIBLE, status=ANSYS_ERROR, PASS=0
+  Obj=10000000000.0000, Con=[100.0000 100.0000 100.0000 100.0000], CV=400.0000
+  max_bend=NaN, max_shear=NaN
+  geom(hL2-hL1)=100.0000 (<=0 means satisfied)
+  geom(hL3-hL2)=100.0000 (<=0 means satisfied)
+
+===== Check Complete =====

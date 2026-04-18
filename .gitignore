@@ -6,3 +6,6 @@ test/
 
 # macos trash
 .DS_Store
+
+# ANSYS transient status files
+APDLRESULTS_MTO/**/*.stat

@@ -204,7 +204,7 @@ for algo = 1:length(MTOData.Algorithms)
         cfg = struct();
         cfg.apdl_dir = fullfile(repo_root, 'APDL');
         cfg.n_proc = prob.APDL_NProc;
-        cfg.cleanup = false;
+        cfg.cleanup = cleanup_apdl;
         cfg.work_dir = fullfile(plot_root, algo_name, sprintf('task%d', actual_task));
 
         [obj, con, extra] = run_ansys_eval(x, actual_task, cfg);

@@ -7,8 +7,8 @@ classdef Ship_Panel_Problem < handle
 % Task 5: s_long=2400, s_rib=800, q1=25/3, t_plate=12, n_long=5 (16 vars)
 % Task 6: s_long=2400, s_rib=800, q1=6, t_plate=12, n_long=3, n_rib=6 (12 vars)
 % Task 7: based on Task 3, q1=25/3 (12 vars)
-% Task 8: s_long=1600, s_rib=1200, q1=18, t_plate=10, n_long=7, n_rib=9 (36 vars)
-% Task 9: s_long=2400, s_rib=1800, q1=25, t_plate=12, n_long=7, n_rib=9 (36 vars)
+% Task 8: s_long=3000, s_rib=1600, q1=10, t_plate=12, n_long=7, n_rib=9 (36 vars)
+% Task 9: s_long=3000, s_rib=2000, q1=25, t_plate=14, n_long=7, n_rib=9 (36 vars)
 
 properties
     T = 9  % Number of tasks
@@ -186,41 +186,49 @@ methods
 
         % Task 8: grouped 7-longitudinal, 9-rib layout with five rib groups
         tasks(8).name = 'Task8';
-        tasks(8).s_long = 1600;
-        tasks(8).s_rib = 1200;
-        tasks(8).q1 = 18;
-        tasks(8).t_plate = 10;
+        tasks(8).s_long = 3000;
+        tasks(8).s_rib = 1600;
+        tasks(8).q1 = 10;
+        tasks(8).t_plate = 12;
         tasks(8).n_long = 7;
         tasks(8).n_rib = 9;
         tasks(8).long_group_count = 4;
         tasks(8).rib_group_count = 5;
         tasks(8).enable_group_slenderness = true;
         tasks(8).sigma_allow = 400;
-        tasks(8).bend_allow = 240;
-        tasks(8).shear_allow = 120;
+        tasks(8).bend_allow = 234;
+        tasks(8).shear_allow = 117;
+        tasks(8).lambda_flange_long = 15;
+        tasks(8).lambda_flange_rib = 15;
         [tasks(8).b_top_long, tasks(8).b_top_rib] = ...
             obj.compute_task_position_eq_plate_widths(tasks(8), 8);
-        tasks(8).lb = [repmat([250, 4, 120, 10], 1, 4), repmat([250, 4, 120, 10], 1, 5)];
-        tasks(8).ub = [repmat([550, 10, 220, 20], 1, 4), repmat([550, 10, 220, 20], 1, 5)];
+        task8_long_group_lb = [350, 6, 450, 12];
+        task8_long_group_ub = [650, 12, 600, 22];
+        task8_rib_group_lb = [200, 6, 350, 6];
+        task8_rib_group_ub = [350, 12, 500, 12];
+        tasks(8).lb = [repmat(task8_long_group_lb, 1, 4), repmat(task8_rib_group_lb, 1, 5)];
+        tasks(8).ub = [repmat(task8_long_group_ub, 1, 4), repmat(task8_rib_group_ub, 1, 5)];
 
         % Task 9: grouped 7-longitudinal, 9-rib load variant with five rib groups
         tasks(9).name = 'Task9';
-        tasks(9).s_long = 2400;
-        tasks(9).s_rib = 1800;
+        tasks(9).s_long = 3000;
+        tasks(9).s_rib = 2000;
         tasks(9).q1 = 25;
-        tasks(9).t_plate = 12;
+        tasks(9).t_plate = 14;
         tasks(9).n_long = 7;
         tasks(9).n_rib = 9;
         tasks(9).long_group_count = 4;
         tasks(9).rib_group_count = 5;
         tasks(9).enable_group_slenderness = true;
         tasks(9).sigma_allow = 900;
-        tasks(9).bend_allow = 540;
-        tasks(9).shear_allow = 270;
+        tasks(9).bend_allow = 234;
+        tasks(9).shear_allow = 117;
+        tasks(9).lambda_flange_long = tasks(8).lambda_flange_long;
+        tasks(9).lambda_flange_rib = tasks(8).lambda_flange_rib;
         [tasks(9).b_top_long, tasks(9).b_top_rib] = ...
             obj.compute_task_position_eq_plate_widths(tasks(9), 9);
-        tasks(9).lb = tasks(8).lb;
-        tasks(9).ub = tasks(8).ub;
+        tasks(9).lb = [repmat(task34_long_group_lb, 1, 4), repmat(task34_rib_group_lb, 1, 5)];
+        tasks(9).ub = [repmat(task34_long_group_ub, 1, 4), repmat(task34_rib_group_ub, 1, 5)];
     end
 
     function [long_widths, rib_widths] = compute_task_position_eq_plate_widths(obj, task, task_id)
@@ -549,7 +557,8 @@ methods
             mac{end+1} = sprintf('K, %d, %g, %g, -1000', kp_ori, X_left, Y_i);
             mac{end+1} = sprintf('K, %d, %g, %g, -1000', kp_ori+1, X_right, Y_i);
         end
-        % Ribs: KP 2001+2*r (bottom), 2001+2*r+1 (top)
+        % Ribs: use one orientation keypoint per full rib, matching the
+        % hand-written Task3 macros and keeping SFBEAM local face direction stable.
         for rr = 0:n_rib-1
             X_r = rr * s_rib;
             kp_ori = 2001 + 2*rr;
@@ -618,7 +627,7 @@ methods
 
         % Load (applied to ribs only)
         mac{end+1} = sprintf('ESEL, S, SEC, , %d, %d', rib_sec_ids(1), rib_sec_ids(end));
-        mac{end+1} = sprintf('SFBEAM, ALL, 1, PRES, %g, %g', q1, q1);
+        mac{end+1} = sprintf('SFBEAM, ALL, 2, PRES, %g, %g', q1, q1);
         mac{end+1} = 'ALLSEL, ALL';
         mac{end+1} = '';
 
@@ -940,7 +949,7 @@ methods
         mac{end+1} = '';
 
         mac{end+1} = sprintf('ESEL, S, SEC, , %d, %d', ctx.rib_sec_ids(1), ctx.rib_sec_ids(end));
-        mac{end+1} = sprintf('SFBEAM, ALL, 1, PRES, %g, %g', q1, q1);
+        mac{end+1} = sprintf('SFBEAM, ALL, 2, PRES, %g, %g', q1, q1);
         mac{end+1} = 'ALLSEL, ALL';
         mac{end+1} = '';
     end

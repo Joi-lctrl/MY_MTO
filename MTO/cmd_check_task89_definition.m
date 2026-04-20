@@ -13,10 +13,25 @@ for task_id = [8 9]
     assert(numel(lb) == 36, 'Task%d lb should have 36 vars.', task_id);
     assert(numel(ub) == 36, 'Task%d ub should have 36 vars.', task_id);
     assert(numel(x0) == 36, 'Task%d x0 should have 36 vars.', task_id);
-    assert(isequal(lb(17:36), repmat([250, 4, 120, 10], 1, 5)), ...
-        'Task%d rib lower bounds should match the five rib-group bounds.', task_id);
-    assert(isequal(ub(17:36), repmat([550, 10, 220, 20], 1, 5)), ...
-        'Task%d rib upper bounds should match the five rib-group bounds.', task_id);
+    if task_id == 8
+        expected_long_lb = [350, 6, 450, 12];
+        expected_long_ub = [650, 12, 600, 22];
+        expected_rib_lb = [200, 6, 350, 6];
+        expected_rib_ub = [350, 12, 500, 12];
+    else
+        expected_long_lb = [250, 5, 150, 10];
+        expected_long_ub = [550, 11, 300, 20];
+        expected_rib_lb = [150, 5, 150, 5];
+        expected_rib_ub = [300, 11, 300, 11];
+    end
+    assert(isequal(lb(1:16), repmat(expected_long_lb, 1, 4)), ...
+        'Task%d longitudinal lower bounds mismatch.', task_id);
+    assert(isequal(ub(1:16), repmat(expected_long_ub, 1, 4)), ...
+        'Task%d longitudinal upper bounds mismatch.', task_id);
+    assert(isequal(lb(17:36), repmat(expected_rib_lb, 1, 5)), ...
+        'Task%d rib lower bounds mismatch.', task_id);
+    assert(isequal(ub(17:36), repmat(expected_rib_ub, 1, 5)), ...
+        'Task%d rib upper bounds mismatch.', task_id);
 
     task = ship_prob.Tasks(task_id);
     con_names = get_ship_constraint_names(task_id);
@@ -37,11 +52,11 @@ for task_id = [8 9]
     assert(numel(con_names) == 20, 'Task%d should expose 20 constraints.', task_id);
 
     if task_id == 8
-        expected_long = [1200, 1600, 1600, 1600, 1600, 1600, 1200];
-        expected_rib = 1200 * ones(1, 9);
+        expected_long = [2250, repmat(16000 / 6, 1, 5), 2250];
+        expected_rib = 1600 * ones(1, 9);
     else
-        expected_long = [1800, 2400, 2400, 2400, 2400, 2400, 1800];
-        expected_rib = 1800 * ones(1, 9);
+        expected_long = [2250, 3000, 3000, 3000, 3000, 3000, 2250];
+        expected_rib = 2000 * ones(1, 9);
     end
     assert(isequal(task.b_top_long, expected_long), ...
         'Task%d longitudinal equivalent plate widths mismatch.', task_id);

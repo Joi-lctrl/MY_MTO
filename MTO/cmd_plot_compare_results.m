@@ -5,7 +5,7 @@ cd(fileparts(mfilename('fullpath')));
 
 %% ===== 文件配置 =====
 multitask_file = 'multitask_ceda_dw_20260417_172201.mat';
-ga_file = 'imode_single_20260418_133906.mat';
+ga_file = 'globalga_single_20260419_114910.mat';
 tasks_to_plot = [];  % 为空时自动取两个结果文件 active_tasks 的交集
 
 ceda_data = load(multitask_file);

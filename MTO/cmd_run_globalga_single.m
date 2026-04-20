@@ -5,7 +5,7 @@ cd(fileparts(mfilename('fullpath')));
 addpath(genpath(pwd));
 
 %% ===== 配置 =====
-active_tasks = [4]; % 按列表顺序逐个单独跑，不共享种群，不发生任务迁移
+active_tasks = [3]; % 按列表顺序逐个单独跑，不共享种群，不发生任务迁移
 Reps = 1;
 maxFE = 6000;
 N = 100;

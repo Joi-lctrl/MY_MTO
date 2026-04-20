@@ -5,8 +5,8 @@ from pathlib import Path
 
 
 EXPECTED = {
-    8: {"sigma_allow": 400.0, "bend_allow": 240.0, "shear_allow": 120.0},
-    9: {"sigma_allow": 900.0, "bend_allow": 540.0, "shear_allow": 270.0},
+    8: {"sigma_allow": 400.0, "bend_allow": 234.0, "shear_allow": 117.0},
+    9: {"sigma_allow": 900.0, "bend_allow": 234.0, "shear_allow": 117.0},
 }
 
 MACROS = {

@@ -121,7 +121,7 @@
   INITIAL DIRECTORY = C:\Users\HUAWEI\Documents\GitHub\MY_MTO\APDL
 
  RELEASE= 2024 R1              BUILD= 24.1      UP20231106   VERSION=WINDOWS x64 
- CURRENT JOBNAME=MAYDAYMDabcde3  05:01:22  APR 17, 2026 CP=      0.031
+ CURRENT JOBNAME=MAYDAYMDabcde3  14:33:00  APR 20, 2026 CP=      0.047
 
 
  CLEAR DATABASE AND RERUN START.ANS
@@ -130,7 +130,287 @@
 
  *****  MAPDL SOLUTION ROUTINE  *****
 
- *** NOTE ***                            CP =       0.297   TIME= 05:04:58
+ *** NOTE ***                            CP =       0.391   TIME= 14:34:20
+ Predictor is ON by default for structural elements with rotational      
+ degrees of freedom.  Use the PRED,OFF command to turn the predictor     
+ OFF if it adversely affects the convergence.                            
+
+
+
+  *** MASS SUMMARY BY ELEMENT TYPE ***
+
+  TYPE      MASS
+     1   17.0075    
+ AN AVERAGE OF THE X-, Y-, AND Z-DIRECTION MASS TERMS ARE USED
+
+  Process memory allocated for solver              =     4.040 MB
+  Process memory required for in-core solution     =     3.897 MB
+  Process memory required for out-of-core solution =     3.421 MB
+
+ *** NOTE ***                            CP =       1.109   TIME= 14:34:21
+ The Distributed Sparse Matrix Solver is currently running in the        
+ in-core memory mode.  This memory mode uses the most amount of memory   
+ in order to avoid using the hard drive as much as possible, which most  
+ often results in the fastest solution time.  This mode is recommended   
+ if enough physical memory is present to accommodate all of the solver   
+ data.                                                                   
+
+   *** ELEMENT RESULT CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      2840  BEAM188       4.406   0.001551
+
+   *** NODAL LOAD CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      2840  BEAM188       0.156   0.000055
+ *** LOAD STEP     1   SUBSTEP     1  COMPLETED.    CUM ITER =      1
+ *** TIME =   1.00000         TIME INC =   1.00000      NEW TRIANG MATRIX
+
+
+ *** MAPDL BINARY FILE STATISTICS
+  BUFFER SIZE USED= 16384
+        0.438 MB WRITTEN ON ASSEMBLED MATRIX FILE: MAYDAYMDabcde3.full
+       19.000 MB WRITTEN ON RESULTS FILE: MAYDAYMDabcde3.rst
+
+ FINISH SOLUTION PROCESSING
+
+
+ ***** ROUTINE COMPLETED *****  CP =         3.234
+
+
+
+ CLEAR DATABASE AND RERUN START.ANS
+
+ Ansys Mechanical Enterprise                       
+
+ *****  MAPDL SOLUTION ROUTINE  *****
+
+ *** NOTE ***                            CP =       3.469   TIME= 14:39:47
+ Predictor is ON by default for structural elements with rotational      
+ degrees of freedom.  Use the PRED,OFF command to turn the predictor     
+ OFF if it adversely affects the convergence.                            
+
+
+
+  *** MASS SUMMARY BY ELEMENT TYPE ***
+
+  TYPE      MASS
+     1   17.0075    
+ AN AVERAGE OF THE X-, Y-, AND Z-DIRECTION MASS TERMS ARE USED
+
+  Process memory allocated for solver              =     4.009 MB
+  Process memory required for in-core solution     =     3.867 MB
+  Process memory required for out-of-core solution =     3.412 MB
+
+ *** NOTE ***                            CP =       4.062   TIME= 14:39:47
+ The Distributed Sparse Matrix Solver is currently running in the        
+ in-core memory mode.  This memory mode uses the most amount of memory   
+ in order to avoid using the hard drive as much as possible, which most  
+ often results in the fastest solution time.  This mode is recommended   
+ if enough physical memory is present to accommodate all of the solver   
+ data.                                                                   
+
+   *** ELEMENT RESULT CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      2840  BEAM188       4.141   0.001458
+
+   *** NODAL LOAD CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      2840  BEAM188       0.094   0.000033
+ *** LOAD STEP     1   SUBSTEP     1  COMPLETED.    CUM ITER =      1
+ *** TIME =   1.00000         TIME INC =   1.00000      NEW TRIANG MATRIX
+
+
+ *** MAPDL BINARY FILE STATISTICS
+  BUFFER SIZE USED= 16384
+        0.438 MB WRITTEN ON ASSEMBLED MATRIX FILE: MAYDAYMDabcde3.full
+       19.000 MB WRITTEN ON RESULTS FILE: MAYDAYMDabcde3.rst
+
+ FINISH SOLUTION PROCESSING
+
+
+ ***** ROUTINE COMPLETED *****  CP =         5.594
+
+
+
+ CLEAR DATABASE AND RERUN START.ANS
+
+ Ansys Mechanical Enterprise                       
+
+ *****  MAPDL SOLUTION ROUTINE  *****
+
+ *** NOTE ***                            CP =       5.859   TIME= 14:44:19
+ Predictor is ON by default for structural elements with rotational      
+ degrees of freedom.  Use the PRED,OFF command to turn the predictor     
+ OFF if it adversely affects the convergence.                            
+
+
+
+  *** MASS SUMMARY BY ELEMENT TYPE ***
+
+  TYPE      MASS
+     1   17.0075    
+ AN AVERAGE OF THE X-, Y-, AND Z-DIRECTION MASS TERMS ARE USED
+
+  Process memory allocated for solver              =     4.040 MB
+  Process memory required for in-core solution     =     3.897 MB
+  Process memory required for out-of-core solution =     3.421 MB
+
+ *** NOTE ***                            CP =       6.453   TIME= 14:44:20
+ The Distributed Sparse Matrix Solver is currently running in the        
+ in-core memory mode.  This memory mode uses the most amount of memory   
+ in order to avoid using the hard drive as much as possible, which most  
+ often results in the fastest solution time.  This mode is recommended   
+ if enough physical memory is present to accommodate all of the solver   
+ data.                                                                   
+
+   *** ELEMENT RESULT CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      2840  BEAM188       3.969   0.001397
+
+   *** NODAL LOAD CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      2840  BEAM188       0.172   0.000061
+ *** LOAD STEP     1   SUBSTEP     1  COMPLETED.    CUM ITER =      1
+ *** TIME =   1.00000         TIME INC =   1.00000      NEW TRIANG MATRIX
+
+
+ *** MAPDL BINARY FILE STATISTICS
+  BUFFER SIZE USED= 16384
+        0.438 MB WRITTEN ON ASSEMBLED MATRIX FILE: MAYDAYMDabcde3.full
+       19.000 MB WRITTEN ON RESULTS FILE: MAYDAYMDabcde3.rst
+
+ FINISH SOLUTION PROCESSING
+
+
+ ***** ROUTINE COMPLETED *****  CP =         8.000
+
+
+
+ CLEAR DATABASE AND RERUN START.ANS
+
+ Ansys Mechanical Enterprise                       
+
+ *****  MAPDL SOLUTION ROUTINE  *****
+
+ *** NOTE ***                            CP =       8.562   TIME= 15:16:47
+ Predictor is ON by default for structural elements with rotational      
+ degrees of freedom.  Use the PRED,OFF command to turn the predictor     
+ OFF if it adversely affects the convergence.                            
+
+
+
+  *** MASS SUMMARY BY ELEMENT TYPE ***
+
+  TYPE      MASS
+     1   17.0075    
+ AN AVERAGE OF THE X-, Y-, AND Z-DIRECTION MASS TERMS ARE USED
+
+  Process memory allocated for solver              =     4.040 MB
+  Process memory required for in-core solution     =     3.897 MB
+  Process memory required for out-of-core solution =     3.421 MB
+
+ *** NOTE ***                            CP =       9.203   TIME= 15:16:48
+ The Distributed Sparse Matrix Solver is currently running in the        
+ in-core memory mode.  This memory mode uses the most amount of memory   
+ in order to avoid using the hard drive as much as possible, which most  
+ often results in the fastest solution time.  This mode is recommended   
+ if enough physical memory is present to accommodate all of the solver   
+ data.                                                                   
+
+   *** ELEMENT RESULT CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      2840  BEAM188       4.219   0.001485
+
+   *** NODAL LOAD CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      2840  BEAM188       0.078   0.000028
+ *** LOAD STEP     1   SUBSTEP     1  COMPLETED.    CUM ITER =      1
+ *** TIME =   1.00000         TIME INC =   1.00000      NEW TRIANG MATRIX
+
+
+ *** MAPDL BINARY FILE STATISTICS
+  BUFFER SIZE USED= 16384
+        0.438 MB WRITTEN ON ASSEMBLED MATRIX FILE: MAYDAYMDabcde3.full
+       19.000 MB WRITTEN ON RESULTS FILE: MAYDAYMDabcde3.rst
+
+ FINISH SOLUTION PROCESSING
+
+
+ ***** ROUTINE COMPLETED *****  CP =        10.797
+
+
+
+ CLEAR DATABASE AND RERUN START.ANS
+
+ Ansys Mechanical Enterprise                       
+
+ *****  MAPDL SOLUTION ROUTINE  *****
+
+ *** NOTE ***                            CP =      11.094   TIME= 15:25:43
+ Predictor is ON by default for structural elements with rotational      
+ degrees of freedom.  Use the PRED,OFF command to turn the predictor     
+ OFF if it adversely affects the convergence.                            
+
+
+
+  *** MASS SUMMARY BY ELEMENT TYPE ***
+
+  TYPE      MASS
+     1   17.0075    
+ AN AVERAGE OF THE X-, Y-, AND Z-DIRECTION MASS TERMS ARE USED
+
+  Process memory allocated for solver              =     4.040 MB
+  Process memory required for in-core solution     =     3.897 MB
+  Process memory required for out-of-core solution =     3.421 MB
+
+ *** NOTE ***                            CP =      11.688   TIME= 15:25:44
+ The Distributed Sparse Matrix Solver is currently running in the        
+ in-core memory mode.  This memory mode uses the most amount of memory   
+ in order to avoid using the hard drive as much as possible, which most  
+ often results in the fastest solution time.  This mode is recommended   
+ if enough physical memory is present to accommodate all of the solver   
+ data.                                                                   
+
+   *** ELEMENT RESULT CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      2840  BEAM188       4.109   0.001447
+
+   *** NODAL LOAD CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      2840  BEAM188       0.062   0.000022
+ *** LOAD STEP     1   SUBSTEP     1  COMPLETED.    CUM ITER =      1
+ *** TIME =   1.00000         TIME INC =   1.00000      NEW TRIANG MATRIX
+
+
+ *** MAPDL BINARY FILE STATISTICS
+  BUFFER SIZE USED= 16384
+        0.438 MB WRITTEN ON ASSEMBLED MATRIX FILE: MAYDAYMDabcde3.full
+       19.000 MB WRITTEN ON RESULTS FILE: MAYDAYMDabcde3.rst
+
+ FINISH SOLUTION PROCESSING
+
+
+ ***** ROUTINE COMPLETED *****  CP =        13.203
+
+
+
+ CLEAR DATABASE AND RERUN START.ANS
+
+ Ansys Mechanical Enterprise                       
+
+ *****  MAPDL SOLUTION ROUTINE  *****
+
+ *** NOTE ***                            CP =      13.391   TIME= 15:26:50
  Predictor is ON by default for structural elements with rotational      
  degrees of freedom.  Use the PRED,OFF command to turn the predictor     
  OFF if it adversely affects the convergence.                            
@@ -147,7 +427,7 @@
   Process memory required for in-core solution     =     0.754 MB
   Process memory required for out-of-core solution =     0.754 MB
 
- *** NOTE ***                            CP =       0.375   TIME= 05:04:58
+ *** NOTE ***                            CP =      13.484   TIME= 15:26:50
  The Distributed Sparse Matrix Solver is currently running in the        
  in-core memory mode.  This memory mode uses the most amount of memory   
  in order to avoid using the hard drive as much as possible, which most  
@@ -158,7 +438,641 @@
    *** ELEMENT RESULT CALCULATION TIMES
      TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
 
-        1       460  BEAM188       0.547   0.001189
+        1       460  BEAM188       0.641   0.001393
+
+   *** NODAL LOAD CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1       460  BEAM188       0.031   0.000068
+ *** LOAD STEP     1   SUBSTEP     1  COMPLETED.    CUM ITER =      1
+ *** TIME =   1.00000         TIME INC =   1.00000      NEW TRIANG MATRIX
+
+
+ *** MAPDL BINARY FILE STATISTICS
+  BUFFER SIZE USED= 16384
+        0.125 MB WRITTEN ON ASSEMBLED MATRIX FILE: MAYDAYMDabcde3.full
+        3.875 MB WRITTEN ON RESULTS FILE: MAYDAYMDabcde3.rst
+
+ FINISH SOLUTION PROCESSING
+
+
+ ***** ROUTINE COMPLETED *****  CP =        13.922
+
+
+
+ CLEAR DATABASE AND RERUN START.ANS
+
+ Ansys Mechanical Enterprise                       
+
+ *****  MAPDL SOLUTION ROUTINE  *****
+
+ *** NOTE ***                            CP =      14.266   TIME= 15:43:45
+ Predictor is ON by default for structural elements with rotational      
+ degrees of freedom.  Use the PRED,OFF command to turn the predictor     
+ OFF if it adversely affects the convergence.                            
+
+
+
+  *** MASS SUMMARY BY ELEMENT TYPE ***
+
+  TYPE      MASS
+     1   18.8446    
+ AN AVERAGE OF THE X-, Y-, AND Z-DIRECTION MASS TERMS ARE USED
+
+  Process memory allocated for solver              =     2.450 MB
+  Process memory required for in-core solution     =     2.364 MB
+  Process memory required for out-of-core solution =     2.167 MB
+
+ *** NOTE ***                            CP =      14.641   TIME= 15:43:45
+ The Distributed Sparse Matrix Solver is currently running in the        
+ in-core memory mode.  This memory mode uses the most amount of memory   
+ in order to avoid using the hard drive as much as possible, which most  
+ often results in the fastest solution time.  This mode is recommended   
+ if enough physical memory is present to accommodate all of the solver   
+ data.                                                                   
+
+   *** ELEMENT RESULT CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      1760  BEAM188       2.375   0.001349
+
+   *** NODAL LOAD CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      1760  BEAM188       0.062   0.000036
+ *** LOAD STEP     1   SUBSTEP     1  COMPLETED.    CUM ITER =      1
+ *** TIME =   1.00000         TIME INC =   1.00000      NEW TRIANG MATRIX
+
+
+ *** MAPDL BINARY FILE STATISTICS
+  BUFFER SIZE USED= 16384
+        0.312 MB WRITTEN ON ASSEMBLED MATRIX FILE: MAYDAYMDabcde3.full
+       12.438 MB WRITTEN ON RESULTS FILE: MAYDAYMDabcde3.rst
+
+ FINISH SOLUTION PROCESSING
+
+
+ ***** ROUTINE COMPLETED *****  CP =        15.594
+
+
+
+ CLEAR DATABASE AND RERUN START.ANS
+
+ Ansys Mechanical Enterprise                       
+
+ *****  MAPDL SOLUTION ROUTINE  *****
+
+ *** NOTE ***                            CP =      15.922   TIME= 16:17:47
+ Predictor is ON by default for structural elements with rotational      
+ degrees of freedom.  Use the PRED,OFF command to turn the predictor     
+ OFF if it adversely affects the convergence.                            
+
+
+
+  *** MASS SUMMARY BY ELEMENT TYPE ***
+
+  TYPE      MASS
+     1   1.15238    
+ AN AVERAGE OF THE X-, Y-, AND Z-DIRECTION MASS TERMS ARE USED
+
+  Process memory allocated for solver              =     0.783 MB
+  Process memory required for in-core solution     =     0.754 MB
+  Process memory required for out-of-core solution =     0.754 MB
+
+ *** NOTE ***                            CP =      16.000   TIME= 16:17:47
+ The Distributed Sparse Matrix Solver is currently running in the        
+ in-core memory mode.  This memory mode uses the most amount of memory   
+ in order to avoid using the hard drive as much as possible, which most  
+ often results in the fastest solution time.  This mode is recommended   
+ if enough physical memory is present to accommodate all of the solver   
+ data.                                                                   
+
+   *** ELEMENT RESULT CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1       460  BEAM188       0.453   0.000985
+
+   *** NODAL LOAD CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1       460  BEAM188       0.031   0.000068
+ *** LOAD STEP     1   SUBSTEP     1  COMPLETED.    CUM ITER =      1
+ *** TIME =   1.00000         TIME INC =   1.00000      NEW TRIANG MATRIX
+
+
+ *** MAPDL BINARY FILE STATISTICS
+  BUFFER SIZE USED= 16384
+        0.125 MB WRITTEN ON ASSEMBLED MATRIX FILE: MAYDAYMDabcde3.full
+        3.875 MB WRITTEN ON RESULTS FILE: MAYDAYMDabcde3.rst
+
+ FINISH SOLUTION PROCESSING
+
+
+ ***** ROUTINE COMPLETED *****  CP =        16.344
+
+
+
+ CLEAR DATABASE AND RERUN START.ANS
+
+ Ansys Mechanical Enterprise                       
+
+ *****  MAPDL SOLUTION ROUTINE  *****
+
+ *** NOTE ***                            CP =      18.203   TIME= 19:33:34
+ Predictor is ON by default for structural elements with rotational      
+ degrees of freedom.  Use the PRED,OFF command to turn the predictor     
+ OFF if it adversely affects the convergence.                            
+
+
+
+  *** MASS SUMMARY BY ELEMENT TYPE ***
+
+  TYPE      MASS
+     1   18.8446    
+ AN AVERAGE OF THE X-, Y-, AND Z-DIRECTION MASS TERMS ARE USED
+
+  Process memory allocated for solver              =     2.450 MB
+  Process memory required for in-core solution     =     2.364 MB
+  Process memory required for out-of-core solution =     2.167 MB
+
+ *** NOTE ***                            CP =      18.578   TIME= 19:33:34
+ The Distributed Sparse Matrix Solver is currently running in the        
+ in-core memory mode.  This memory mode uses the most amount of memory   
+ in order to avoid using the hard drive as much as possible, which most  
+ often results in the fastest solution time.  This mode is recommended   
+ if enough physical memory is present to accommodate all of the solver   
+ data.                                                                   
+
+   *** ELEMENT RESULT CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      1760  BEAM188       2.266   0.001287
+
+   *** NODAL LOAD CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      1760  BEAM188       0.094   0.000053
+ *** LOAD STEP     1   SUBSTEP     1  COMPLETED.    CUM ITER =      1
+ *** TIME =   1.00000         TIME INC =   1.00000      NEW TRIANG MATRIX
+
+
+ *** MAPDL BINARY FILE STATISTICS
+  BUFFER SIZE USED= 16384
+        0.312 MB WRITTEN ON ASSEMBLED MATRIX FILE: MAYDAYMDabcde3.full
+       12.438 MB WRITTEN ON RESULTS FILE: MAYDAYMDabcde3.rst
+
+ FINISH SOLUTION PROCESSING
+
+
+ ***** ROUTINE COMPLETED *****  CP =        19.891
+
+
+
+ CLEAR DATABASE AND RERUN START.ANS
+
+ Ansys Mechanical Enterprise                       
+
+ *****  MAPDL SOLUTION ROUTINE  *****
+
+ *** NOTE ***                            CP =      20.250   TIME= 19:41:23
+ Predictor is ON by default for structural elements with rotational      
+ degrees of freedom.  Use the PRED,OFF command to turn the predictor     
+ OFF if it adversely affects the convergence.                            
+
+
+
+  *** MASS SUMMARY BY ELEMENT TYPE ***
+
+  TYPE      MASS
+     1   13.6316    
+ AN AVERAGE OF THE X-, Y-, AND Z-DIRECTION MASS TERMS ARE USED
+
+  Process memory allocated for solver              =     7.127 MB
+  Process memory required for in-core solution     =     6.874 MB
+  Process memory required for out-of-core solution =     5.867 MB
+
+ *** NOTE ***                            CP =      21.000   TIME= 19:41:24
+ The Distributed Sparse Matrix Solver is currently running in the        
+ in-core memory mode.  This memory mode uses the most amount of memory   
+ in order to avoid using the hard drive as much as possible, which most  
+ often results in the fastest solution time.  This mode is recommended   
+ if enough physical memory is present to accommodate all of the solver   
+ data.                                                                   
+
+   *** ELEMENT RESULT CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      5000  BEAM188       5.984   0.001197
+
+   *** NODAL LOAD CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      5000  BEAM188       0.141   0.000028
+ *** LOAD STEP     1   SUBSTEP     1  COMPLETED.    CUM ITER =      1
+ *** TIME =   1.00000         TIME INC =   1.00000      NEW TRIANG MATRIX
+
+
+ *** MAPDL BINARY FILE STATISTICS
+  BUFFER SIZE USED= 16384
+        0.812 MB WRITTEN ON ASSEMBLED MATRIX FILE: MAYDAYMDabcde3.full
+       32.125 MB WRITTEN ON RESULTS FILE: MAYDAYMDabcde3.rst
+
+ FINISH SOLUTION PROCESSING
+
+
+ ***** ROUTINE COMPLETED *****  CP =        23.078
+
+
+
+ CLEAR DATABASE AND RERUN START.ANS
+
+ Ansys Mechanical Enterprise                       
+
+ *****  MAPDL SOLUTION ROUTINE  *****
+
+ *** NOTE ***                            CP =      23.375   TIME= 19:55:41
+ Predictor is ON by default for structural elements with rotational      
+ degrees of freedom.  Use the PRED,OFF command to turn the predictor     
+ OFF if it adversely affects the convergence.                            
+
+
+
+  *** MASS SUMMARY BY ELEMENT TYPE ***
+
+  TYPE      MASS
+     1   13.6316    
+ AN AVERAGE OF THE X-, Y-, AND Z-DIRECTION MASS TERMS ARE USED
+
+  Process memory allocated for solver              =     7.127 MB
+  Process memory required for in-core solution     =     6.874 MB
+  Process memory required for out-of-core solution =     5.867 MB
+
+ *** NOTE ***                            CP =      24.266   TIME= 19:55:42
+ The Distributed Sparse Matrix Solver is currently running in the        
+ in-core memory mode.  This memory mode uses the most amount of memory   
+ in order to avoid using the hard drive as much as possible, which most  
+ often results in the fastest solution time.  This mode is recommended   
+ if enough physical memory is present to accommodate all of the solver   
+ data.                                                                   
+
+   *** ELEMENT RESULT CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      5000  BEAM188       7.312   0.001463
+
+   *** NODAL LOAD CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      5000  BEAM188       0.078   0.000016
+ *** LOAD STEP     1   SUBSTEP     1  COMPLETED.    CUM ITER =      1
+ *** TIME =   1.00000         TIME INC =   1.00000      NEW TRIANG MATRIX
+
+
+ *** MAPDL BINARY FILE STATISTICS
+  BUFFER SIZE USED= 16384
+        0.812 MB WRITTEN ON ASSEMBLED MATRIX FILE: MAYDAYMDabcde3.full
+       32.125 MB WRITTEN ON RESULTS FILE: MAYDAYMDabcde3.rst
+
+ FINISH SOLUTION PROCESSING
+
+
+ ***** ROUTINE COMPLETED *****  CP =        26.797
+
+
+
+ CLEAR DATABASE AND RERUN START.ANS
+
+ Ansys Mechanical Enterprise                       
+
+ *****  MAPDL SOLUTION ROUTINE  *****
+
+ *** NOTE ***                            CP =      26.969   TIME= 19:56:01
+ Predictor is ON by default for structural elements with rotational      
+ degrees of freedom.  Use the PRED,OFF command to turn the predictor     
+ OFF if it adversely affects the convergence.                            
+
+
+
+  *** MASS SUMMARY BY ELEMENT TYPE ***
+
+  TYPE      MASS
+     1   13.6316    
+ AN AVERAGE OF THE X-, Y-, AND Z-DIRECTION MASS TERMS ARE USED
+
+  Process memory allocated for solver              =     7.127 MB
+  Process memory required for in-core solution     =     6.874 MB
+  Process memory required for out-of-core solution =     5.867 MB
+
+ *** NOTE ***                            CP =      27.906   TIME= 19:56:02
+ The Distributed Sparse Matrix Solver is currently running in the        
+ in-core memory mode.  This memory mode uses the most amount of memory   
+ in order to avoid using the hard drive as much as possible, which most  
+ often results in the fastest solution time.  This mode is recommended   
+ if enough physical memory is present to accommodate all of the solver   
+ data.                                                                   
+
+   *** ELEMENT RESULT CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      5000  BEAM188       7.234   0.001447
+
+   *** NODAL LOAD CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      5000  BEAM188       0.172   0.000034
+ *** LOAD STEP     1   SUBSTEP     1  COMPLETED.    CUM ITER =      1
+ *** TIME =   1.00000         TIME INC =   1.00000      NEW TRIANG MATRIX
+
+
+ *** MAPDL BINARY FILE STATISTICS
+  BUFFER SIZE USED= 16384
+        0.812 MB WRITTEN ON ASSEMBLED MATRIX FILE: MAYDAYMDabcde3.full
+       32.125 MB WRITTEN ON RESULTS FILE: MAYDAYMDabcde3.rst
+
+ FINISH SOLUTION PROCESSING
+
+
+ ***** ROUTINE COMPLETED *****  CP =        30.594
+
+
+
+ CLEAR DATABASE AND RERUN START.ANS
+
+ Ansys Mechanical Enterprise                       
+
+ *****  MAPDL SOLUTION ROUTINE  *****
+
+ *** NOTE ***                            CP =      31.875   TIME= 22:52:51
+ Predictor is ON by default for structural elements with rotational      
+ degrees of freedom.  Use the PRED,OFF command to turn the predictor     
+ OFF if it adversely affects the convergence.                            
+
+
+
+  *** MASS SUMMARY BY ELEMENT TYPE ***
+
+  TYPE      MASS
+     1   13.6316    
+ AN AVERAGE OF THE X-, Y-, AND Z-DIRECTION MASS TERMS ARE USED
+
+  Process memory allocated for solver              =     7.127 MB
+  Process memory required for in-core solution     =     6.874 MB
+  Process memory required for out-of-core solution =     5.867 MB
+
+ *** NOTE ***                            CP =      32.891   TIME= 22:52:52
+ The Distributed Sparse Matrix Solver is currently running in the        
+ in-core memory mode.  This memory mode uses the most amount of memory   
+ in order to avoid using the hard drive as much as possible, which most  
+ often results in the fastest solution time.  This mode is recommended   
+ if enough physical memory is present to accommodate all of the solver   
+ data.                                                                   
+
+   *** ELEMENT RESULT CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      5000  BEAM188       6.922   0.001384
+
+   *** NODAL LOAD CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      5000  BEAM188       0.172   0.000034
+ *** LOAD STEP     1   SUBSTEP     1  COMPLETED.    CUM ITER =      1
+ *** TIME =   1.00000         TIME INC =   1.00000      NEW TRIANG MATRIX
+
+
+ *** MAPDL BINARY FILE STATISTICS
+  BUFFER SIZE USED= 16384
+        0.812 MB WRITTEN ON ASSEMBLED MATRIX FILE: MAYDAYMDabcde3.full
+       32.125 MB WRITTEN ON RESULTS FILE: MAYDAYMDabcde3.rst
+
+ FINISH SOLUTION PROCESSING
+
+
+ ***** ROUTINE COMPLETED *****  CP =        35.375
+
+
+
+ CLEAR DATABASE AND RERUN START.ANS
+
+ Ansys Mechanical Enterprise                       
+
+ *****  MAPDL SOLUTION ROUTINE  *****
+
+ *** NOTE ***                            CP =      35.781   TIME= 23:10:56
+ Predictor is ON by default for structural elements with rotational      
+ degrees of freedom.  Use the PRED,OFF command to turn the predictor     
+ OFF if it adversely affects the convergence.                            
+
+
+
+  *** MASS SUMMARY BY ELEMENT TYPE ***
+
+  TYPE      MASS
+     1   13.6316    
+ AN AVERAGE OF THE X-, Y-, AND Z-DIRECTION MASS TERMS ARE USED
+
+  Process memory allocated for solver              =     7.127 MB
+  Process memory required for in-core solution     =     6.874 MB
+  Process memory required for out-of-core solution =     5.867 MB
+
+ *** NOTE ***                            CP =      36.891   TIME= 23:10:57
+ The Distributed Sparse Matrix Solver is currently running in the        
+ in-core memory mode.  This memory mode uses the most amount of memory   
+ in order to avoid using the hard drive as much as possible, which most  
+ often results in the fastest solution time.  This mode is recommended   
+ if enough physical memory is present to accommodate all of the solver   
+ data.                                                                   
+
+   *** ELEMENT RESULT CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      5000  BEAM188       7.859   0.001572
+
+   *** NODAL LOAD CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      5000  BEAM188       0.203   0.000041
+ *** LOAD STEP     1   SUBSTEP     1  COMPLETED.    CUM ITER =      1
+ *** TIME =   1.00000         TIME INC =   1.00000      NEW TRIANG MATRIX
+
+
+ *** MAPDL BINARY FILE STATISTICS
+  BUFFER SIZE USED= 16384
+        0.812 MB WRITTEN ON ASSEMBLED MATRIX FILE: MAYDAYMDabcde3.full
+       32.125 MB WRITTEN ON RESULTS FILE: MAYDAYMDabcde3.rst
+
+ FINISH SOLUTION PROCESSING
+
+
+ ***** ROUTINE COMPLETED *****  CP =        39.641
+
+
+
+ CLEAR DATABASE AND RERUN START.ANS
+
+ Ansys Mechanical Enterprise                       
+
+ *****  MAPDL SOLUTION ROUTINE  *****
+
+ *** NOTE ***                            CP =      42.688   TIME= 04:49:34
+ Predictor is ON by default for structural elements with rotational      
+ degrees of freedom.  Use the PRED,OFF command to turn the predictor     
+ OFF if it adversely affects the convergence.                            
+
+
+
+  *** MASS SUMMARY BY ELEMENT TYPE ***
+
+  TYPE      MASS
+     1  0.855273    
+ AN AVERAGE OF THE X-, Y-, AND Z-DIRECTION MASS TERMS ARE USED
+
+  Process memory allocated for solver              =     0.499 MB
+  Process memory required for in-core solution     =     0.479 MB
+  Process memory required for out-of-core solution =     0.479 MB
+
+ *** NOTE ***                            CP =      42.734   TIME= 04:49:34
+ The Distributed Sparse Matrix Solver is currently running in the        
+ in-core memory mode.  This memory mode uses the most amount of memory   
+ in order to avoid using the hard drive as much as possible, which most  
+ often results in the fastest solution time.  This mode is recommended   
+ if enough physical memory is present to accommodate all of the solver   
+ data.                                                                   
+
+   *** ELEMENT RESULT CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1       228  BEAM188       0.359   0.001576
+
+   *** NODAL LOAD CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1       228  BEAM188       0.016   0.000069
+ *** LOAD STEP     1   SUBSTEP     1  COMPLETED.    CUM ITER =      1
+ *** TIME =   1.00000         TIME INC =   1.00000      NEW TRIANG MATRIX
+
+
+ *** MAPDL BINARY FILE STATISTICS
+  BUFFER SIZE USED= 16384
+        0.062 MB WRITTEN ON ASSEMBLED MATRIX FILE: MAYDAYMDabcde3.full
+        2.188 MB WRITTEN ON RESULTS FILE: MAYDAYMDabcde3.rst
+
+ FINISH SOLUTION PROCESSING
+
+
+ ***** ROUTINE COMPLETED *****  CP =        43.047
+
+
+
+ CLEAR DATABASE AND RERUN START.ANS
+
+ Ansys Mechanical Enterprise                       
+
+ *****  MAPDL SOLUTION ROUTINE  *****
+
+ *** NOTE ***                            CP =      43.391   TIME= 04:58:07
+ Predictor is ON by default for structural elements with rotational      
+ degrees of freedom.  Use the PRED,OFF command to turn the predictor     
+ OFF if it adversely affects the convergence.                            
+
+
+
+  *** MASS SUMMARY BY ELEMENT TYPE ***
+
+  TYPE      MASS
+     1   1.04287    
+ AN AVERAGE OF THE X-, Y-, AND Z-DIRECTION MASS TERMS ARE USED
+
+  Process memory allocated for solver              =     1.133 MB
+  Process memory required for in-core solution     =     1.092 MB
+  Process memory required for out-of-core solution =     1.092 MB
+
+ *** NOTE ***                            CP =      43.562   TIME= 04:58:07
+ The Distributed Sparse Matrix Solver is currently running in the        
+ in-core memory mode.  This memory mode uses the most amount of memory   
+ in order to avoid using the hard drive as much as possible, which most  
+ often results in the fastest solution time.  This mode is recommended   
+ if enough physical memory is present to accommodate all of the solver   
+ data.                                                                   
+
+   *** ELEMENT RESULT CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1       760  BEAM188       1.062   0.001398
+
+   *** NODAL LOAD CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1       760  BEAM188       0.000   0.000000
+ *** LOAD STEP     1   SUBSTEP     1  COMPLETED.    CUM ITER =      1
+ *** TIME =   1.00000         TIME INC =   1.00000      NEW TRIANG MATRIX
+
+
+ *** MAPDL BINARY FILE STATISTICS
+  BUFFER SIZE USED= 16384
+        0.125 MB WRITTEN ON ASSEMBLED MATRIX FILE: MAYDAYMDabcde3.full
+        5.688 MB WRITTEN ON RESULTS FILE: MAYDAYMDabcde3.rst
+
+ FINISH SOLUTION PROCESSING
+
+
+ ***** ROUTINE COMPLETED *****  CP =        44.125
+
+
+
+ *****  MAPDL SOLUTION ROUTINE  *****
+
+ FINISH SOLUTION PROCESSING
+
+
+ ***** ROUTINE COMPLETED *****  CP =        44.156
+
+
+
+ *****  MAPDL SOLUTION ROUTINE  *****
+
+ FINISH SOLUTION PROCESSING
+
+
+ ***** ROUTINE COMPLETED *****  CP =        44.156
+
+
+
+ CLEAR DATABASE AND RERUN START.ANS
+
+ Ansys Mechanical Enterprise                       
+
+ *****  MAPDL SOLUTION ROUTINE  *****
+
+ *** NOTE ***                            CP =      44.719   TIME= 05:01:52
+ Predictor is ON by default for structural elements with rotational      
+ degrees of freedom.  Use the PRED,OFF command to turn the predictor     
+ OFF if it adversely affects the convergence.                            
+
+
+
+  *** MASS SUMMARY BY ELEMENT TYPE ***
+
+  TYPE      MASS
+     1   1.82308    
+ AN AVERAGE OF THE X-, Y-, AND Z-DIRECTION MASS TERMS ARE USED
+
+  Process memory allocated for solver              =     0.783 MB
+  Process memory required for in-core solution     =     0.754 MB
+  Process memory required for out-of-core solution =     0.754 MB
+
+ *** NOTE ***                            CP =      44.812   TIME= 05:01:52
+ The Distributed Sparse Matrix Solver is currently running in the        
+ in-core memory mode.  This memory mode uses the most amount of memory   
+ in order to avoid using the hard drive as much as possible, which most  
+ often results in the fastest solution time.  This mode is recommended   
+ if enough physical memory is present to accommodate all of the solver   
+ data.                                                                   
+
+   *** ELEMENT RESULT CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1       460  BEAM188       0.719   0.001563
 
    *** NODAL LOAD CALCULATION TIMES
      TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
@@ -176,7 +1090,7 @@
  FINISH SOLUTION PROCESSING
 
 
- ***** ROUTINE COMPLETED *****  CP =         0.844
+ ***** ROUTINE COMPLETED *****  CP =        45.234
 
 
 
@@ -186,7 +1100,7 @@
 
  *****  MAPDL SOLUTION ROUTINE  *****
 
- *** NOTE ***                            CP =       0.953   TIME= 05:05:27
+ *** NOTE ***                            CP =      46.422   TIME= 06:32:42
  Predictor is ON by default for structural elements with rotational      
  degrees of freedom.  Use the PRED,OFF command to turn the predictor     
  OFF if it adversely affects the convergence.                            
@@ -196,14 +1110,14 @@
   *** MASS SUMMARY BY ELEMENT TYPE ***
 
   TYPE      MASS
-     1   1.82308    
+     1   4.06520    
  AN AVERAGE OF THE X-, Y-, AND Z-DIRECTION MASS TERMS ARE USED
 
-  Process memory allocated for solver              =     0.783 MB
-  Process memory required for in-core solution     =     0.754 MB
-  Process memory required for out-of-core solution =     0.754 MB
+  Process memory allocated for solver              =     0.962 MB
+  Process memory required for in-core solution     =     0.928 MB
+  Process memory required for out-of-core solution =     0.928 MB
 
- *** NOTE ***                            CP =       1.031   TIME= 05:05:27
+ *** NOTE ***                            CP =      46.531   TIME= 06:32:42
  The Distributed Sparse Matrix Solver is currently running in the        
  in-core memory mode.  This memory mode uses the most amount of memory   
  in order to avoid using the hard drive as much as possible, which most  
@@ -214,12 +1128,12 @@
    *** ELEMENT RESULT CALCULATION TIMES
      TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
 
-        1       460  BEAM188       0.641   0.001393
+        1       620  BEAM188       0.547   0.000882
 
    *** NODAL LOAD CALCULATION TIMES
      TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
 
-        1       460  BEAM188       0.000   0.000000
+        1       620  BEAM188       0.016   0.000025
  *** LOAD STEP     1   SUBSTEP     1  COMPLETED.    CUM ITER =      1
  *** TIME =   1.00000         TIME INC =   1.00000      NEW TRIANG MATRIX
 
@@ -227,12 +1141,12 @@
  *** MAPDL BINARY FILE STATISTICS
   BUFFER SIZE USED= 16384
         0.125 MB WRITTEN ON ASSEMBLED MATRIX FILE: MAYDAYMDabcde3.full
-        3.875 MB WRITTEN ON RESULTS FILE: MAYDAYMDabcde3.rst
+        5.000 MB WRITTEN ON RESULTS FILE: MAYDAYMDabcde3.rst
 
  FINISH SOLUTION PROCESSING
 
 
- ***** ROUTINE COMPLETED *****  CP =         1.562
+ ***** ROUTINE COMPLETED *****  CP =        46.891
 
 
 
@@ -242,7 +1156,7 @@
 
  *****  MAPDL SOLUTION ROUTINE  *****
 
- *** NOTE ***                            CP =       1.672   TIME= 05:05:47
+ *** NOTE ***                            CP =      47.062   TIME= 06:41:32
  Predictor is ON by default for structural elements with rotational      
  degrees of freedom.  Use the PRED,OFF command to turn the predictor     
  OFF if it adversely affects the convergence.                            
@@ -252,14 +1166,14 @@
   *** MASS SUMMARY BY ELEMENT TYPE ***
 
   TYPE      MASS
-     1   2.87404    
+     1   4.06520    
  AN AVERAGE OF THE X-, Y-, AND Z-DIRECTION MASS TERMS ARE USED
 
-  Process memory allocated for solver              =     0.783 MB
-  Process memory required for in-core solution     =     0.754 MB
-  Process memory required for out-of-core solution =     0.754 MB
+  Process memory allocated for solver              =     0.962 MB
+  Process memory required for in-core solution     =     0.928 MB
+  Process memory required for out-of-core solution =     0.928 MB
 
- *** NOTE ***                            CP =       1.734   TIME= 05:05:47
+ *** NOTE ***                            CP =      47.188   TIME= 06:41:32
  The Distributed Sparse Matrix Solver is currently running in the        
  in-core memory mode.  This memory mode uses the most amount of memory   
  in order to avoid using the hard drive as much as possible, which most  
@@ -270,12 +1184,12 @@
    *** ELEMENT RESULT CALCULATION TIMES
      TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
 
-        1       460  BEAM188       0.531   0.001155
+        1       620  BEAM188       0.969   0.001563
 
    *** NODAL LOAD CALCULATION TIMES
      TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
 
-        1       460  BEAM188       0.000   0.000000
+        1       620  BEAM188       0.000   0.000000
  *** LOAD STEP     1   SUBSTEP     1  COMPLETED.    CUM ITER =      1
  *** TIME =   1.00000         TIME INC =   1.00000      NEW TRIANG MATRIX
 
@@ -283,12 +1197,12 @@
  *** MAPDL BINARY FILE STATISTICS
   BUFFER SIZE USED= 16384
         0.125 MB WRITTEN ON ASSEMBLED MATRIX FILE: MAYDAYMDabcde3.full
-        3.875 MB WRITTEN ON RESULTS FILE: MAYDAYMDabcde3.rst
+        5.000 MB WRITTEN ON RESULTS FILE: MAYDAYMDabcde3.rst
 
  FINISH SOLUTION PROCESSING
 
 
- ***** ROUTINE COMPLETED *****  CP =         2.219
+ ***** ROUTINE COMPLETED *****  CP =        47.891
 
 
 
@@ -298,7 +1212,7 @@
 
  *****  MAPDL SOLUTION ROUTINE  *****
 
- *** NOTE ***                            CP =       2.328   TIME= 05:06:04
+ *** NOTE ***                            CP =      48.047   TIME= 06:42:09
  Predictor is ON by default for structural elements with rotational      
  degrees of freedom.  Use the PRED,OFF command to turn the predictor     
  OFF if it adversely affects the convergence.                            
@@ -308,14 +1222,14 @@
   *** MASS SUMMARY BY ELEMENT TYPE ***
 
   TYPE      MASS
-     1   3.88010    
+     1   5.43016    
  AN AVERAGE OF THE X-, Y-, AND Z-DIRECTION MASS TERMS ARE USED
 
-  Process memory allocated for solver              =     0.783 MB
-  Process memory required for in-core solution     =     0.754 MB
-  Process memory required for out-of-core solution =     0.754 MB
+  Process memory allocated for solver              =     0.962 MB
+  Process memory required for in-core solution     =     0.928 MB
+  Process memory required for out-of-core solution =     0.928 MB
 
- *** NOTE ***                            CP =       2.422   TIME= 05:06:04
+ *** NOTE ***                            CP =      48.156   TIME= 06:42:09
  The Distributed Sparse Matrix Solver is currently running in the        
  in-core memory mode.  This memory mode uses the most amount of memory   
  in order to avoid using the hard drive as much as possible, which most  
@@ -326,12 +1240,12 @@
    *** ELEMENT RESULT CALCULATION TIMES
      TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
 
-        1       460  BEAM188       0.516   0.001121
+        1       620  BEAM188       0.844   0.001361
 
    *** NODAL LOAD CALCULATION TIMES
      TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
 
-        1       460  BEAM188       0.000   0.000000
+        1       620  BEAM188       0.000   0.000000
  *** LOAD STEP     1   SUBSTEP     1  COMPLETED.    CUM ITER =      1
  *** TIME =   1.00000         TIME INC =   1.00000      NEW TRIANG MATRIX
 
@@ -339,36 +1253,11 @@
  *** MAPDL BINARY FILE STATISTICS
   BUFFER SIZE USED= 16384
         0.125 MB WRITTEN ON ASSEMBLED MATRIX FILE: MAYDAYMDabcde3.full
-        3.875 MB WRITTEN ON RESULTS FILE: MAYDAYMDabcde3.rst
+        5.000 MB WRITTEN ON RESULTS FILE: MAYDAYMDabcde3.rst
 
  FINISH SOLUTION PROCESSING
 
 
- ***** ROUTINE COMPLETED *****  CP =         2.906
+ ***** ROUTINE COMPLETED *****  CP =        48.750
 
 
-
-
- NUMBER OF WARNING MESSAGES ENCOUNTERED=          0
- NUMBER OF ERROR   MESSAGES ENCOUNTERED=          0
-
-
- *-----------------------------------------------------------------------------*
- |                                                                             |
- |                               RUN COMPLETED                                 |
- |                                                                             |
- |-----------------------------------------------------------------------------|
- |                                                                             |
- |  Ansys MAPDL 2024 R1         Build 24.1         UP20231106    WINDOWS x64   |
- |                                                                             |
- |-----------------------------------------------------------------------------|
- |                                                                             |
- |  Database Requested(-db)     1 MB     Scratch Memory Requested       240 MB |
- |  Maximum Database Used       1 MB     Maximum Scratch Memory Used     50 MB |
- |                                                                             |
- |-----------------------------------------------------------------------------|
- |                                                                             |
- |        CP Time      (sec) =          3.359       Time  =  05:08:05          |
- |        Elapsed Time (sec) =        406.000       Date  =  04/17/2026        |
- |                                                                             |
- *-----------------------------------------------------------------------------*

@@ -335,31 +335,31 @@ LATT, 1, , 1, , 1013, , 4
 LESIZE, ALL, , , 20
 LSEL, S, LINE, , 71, 78
 LATT, 1, , 1, , 2001, , 9
-LESIZE, ALL, , , 20
+LESIZE, ALL, , , 50
 LSEL, S, LINE, , 79, 86
 LATT, 1, , 1, , 2003, , 8
-LESIZE, ALL, , , 20
+LESIZE, ALL, , , 50
 LSEL, S, LINE, , 87, 94
 LATT, 1, , 1, , 2005, , 7
-LESIZE, ALL, , , 20
+LESIZE, ALL, , , 50
 LSEL, S, LINE, , 95, 102
 LATT, 1, , 1, , 2007, , 6
-LESIZE, ALL, , , 20
+LESIZE, ALL, , , 50
 LSEL, S, LINE, , 103, 110
 LATT, 1, , 1, , 2009, , 5
-LESIZE, ALL, , , 20
+LESIZE, ALL, , , 50
 LSEL, S, LINE, , 111, 118
 LATT, 1, , 1, , 2011, , 6
-LESIZE, ALL, , , 20
+LESIZE, ALL, , , 50
 LSEL, S, LINE, , 119, 126
 LATT, 1, , 1, , 2013, , 7
-LESIZE, ALL, , , 20
+LESIZE, ALL, , , 50
 LSEL, S, LINE, , 127, 134
 LATT, 1, , 1, , 2015, , 8
-LESIZE, ALL, , , 20
+LESIZE, ALL, , , 50
 LSEL, S, LINE, , 135, 142
 LATT, 1, , 1, , 2017, , 9
-LESIZE, ALL, , , 20
+LESIZE, ALL, , , 50
 
 ALLSEL, ALL
 LMESH, ALL
@@ -453,90 +453,5 @@ ALLSEL, ALL
 *GET, total_mass, ELEM, 0, MTOT, Z
 *VWRITE, total_mass
 (E20.10)
-*CFCLOS
-
-! Diagnostic: compare first and ninth rib bending stress
-ALLSEL, ALL
-LSEL, S, LINE, , 71, 78
-NSLL, S, 1
-ESLN, S, 1
-*GET, sx_rib1_max, SECR, ALL, S, X, MAX
-*GET, sx_rib1_min, SECR, ALL, S, X, MIN
-rib1_bend = ABS(sx_rib1_max)
-*IF,ABS(sx_rib1_min),GT,rib1_bend,THEN
-	rib1_bend = ABS(sx_rib1_min)
-*ENDIF
-
-ALLSEL, ALL
-LSEL, S, LINE, , 135, 142
-NSLL, S, 1
-ESLN, S, 1
-*GET, sx_rib9_max, SECR, ALL, S, X, MAX
-*GET, sx_rib9_min, SECR, ALL, S, X, MIN
-rib9_bend = ABS(sx_rib9_max)
-*IF,ABS(sx_rib9_min),GT,rib9_bend,THEN
-	rib9_bend = ABS(sx_rib9_min)
-*ENDIF
-
-ALLSEL, ALL
-*STATUS,rib1_bend
-*STATUS,rib9_bend
-
-*CFOPEN, rib_edge_compare, txt
-*VWRITE, sx_rib1_max
-(F20.6)
-*VWRITE, sx_rib1_min
-(F20.6)
-*VWRITE, rib1_bend
-(F20.6)
-*VWRITE, sx_rib9_max
-(F20.6)
-*VWRITE, sx_rib9_min
-(F20.6)
-*VWRITE, rib9_bend
-(F20.6)
-*CFCLOS
-
-! === Symmetry check on center RIB (X=6400) ===
-ALLSEL, ALL
-n_sym1 = NODE(6400, 1500, 0)
-n_sym2 = NODE(6400, 16500, 0)
-*GET, ux_sym1, NODE, n_sym1, U, X
-*GET, uy_sym1, NODE, n_sym1, U, Y
-*GET, uz_sym1, NODE, n_sym1, U, Z
-*GET, ux_sym2, NODE, n_sym2, U, X
-*GET, uy_sym2, NODE, n_sym2, U, Y
-*GET, uz_sym2, NODE, n_sym2, U, Z
-ux_diff = ABS(ux_sym1 - ux_sym2)
-uy_diff = ABS(uy_sym1 - uy_sym2)
-uz_diff = ABS(uz_sym1 - uz_sym2)
-*STATUS, uz_sym1
-*STATUS, uz_sym2
-*STATUS, ux_diff
-*STATUS, uy_diff
-*STATUS, uz_diff
-*CFOPEN, symmetry_compare, txt
-*VWRITE, n_sym1
-(I12)
-*VWRITE, ux_sym1
-(E22.14)
-*VWRITE, uy_sym1
-(E22.14)
-*VWRITE, uz_sym1
-(E22.14)
-*VWRITE, n_sym2
-(I12)
-*VWRITE, ux_sym2
-(E22.14)
-*VWRITE, uy_sym2
-(E22.14)
-*VWRITE, uz_sym2
-(E22.14)
-*VWRITE, ux_diff
-(E22.14)
-*VWRITE, uy_diff
-(E22.14)
-*VWRITE, uz_diff
-(E22.14)
 *CFCLOS
 FINISH

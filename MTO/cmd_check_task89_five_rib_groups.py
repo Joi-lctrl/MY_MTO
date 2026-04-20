@@ -29,6 +29,9 @@ def main() -> None:
     expect_contains(problem_text, "task8_long_group_ub = [650, 12, 600, 22];", str(problem_path))
     expect_contains(problem_text, "task8_rib_group_lb = [200, 6, 350, 6];", str(problem_path))
     expect_contains(problem_text, "task8_rib_group_ub = [350, 12, 500, 12];", str(problem_path))
+    expect_contains(problem_text, "if any(task_id == [8, 9])", str(problem_path))
+    expect_contains(problem_text, "rib_mesh_div = 50;", str(problem_path))
+    expect_contains(problem_text, "rib_mesh_div = 5;", str(problem_path))
 
     definition_path = repo_root / "MTO" / "cmd_check_task89_definition.m"
     definition_text = definition_path.read_text(encoding="utf-8")
@@ -38,8 +41,12 @@ def main() -> None:
     expect_contains(definition_text, "assert(numel(con_names) == 20", str(definition_path))
     expect_contains(definition_text, "assert(all(prob.D == [36 36])", str(definition_path))
     expect_contains(definition_text, "assert(all(size(con) == [2, 20])", str(definition_path))
-    expect_contains(definition_text, "assert(numel(strfind(mac, 'LESIZE, ALL, , , 20')) == 16", str(definition_path))
-    expect_contains(definition_text, "assert(~contains(mac, 'LESIZE, ALL, , , 5')", str(definition_path))
+    expect_contains(definition_text, "assert(numel(strfind(mac, 'LESIZE, ALL, , , 20')) == 7", str(definition_path))
+    expect_contains(definition_text, "assert(numel(strfind(mac, 'LESIZE, ALL, , , 50')) == 9", str(definition_path))
+    expect_contains(definition_text, "assert(contains(mac, 'ESEL, S, SEC, , 5, 9')", str(definition_path))
+    expect_contains(definition_text, "assert(contains(mac, sprintf('SFBEAM, ALL, 1, PRES, %g, %g', task.q1, task.q1))", str(definition_path))
+    expect_contains(definition_text, "assert(~contains(mac, 'F, ALL, FZ')", str(definition_path))
+    expect_contains(definition_text, "assert(~contains(mac, 'FCUM, ADD')", str(definition_path))
 
     expected_latt = [9, 8, 7, 6, 5, 6, 7, 8, 9]
     for macro_rel in [
@@ -72,15 +79,20 @@ def main() -> None:
         for sec_id in range(5, 10):
             expect_contains(macro_text, f"SECTYPE, {sec_id}, BEAM, I, RIB_{sec_id - 4}, 5", macro_rel)
         expect_contains(macro_text, "ESEL, S, SEC, , 5, 9", macro_rel)
+        expect_contains(macro_text, "SFBEAM, ALL, 1, PRES, 10, 10" if "Task8" in macro_rel else "SFBEAM, ALL, 1, PRES, 25, 25", macro_rel)
+        if "F, ALL, FZ" in macro_text:
+            raise AssertionError(f"{macro_rel} should not keep the temporary global FZ load block")
+        if "FCUM, ADD" in macro_text:
+            raise AssertionError(f"{macro_rel} should not keep the temporary FZ accumulation block")
         for row, sec_id in enumerate(expected_latt):
             kp_ori = 2001 + 2 * row
             expect_contains(macro_text, f"LATT, 1, , 1, , {kp_ori}, , {sec_id}", macro_rel)
         if re.search(r"^LATT, 1, , 1, , 2\d+, 2\d+,", macro_text, re.MULTILINE):
             raise AssertionError(f"{macro_rel} should not use segmented rib LATT with both KB and KE")
-        if macro_text.count("LESIZE, ALL, , , 20") != 16:
-            raise AssertionError(f"{macro_rel} should use 16 mesh rows with LESIZE 20")
-        if "LESIZE, ALL, , , 5" in macro_text:
-            raise AssertionError(f"{macro_rel} should not keep LESIZE 5 for ribs")
+        if macro_text.count("LESIZE, ALL, , , 20") != 7:
+            raise AssertionError(f"{macro_rel} should use 7 longitudinal mesh rows with LESIZE 20")
+        if macro_text.count("LESIZE, ALL, , , 50") != 9:
+            raise AssertionError(f"{macro_rel} should use 9 rib mesh rows with LESIZE 50")
 
     print("task89 five-rib-group checks passed")
 

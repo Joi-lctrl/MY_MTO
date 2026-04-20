@@ -129,24 +129,27 @@ methods
         tasks(4).lb = tasks(3).lb;
         tasks(4).ub = tasks(3).ub;
 
-        % Task 5: based on Task 3, n_long=5 (add outer pair of longitudinals)
+        % Task 5: based on Task 4, n_rib=7 (add outer pair of ribs)
         tasks(5).name = 'Task5';
-        tasks(5).s_long = 2400;
-        tasks(5).s_rib = 800;
-        tasks(5).q1 = 25 / 3;
-        tasks(5).t_plate = 12;
-        tasks(5).n_long = 5;
-        tasks(5).n_rib = 5;
-        tasks(5).long_group_count = 2;
-        tasks(5).rib_group_count = 1;
-        tasks(5).sigma_allow = 270;
-        tasks(5).bend_allow = 162;   % 0.6 * sigma_allow
-        tasks(5).shear_allow = 81;   % 0.3 * sigma_allow
-        tasks(5).b_top_long = 133;   % equivalent plate width for longitudinals
-        tasks(5).b_top_rib = 400;    % equivalent plate width for ribs
-        % 12 vars: L1(4) + L2(4) + R(4), L3 uses same params as L2
-        tasks(5).lb = [250, 7, 100, 8, 250, 7, 100, 8, 120, 6, 50, 6];
-        tasks(5).ub = [450, 12, 200, 14, 450, 12, 200, 14, 250, 11, 120, 12];
+        tasks(5).s_long = tasks(4).s_long;
+        tasks(5).s_rib = tasks(4).s_rib;
+        tasks(5).q1 = tasks(4).q1;
+        tasks(5).t_plate = tasks(4).t_plate;
+        tasks(5).n_long = tasks(4).n_long;
+        tasks(5).n_rib = 7;
+        tasks(5).long_group_count = tasks(4).long_group_count;
+        tasks(5).rib_group_count = 4;
+        tasks(5).enable_group_slenderness = tasks(4).enable_group_slenderness;
+        tasks(5).sigma_allow = tasks(4).sigma_allow;
+        tasks(5).bend_allow = tasks(4).bend_allow;
+        tasks(5).shear_allow = tasks(4).shear_allow;
+        tasks(5).lambda_flange_long = tasks(4).lambda_flange_long;
+        tasks(5).lambda_flange_rib = tasks(4).lambda_flange_rib;
+        tasks(5).enforce_rib_web_below_long_web = tasks(4).enforce_rib_web_below_long_web;
+        [tasks(5).b_top_long, tasks(5).b_top_rib] = ...
+            obj.compute_task_position_eq_plate_widths(tasks(5), 5);
+        tasks(5).lb = [tasks(4).lb, task34_rib_group_lb];
+        tasks(5).ub = [tasks(4).ub, task34_rib_group_ub];
 
         % Task 6: based on Task 3, n_rib=6 (add one rib)
         tasks(6).name = 'Task6';
@@ -268,7 +271,7 @@ methods
     end
 
     function [long_ext, rib_ext] = get_task_end_extensions(~, task_id, task)
-        if any(task_id == [3, 4, 8, 9])
+        if any(task_id == [3, 4, 5, 8, 9])
             long_ext = task.s_rib;
             rib_ext = task.s_long / 2;
         else
@@ -280,7 +283,7 @@ methods
     function [long_mesh_div, rib_mesh_div] = get_task_mesh_divisions(~, task_id)
         long_mesh_div = 20;
         if any(task_id == [8, 9])
-            rib_mesh_div = 20;
+            rib_mesh_div = 5;
         else
             rib_mesh_div = 5;
         end
@@ -333,6 +336,8 @@ methods
     function rib_map = get_rib_group_map(~, task)
         if task.rib_group_count == 5
             rib_map = [5, 4, 3, 2, 1, 2, 3, 4, 5];
+        elseif task.rib_group_count == 4 && task.n_rib == 7
+            rib_map = [4, 3, 2, 1, 2, 3, 4];
         elseif task.rib_group_count == 2 && task.n_rib == 9
             rib_map = [2, 2, 2, 1, 1, 1, 2, 2, 2];
         elseif task.rib_group_count == 3 && task.n_rib == 5
@@ -355,6 +360,8 @@ methods
     function rib_sec_map = get_rib_section_map(~, task)
         if task.rib_group_count == 5
             rib_sec_map = [9, 8, 7, 6, 5, 6, 7, 8, 9];
+        elseif task.rib_group_count == 4 && task.n_rib == 7
+            rib_sec_map = [6, 5, 4, 3, 4, 5, 6];
         elseif task.rib_group_count == 2 && task.n_rib == 9
             rib_sec_map = [6, 6, 6, 5, 5, 5, 6, 6, 6];
         elseif task.rib_group_count == 1 && task.n_rib == 9 && task.long_group_count == 4
@@ -387,6 +394,10 @@ methods
             sec_ids = 5:9;
             group_ids = 1:5;
             sec_names = {'RIB_1', 'RIB_2', 'RIB_3', 'RIB_4', 'RIB_5'};
+        elseif task.rib_group_count == 4 && task.n_rib == 7
+            sec_ids = 3:6;
+            group_ids = 1:4;
+            sec_names = {'RIB_1', 'RIB_2', 'RIB_3', 'RIB_4'};
         elseif task.rib_group_count == 2 && task.n_rib == 9
             sec_ids = [5, 6];
             group_ids = [1, 2];
@@ -558,7 +569,7 @@ methods
             mac{end+1} = sprintf('K, %d, %g, %g, -1000', kp_ori+1, X_right, Y_i);
         end
         % Ribs: use one orientation keypoint per full rib, matching the
-        % hand-written Task3 macros and keeping SFBEAM local face direction stable.
+        % hand-written Task3 macros.
         for rr = 0:n_rib-1
             X_r = rr * s_rib;
             kp_ori = 2001 + 2*rr;
@@ -627,7 +638,7 @@ methods
 
         % Load (applied to ribs only)
         mac{end+1} = sprintf('ESEL, S, SEC, , %d, %d', rib_sec_ids(1), rib_sec_ids(end));
-        mac{end+1} = sprintf('SFBEAM, ALL, 2, PRES, %g, %g', q1, q1);
+        mac{end+1} = sprintf('SFBEAM, ALL, 1, PRES, %g, %g', q1, q1);
         mac{end+1} = 'ALLSEL, ALL';
         mac{end+1} = '';
 
@@ -641,39 +652,7 @@ methods
         mac{end+1} = 'FINISH';
         mac{end+1} = '';
 
-        % Post-processing: write results to file
-        mac{end+1} = '/POST1';
-        mac{end+1} = 'SET, LAST';
-        mac{end+1} = '/ESHAPE, 1';
-        mac{end+1} = '';
-        mac{end+1} = '*GET, sx_max, SECR, ALL, S, X, MAX';
-        mac{end+1} = '*GET, sx_min, SECR, ALL, S, X, MIN';
-        mac{end+1} = '*GET, sxy_max, SECR, ALL, S, XY, MAX';
-        mac{end+1} = '*GET, sxy_min, SECR, ALL, S, XY, MIN';
-        mac{end+1} = '*GET, sxz_max, SECR, ALL, S, XZ, MAX';
-        mac{end+1} = '*GET, sxz_min, SECR, ALL, S, XZ, MIN';
-        mac{end+1} = '';
-        mac{end+1} = '*CFOPEN, results, txt';
-        mac{end+1} = '*VWRITE, sx_max';
-        mac{end+1} = '(F20.6)';
-        mac{end+1} = '*VWRITE, sx_min';
-        mac{end+1} = '(F20.6)';
-        mac{end+1} = '*VWRITE, sxy_max';
-        mac{end+1} = '(F20.6)';
-        mac{end+1} = '*VWRITE, sxy_min';
-        mac{end+1} = '(F20.6)';
-        mac{end+1} = '*VWRITE, sxz_max';
-        mac{end+1} = '(F20.6)';
-        mac{end+1} = '*VWRITE, sxz_min';
-        mac{end+1} = '(F20.6)';
-        mac{end+1} = '';
-        mac{end+1} = '! Total structural mass from FEA model';
-        mac{end+1} = 'ALLSEL, ALL';
-        mac{end+1} = '*GET, total_mass, ELEM, 0, MTOT, Z';
-        mac{end+1} = '*VWRITE, total_mass';
-        mac{end+1} = '(E20.10)';
-        mac{end+1} = '*CFCLOS';
-        mac{end+1} = 'FINISH';
+        mac = [mac, obj.build_results_lines('results')];
 
         mac_str = strjoin(mac, newline);
     end
@@ -949,7 +928,7 @@ methods
         mac{end+1} = '';
 
         mac{end+1} = sprintf('ESEL, S, SEC, , %d, %d', ctx.rib_sec_ids(1), ctx.rib_sec_ids(end));
-        mac{end+1} = sprintf('SFBEAM, ALL, 2, PRES, %g, %g', q1, q1);
+        mac{end+1} = sprintf('SFBEAM, ALL, 1, PRES, %g, %g', q1, q1);
         mac{end+1} = 'ALLSEL, ALL';
         mac{end+1} = '';
     end

@@ -336,31 +336,31 @@ LATT, 1, , 1, , 1013, , 4
 LESIZE, ALL, , , 20
 LSEL, S, LINE, , 71, 78
 LATT, 1, , 1, , 2001, , 9
-LESIZE, ALL, , , 20
+LESIZE, ALL, , , 50
 LSEL, S, LINE, , 79, 86
 LATT, 1, , 1, , 2003, , 8
-LESIZE, ALL, , , 20
+LESIZE, ALL, , , 50
 LSEL, S, LINE, , 87, 94
 LATT, 1, , 1, , 2005, , 7
-LESIZE, ALL, , , 20
+LESIZE, ALL, , , 50
 LSEL, S, LINE, , 95, 102
 LATT, 1, , 1, , 2007, , 6
-LESIZE, ALL, , , 20
+LESIZE, ALL, , , 50
 LSEL, S, LINE, , 103, 110
 LATT, 1, , 1, , 2009, , 5
-LESIZE, ALL, , , 20
+LESIZE, ALL, , , 50
 LSEL, S, LINE, , 111, 118
 LATT, 1, , 1, , 2011, , 6
-LESIZE, ALL, , , 20
+LESIZE, ALL, , , 50
 LSEL, S, LINE, , 119, 126
 LATT, 1, , 1, , 2013, , 7
-LESIZE, ALL, , , 20
+LESIZE, ALL, , , 50
 LSEL, S, LINE, , 127, 134
 LATT, 1, , 1, , 2015, , 8
-LESIZE, ALL, , , 20
+LESIZE, ALL, , , 50
 LSEL, S, LINE, , 135, 142
 LATT, 1, , 1, , 2017, , 9
-LESIZE, ALL, , , 20
+LESIZE, ALL, , , 50
 
 ALLSEL, ALL
 LMESH, ALL

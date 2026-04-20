@@ -18,3 +18,28 @@
  ************************************************************************
 /COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       03:44:28
 /COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       05:01:20
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       17:55:47
+
+ *** FATAL ***                           CP =      21.531   TIME= 19:45:38
+ Check processor 0 (master) for error message(s).                        
+
+ ************************************************************************
+ The above error is non-recoverable by ANSYS                             
+  ANSYS run terminated by the indicated error                            
+  Current data base saved if possible.                                   
+ ************************************************************************
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       19:46:03
+
+ *** FATAL ***                           CP =      26.938   TIME= 02:47:54
+ Check processor 0 (master) for error message(s).                        
+
+ ************************************************************************
+ The above error is non-recoverable by ANSYS                             
+  ANSYS run terminated by the indicated error                            
+  Current data base saved if possible.                                   
+ ************************************************************************
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       02:48:07
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       03:30:16
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       14:53:00
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       15:37:59
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       23:53:29

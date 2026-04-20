@@ -20,3 +20,95 @@
  allow ANSYS, Inc to improve the program.                                
 /COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       03:44:28
 /COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       05:01:20
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       17:55:47
+
+ *** ERROR ***                           CP =     286.453   TIME= 19:45:35
+ An unexpected error ( SIG$SEGV ) has occurred...  MAPDL internal data   
+ has been corrupted.  MAPDL is unable to recover and will terminate.     
+ Previously saved files are unaffected.  Please send the data leading    
+ to this operation to your technical support provider, as this will      
+ allow ANSYS, Inc to improve the program.                                
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       19:46:03
+
+ *** WARNING ***                         CP =     755.125   TIME= 02:45:43
+ Node 0 of *GET command is undefined.                                    
+  Line= *GET, uz_left, NODE, 0, U, Z                                     
+  The *GET command is ignored.                                           
+
+ *** ERROR ***                           CP =     778.188   TIME= 02:47:50
+ An unexpected error ( SIG$SEGV ) has occurred...  MAPDL internal data   
+ has been corrupted.  MAPDL is unable to recover and will terminate.     
+ Previously saved files are unaffected.  Please send the data leading    
+ to this operation to your technical support provider, as this will      
+ allow ANSYS, Inc to improve the program.                                
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       02:48:07
+
+ *** WARNING ***                         CP =     125.281   TIME= 02:59:18
+ PLNSOL is not a recognized BEGIN command, abbreviation, or macro.       
+ This command will be ignored.                                           
+
+ *** WARNING ***                         CP =     128.297   TIME= 02:59:29
+ PLNSOL is not a recognized BEGIN command, abbreviation, or macro.       
+ This command will be ignored.                                           
+
+ *** WARNING ***                         CP =     138.906   TIME= 03:00:27
+ Node 0 of *GET command is undefined.                                    
+  Line= *GET, uz_L, NODE, 0, U, Z                                        
+  The *GET command is ignored.                                           
+
+ *** WARNING ***                         CP =     138.922   TIME= 03:00:28
+ Node 0 of *GET command is undefined.                                    
+  Line= *GET, uz_R, NODE, 0, U, Z                                        
+  The *GET command is ignored.                                           
+
+ *** WARNING ***                         CP =     139.078   TIME= 03:00:28
+ Unknown parameter name= UZ_L.  A value of 7.888609052E-31 will be used. 
+
+ *** WARNING ***                         CP =     139.094   TIME= 03:00:28
+ Unknown parameter name= UZ_R.  A value of 7.888609052E-31 will be used. 
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       03:30:16
+
+ *** WARNING ***                         CP =     459.484   TIME= 14:31:38
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         
+
+ *** WARNING ***                         CP =     473.453   TIME= 14:32:32
+ PLNSOL is not a recognized BEGIN command, abbreviation, or macro.       
+ This command will be ignored.                                           
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       14:53:00
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       15:37:59
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       23:53:29
+
+ *** WARNING ***                         CP =     447.203   TIME= 04:45:38
+ F is not a recognized BEGIN command, abbreviation, or macro.  This      
+ command will be ignored.                                                
+
+ *** WARNING ***                         CP =     457.656   TIME= 04:45:59
+ F is not a recognized POST1 command, abbreviation, or macro.            
+  This command will be ignored.                                          
+
+ *** WARNING ***                         CP =     751.547   TIME= 12:59:56
+ * no longer valid as comment character - please use !                   
+  *SET,rib_total_fz, -q_line * (rib_y_max - rib_y_min)                   
+  This warning only issued once.                                         
+/COM,ANSYS RELEASE 2024 R1           BUILD 24.1      UP20231106       14:32:58
+
+ *** WARNING ***                         CP =      23.969   TIME= 14:34:54
+ No data item specified.  The PLNSOL command is ignored.                 
+
+ *** WARNING ***                         CP =     643.016   TIME= 19:55:38
+ * no longer valid as comment character - please use !                   
+  *SET,y_load, y0_load + jj_load * dy_load                               
+  This warning only issued once.                                         
+
+ *** WARNING ***                         CP =    1346.188   TIME= 04:50:07
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         
+
+ *** WARNING ***                         CP =    1360.266   TIME= 04:58:22
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         
+
+ *** WARNING ***                         CP =    1375.094   TIME= 05:02:00
+ BEAM/PIPE elements are detected in the selected element set.  They are  
+ ignored in the nodal averaging.                                         

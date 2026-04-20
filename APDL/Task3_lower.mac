@@ -306,3 +306,31 @@ max_shear = ABS(sxy_max)
 
 *STATUS,max_bend
 *STATUS,max_shear
+
+! Diagnostic: compare UZ at symmetric points on the center rib
+ALLSEL, ALL
+x_sym = 2*s_rib
+y_sym1 = 2*s_long/5
+y_sym2 = 2*s_long - y_sym1
+n_sym1 = NODE(x_sym, y_sym1, 0)
+n_sym2 = NODE(x_sym, y_sym2, 0)
+*GET, uz_sym1, NODE, n_sym1, U, Z
+*GET, uz_sym2, NODE, n_sym2, U, Z
+uz_diff = ABS(uz_sym1 - uz_sym2)
+*STATUS, n_sym1
+*STATUS, n_sym2
+*STATUS, uz_sym1
+*STATUS, uz_sym2
+*STATUS, uz_diff
+*CFOPEN, task3_rib_sym_uz, txt
+*VWRITE, n_sym1
+(I12)
+*VWRITE, uz_sym1
+(E22.14)
+*VWRITE, n_sym2
+(I12)
+*VWRITE, uz_sym2
+(E22.14)
+*VWRITE, uz_diff
+(E22.14)
+*CFCLOS

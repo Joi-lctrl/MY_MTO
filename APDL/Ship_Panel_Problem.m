@@ -4,7 +4,7 @@ classdef Ship_Panel_Problem < handle
 % Task 2: s_long=1000, s_rib=3200, q1=25/3, t_plate=16, n_long=3 (12 vars)
 % Task 3: s_long=1600, s_rib=1200, q1=12, t_plate=10, n_long=3 (20 vars)
 % Task 4: s_long=2400, s_rib=1800, q1=50/3, t_plate=12, n_long=3 (20 vars)
-% Task 5: s_long=2400, s_rib=800, q1=25/3, t_plate=12, n_long=5 (16 vars)
+% Task 5: based on Task 4, n_rib=7, four rib groups (24 vars)
 % Task 6: s_long=2400, s_rib=800, q1=6, t_plate=12, n_long=3, n_rib=6 (12 vars)
 % Task 7: based on Task 3, q1=25/3 (12 vars)
 % Task 8: s_long=3000, s_rib=1600, q1=10, t_plate=12, n_long=7, n_rib=9 (36 vars)
@@ -28,7 +28,7 @@ methods
     end
 
     function tasks = defineTasks(obj)
-        % Variable order for tasks 1-2 and 5-7 (12 vars):
+        % Variable order for tasks 1-2 and 6-7 (12 vars):
         % [h_web_L1, t_web_L1, b_bot_L1, t_bot_L1,   % center longitudinal free flange
         %  h_web_L2, t_web_L2, b_bot_L2, t_bot_L2,   % side longitudinal free flange
         %  h_web_R,  t_web_R,  b_bot_R,  t_bot_R]     % rib free flange
@@ -37,6 +37,11 @@ methods
         % [L1(4), L2(4), R1(4), R2(4), R3(4)]
         % Longitudinal physical order: [L2, L1, L2]
         % Rib physical order: [R3, R2, R1, R2, R3]
+        %
+        % Variable order for task 5 (24 vars):
+        % [L1(4), L2(4), R1(4), R2(4), R3(4), R4(4)]
+        % Longitudinal physical order: [L2, L1, L2]
+        % Rib physical order: [R4, R3, R2, R1, R2, R3, R4]
         %
         % n_long=5: same 12 vars, L3 (outer) = L2 (inner side)
         %

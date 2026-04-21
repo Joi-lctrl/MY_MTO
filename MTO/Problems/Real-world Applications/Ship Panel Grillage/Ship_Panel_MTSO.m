@@ -73,10 +73,17 @@ methods (Access = private)
         Cons = [];
 
         cfg = Prob.getEvalConfig(task_id);
+        expected_con_count = numel(get_ship_constraint_names(task_id));
         for i = 1:n
             fprintf('[DEBUG] Task%d Ind%d/%d Dec=[%s]\n', ...
                 task_id, i, n, num2str(x(i, :), '%.4f '));
             [obj, con, extra] = run_ansys_eval(x(i, :), task_id, cfg);
+            if numel(con) ~= expected_con_count
+                error('Ship_Panel_MTSO:ConstraintCountMismatch', ...
+                    ['Task%d returned %d constraints, expected %d. ', ...
+                     'Run "clear classes; rehash toolboxcache" and check MATLAB path.'], ...
+                    task_id, numel(con), expected_con_count);
+            end
             if isempty(Cons)
                 Cons = zeros(n, numel(con));
             end

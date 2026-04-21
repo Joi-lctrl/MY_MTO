@@ -1,13 +1,14 @@
 %% cmd_run_ga_single.m - 逐任务单独运行GA并保存统一格式结果
 
-clear; clc; close all;
+clear; clear classes; clc; close all;
 cd(fileparts(mfilename('fullpath')));
+rehash toolboxcache;
 addpath(genpath(pwd));
 
 %% ===== 配置 =====
-active_tasks = [3];
+active_tasks = [5];
 Reps = 1;
-maxFE = 7500;
+maxFE = 6000;
 N = 100;
 Results_Num = 50;
 Global_Seed = 2604;
@@ -112,6 +113,8 @@ for rep = 1:Reps
         prob.Cleanup = true;
         prob.ActiveTasks = actual_task;
         prob.setTasks();
+        fprintf('     Task %d setup: D=%d, constraints=%d\n', ...
+            actual_task, prob.D(1), numel(get_ship_constraint_names(actual_task)));
 
         algo = GA();
         algo.Result_Num = Results_Num;

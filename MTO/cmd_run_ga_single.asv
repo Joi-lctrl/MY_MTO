@@ -1,12 +1,11 @@
-%% cmd_run_globalga_single.m - 逐任务单独运行Global-GA并保存统一格式结果
+%% cmd_run_ga_single.m - 逐任务单独运行GA并保存统一格式结果
 
-clear; clear classes; clc; close all;
-rehash toolboxcache;
+clear; clc; close all;
 cd(fileparts(mfilename('fullpath')));
 addpath(genpath(pwd));
 
 %% ===== 配置 =====
-active_tasks = [5]; % 按列表顺序逐个单独跑，不共享种群，不发生任务迁移
+active_tasks = [];
 Reps = 1;
 maxFE = 6000;
 N = 100;
@@ -18,7 +17,7 @@ ShowGenProgress = true;
 YLim_Obj = [];
 YLim_CV  = [0 200];
 
-algo_names = {'Global-GA'};
+algo_names = {'GA'};
 nAlgo = 1;
 nTask = numel(active_tasks);
 
@@ -67,7 +66,7 @@ seeds = (0:Reps-1) + Global_Seed;
 rep_seeds = seeds;
 
 %% ===== 图形 =====
-fig1 = figure('Name', 'Global-GA 单任务结构优化收敛', 'Position', [60 450 900 400]);
+fig1 = figure('Name', 'GA 单任务基线收敛', 'Position', [60 450 900 400]);
 ax = gobjects(1, nTask);
 h_obj = gobjects(1, nTask);
 h_cv = gobjects(1, nTask);
@@ -82,24 +81,24 @@ for t = 1:nTask
         ylim(ax(t), YLim_Obj);
     end
     h_obj(1, t) = animatedline(ax(t), ...
-        'Color', [0.4940 0.1840 0.5560], 'LineWidth', 1.5, ...
+        'Color', [0.8500 0.3250 0.0980], 'LineWidth', 1.5, ...
         'Marker', '.', 'MarkerSize', 6, ...
-        'DisplayName', 'Global-GA Feasible Obj');
+        'DisplayName', 'GA Feasible Obj');
     yyaxis(ax(t), 'right');
     ylabel(ax(t), 'CV');
     ylim(ax(t), YLim_CV);
     h_cv(1, t) = animatedline(ax(t), ...
-        'Color', [0.4940 0.1840 0.5560], 'LineStyle', '--', 'LineWidth', 1, ...
-        'DisplayName', 'Global-GA CV');
+        'Color', [0.8500 0.3250 0.0980], 'LineStyle', '--', 'LineWidth', 1, ...
+        'DisplayName', 'GA CV');
     legend(ax(t), 'Location', 'northeast');
 end
 drawnow;
 
 %% ===== 运行 =====
-fprintf('开始运行 Global-GA 单任务结构优化: Reps=%d, Tasks=[%s]\n', Reps, num2str(active_tasks));
+fprintf('开始运行 GA 单任务基线: Reps=%d, Tasks=[%s]\n', Reps, num2str(active_tasks));
 
 for rep = 1:Reps
-    fprintf('\n--- Rep %d/%d, Global-GA ---\n', rep, Reps);
+    fprintf('\n--- Rep %d/%d, GA ---\n', rep, Reps);
     pop_histories = cell(1, nTask);
 
     for task_slot = 1:nTask
@@ -113,10 +112,8 @@ for rep = 1:Reps
         prob.Cleanup = true;
         prob.ActiveTasks = actual_task;
         prob.setTasks();
-        fprintf('     Task %d setup: D=%d, constraints=%d\n', ...
-            actual_task, prob.D(1), numel(get_ship_constraint_names(actual_task)));
 
-        algo = Global_GA();
+        algo = GA();
         algo.Result_Num = Results_Num;
         algo.Save_Dec = false;
         algo.reset();
@@ -125,8 +122,6 @@ for rep = 1:Reps
 
         es = containers.Map();
         es('prev_best') = inf;
-        es('prev_cv') = inf;
-        es('prev_has_feasible') = false;
         es('stall_count') = 0;
         es('patience') = EarlyStop_Patience;
         es('triggered') = false;
@@ -154,7 +149,7 @@ for rep = 1:Reps
 
         task_fe_gen = algo.FE_Gen;
         if isempty(task_fe_gen)
-            error('Global-GA Task %d 未生成 FE_Gen，无法构造收敛曲线。', actual_task);
+            error('GA Task %d 未生成 FE_Gen，无法构造收敛曲线。', actual_task);
         end
 
         raw_task_axis = task_fe_gen(:)';
@@ -205,7 +200,7 @@ for rep = 1:Reps
     end
     PopulationSizeStats{1, rep} = pop_matrix;
 
-    fprintf('  Global-GA Rep%d 完成: ', rep);
+    fprintf('  GA Rep%d 完成: ', rep);
     for t = 1:nTask
         feasible_val = BestFeasibleObj(1, rep, t);
         if isfinite(feasible_val)
@@ -218,7 +213,7 @@ for rep = 1:Reps
 end
 
 %% ===== 保存 =====
-save_name = sprintf('globalga_single_%s.mat', datestr(now, 'yyyymmdd_HHMMSS'));
+save_name = sprintf('ga_single_%s.mat', datestr(now, 'yyyymmdd_HHMMSS'));
 save(save_name, 'BestObj', 'BestFeasibleObj', 'BestCV', 'BestDecNorm', 'BestDecReal', 'BestCon', 'BestConNames', ...
     'ConvergeObj', 'ConvergeCV', 'ConvergeFeasibleObj', 'ConvergeFE', 'ConvergeTaskFE', ...
     'RawConvergeObj', 'RawConvergeCV', 'RawConvergeFeasibleObj', 'RawConvergeTaskFE', ...
@@ -238,34 +233,23 @@ if isprop(algo, 'TaskFE') && ~isempty(algo.TaskFE) && isfinite(algo.TaskFE(1)) &
 end
 
 feasible_obj = nan;
-cur_best = inf;
-cur_cv = inf;
 if isfield(algo.Best{1}, 'CV') && algo.Best{1}.CV <= 0
     feasible_obj = algo.Best{1}.Obj;
 end
 addpoints(h_obj(1, task_slot), task_fe, feasible_obj);
 addpoints(h_cv(1, task_slot), task_fe, algo.Best{1}.CV);
-cur_best = algo.Best{1}.Obj;
-cur_cv = algo.Best{1}.CV;
 drawnow('limitrate');
 
 current_gen = max(1, algo.Gen - 1);
 if show_gen_progress && current_gen > es('last_gen_printed')
-    fprintf('    [Global-GA][Task %d] Gen %d, FE=%d, BestObj=%.6f, BestCV=%.6f\n', ...
+    fprintf('    [GA][Task %d] Gen %d, FE=%d, BestObj=%.6f, BestCV=%.6f\n', ...
         actual_task, current_gen, round(task_fe), algo.Best{1}.Obj, algo.Best{1}.CV);
     es('last_gen_printed') = current_gen;
 end
 
-prev_best = es('prev_best');
-prev_cv = es('prev_cv');
-prev_has_feasible = es('prev_has_feasible');
-[improved, state] = evaluate_ceda_dw_earlystop_progress( ...
-    cur_best, cur_cv, prev_best, prev_cv, prev_has_feasible);
-es('prev_best') = state.prev_best;
-es('prev_cv') = state.prev_cv;
-es('prev_has_feasible') = state.prev_has_feasible;
-if improved
+if algo.Best{1}.Obj < es('prev_best') - 1e-6
     es('stall_count') = 0;
+    es('prev_best') = algo.Best{1}.Obj;
 else
     es('stall_count') = es('stall_count') + 1;
 end
@@ -277,28 +261,27 @@ end
 
 function feasible_hist = build_feasible_best_obj(obj_hist, cv_hist)
 feasible_hist = nan(size(obj_hist));
-best_so_far = inf;
-for k = 1:numel(obj_hist)
-    if cv_hist(k) <= 0 && obj_hist(k) < best_so_far
-        best_so_far = obj_hist(k);
+best_feasible = inf;
+for i = 1:numel(obj_hist)
+    if cv_hist(i) <= 0
+        best_feasible = min(best_feasible, obj_hist(i));
     end
-    if isfinite(best_so_far)
-        feasible_hist(k) = best_so_far;
+    if isfinite(best_feasible)
+        feasible_hist(i) = best_feasible;
     end
 end
 end
 
 function hist_mat = assign_history_row(hist_mat, rep, row_vals)
+row_vals = row_vals(:)';
 need_cols = numel(row_vals);
 if isempty(hist_mat)
     hist_mat = nan(rep, need_cols);
-else
-    if size(hist_mat, 2) < need_cols
-        hist_mat(:, end+1:need_cols) = nan;
-    end
-    if size(hist_mat, 1) < rep
-        hist_mat(end+1:rep, :) = nan;
-    end
+elseif size(hist_mat, 2) < need_cols
+    hist_mat(:, end+1:need_cols) = nan;
+end
+if size(hist_mat, 1) < rep
+    hist_mat(end+1:rep, :) = nan;
 end
 hist_mat(rep, 1:need_cols) = row_vals;
 end

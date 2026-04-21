@@ -1,0 +1,1 @@
+task=5|name=Task5|s_long=2400|s_rib=1800|q1=16.6666666667|t_plate=12|n_long=3|n_rib=7|long_group_count=2|rib_group_count=4|b_top_long=[1800,2400,1800]|b_top_rib=[1200,1200,1200,1200,1200,1200,1200]|long_ext=900|rib_ext=1200

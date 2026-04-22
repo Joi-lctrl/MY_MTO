@@ -1,6 +1,6 @@
 FINISH
 /CLEAR, START
-/TITLE, Task9_upper
+/TITLE, Task9_opt
 /NOPR
 
 /PREP7
@@ -14,32 +14,30 @@ MP, DENS, 1, 7.85e-9
 ! Synced from Ship_Panel_Problem
 ! s_long = 3000
 ! s_rib = 2000
-! q1 = 25
-! t_plate = 14
+! q1 = 15
+! t_plate = 16
 ! n_long = 7
 ! n_rib = 9
 ! sigma_allow = 900
-! bend_allow = 234
-! shear_allow = 117
+! bend_allow = 150
+! shear_allow = 75
 
 SECTYPE, 1, BEAM, I, LONG_1, 5
-SECDATA, 300, 3000, 584, 20, 14, 11
+SECDATA, 300, 3000, 738, 22, 16, 14
 SECTYPE, 2, BEAM, I, LONG_2, 5
-SECDATA, 300, 3000, 584, 20, 14, 11
+SECDATA, 300, 3000, 738, 22, 16, 14
 SECTYPE, 3, BEAM, I, LONG_3, 5
-SECDATA, 300, 3000, 584, 20, 14, 11
+SECDATA, 300, 3000, 738, 22, 16, 14
 SECTYPE, 4, BEAM, I, LONG_4, 5
-SECDATA, 300, 2250, 584, 20, 14, 11
+SECDATA, 300, 2250, 738, 22, 16, 14
 SECTYPE, 5, BEAM, I, RIB_1, 5
-SECDATA, 300, 2000, 325, 11, 14, 11
+SECDATA, 300, 2000, 338, 22, 16, 10
 SECTYPE, 6, BEAM, I, RIB_2, 5
-SECDATA, 300, 2000, 325, 11, 14, 11
+SECDATA, 300, 2000, 338, 22, 16, 10
 SECTYPE, 7, BEAM, I, RIB_3, 5
-SECDATA, 300, 2000, 325, 11, 14, 11
+SECDATA, 300, 2000, 338, 22, 16, 10
 SECTYPE, 8, BEAM, I, RIB_4, 5
-SECDATA, 300, 2000, 325, 11, 14, 11
-SECTYPE, 9, BEAM, I, RIB_5, 5
-SECDATA, 300, 2000, 325, 11, 14, 11
+SECDATA, 300, 2000, 338, 22, 16, 10
 
 K, 1, -2000, 0, 0
 K, 2, 0, 0, 0
@@ -335,32 +333,32 @@ LSEL, S, LINE, , 61, 70
 LATT, 1, , 1, , 1013, , 4
 LESIZE, ALL, , , 20
 LSEL, S, LINE, , 71, 78
-LATT, 1, , 1, , 2001, , 9
-LESIZE, ALL, , , 50
+LATT, 1, , 1, , 2001, , 8
+LESIZE, ALL, , , 5
 LSEL, S, LINE, , 79, 86
 LATT, 1, , 1, , 2003, , 8
-LESIZE, ALL, , , 50
+LESIZE, ALL, , , 5
 LSEL, S, LINE, , 87, 94
 LATT, 1, , 1, , 2005, , 7
-LESIZE, ALL, , , 50
+LESIZE, ALL, , , 5
 LSEL, S, LINE, , 95, 102
 LATT, 1, , 1, , 2007, , 6
-LESIZE, ALL, , , 50
+LESIZE, ALL, , , 5
 LSEL, S, LINE, , 103, 110
 LATT, 1, , 1, , 2009, , 5
-LESIZE, ALL, , , 50
+LESIZE, ALL, , , 5
 LSEL, S, LINE, , 111, 118
 LATT, 1, , 1, , 2011, , 6
-LESIZE, ALL, , , 50
+LESIZE, ALL, , , 5
 LSEL, S, LINE, , 119, 126
 LATT, 1, , 1, , 2013, , 7
-LESIZE, ALL, , , 50
+LESIZE, ALL, , , 5
 LSEL, S, LINE, , 127, 134
 LATT, 1, , 1, , 2015, , 8
-LESIZE, ALL, , , 50
+LESIZE, ALL, , , 5
 LSEL, S, LINE, , 135, 142
-LATT, 1, , 1, , 2017, , 9
-LESIZE, ALL, , , 50
+LATT, 1, , 1, , 2017, , 8
+LESIZE, ALL, , , 5
 
 ALLSEL, ALL
 LMESH, ALL
@@ -393,8 +391,8 @@ D, ALL, UY, 0
 D, ALL, UZ, 0
 ALLSEL, ALL
 
-ESEL, S, SEC, , 5, 9
-SFBEAM, ALL, 1, PRES, 25, 25
+ESEL, S, SEC, , 5, 8
+SFBEAM, ALL, 1, PRES, 15, 15
 ALLSEL, ALL
 
 FINISH

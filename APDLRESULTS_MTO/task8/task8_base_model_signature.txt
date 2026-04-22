@@ -1,1 +1,1 @@
-task=8|name=Task8|s_long=1600|s_rib=1200|q1=18|t_plate=10|n_long=7|n_rib=9|long_group_count=4|rib_group_count=5|b_top_long=[1200,1600,1600,1600,1600,1600,1200]|b_top_rib=[1200,1200,1200,1200,1200,1200,1200,1200,1200]|long_ext=1200|rib_ext=800
+task=8|name=Task8|s_long=3000|s_rib=1600|q1=15|t_plate=12|n_long=7|n_rib=9|long_group_count=4|rib_group_count=5|b_top_long=[2250,2666.66666667,2666.66666667,2666.66666667,2666.66666667,2666.66666667,2250]|b_top_rib=[1600,1600,1600,1600,1600,1600,1600,1600,1600]|long_ext=1600|rib_ext=1500

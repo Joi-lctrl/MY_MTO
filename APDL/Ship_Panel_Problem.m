@@ -5,10 +5,10 @@ classdef Ship_Panel_Problem < handle
 % Task 3: s_long=1600, s_rib=1200, q1=12, t_plate=10, n_long=3 (20 vars)
 % Task 4: s_long=2400, s_rib=1800, q1=50/3, t_plate=12, n_long=3 (20 vars)
 % Task 5: based on Task 4, n_rib=7, four rib groups (24 vars)
-% Task 6: s_long=2400, s_rib=800, q1=6, t_plate=12, n_long=3, n_rib=6 (12 vars)
+% Task 6: based on Task 5, n_rib=9 with outer ribs sharing R4 variables (24 vars)
 % Task 7: based on Task 3, q1=25/3 (12 vars)
-% Task 8: s_long=3000, s_rib=1600, q1=10, t_plate=12, n_long=7, n_rib=9 (36 vars)
-% Task 9: s_long=3000, s_rib=2000, q1=25, t_plate=14, n_long=7, n_rib=9 (36 vars)
+% Task 8: s_long=3000, s_rib=1600, q1=15, t_plate=12, n_long=7, n_rib=9 (36 vars)
+% Task 9: s_long=3000, s_rib=2000, q1=15, t_plate=16, n_long=7, n_rib=9 (32 vars)
 
 properties
     T = 9  % Number of tasks
@@ -28,7 +28,7 @@ methods
     end
 
     function tasks = defineTasks(obj)
-        % Variable order for tasks 1-2 and 6-7 (12 vars):
+        % Variable order for tasks 1-2 and 7 (12 vars):
         % [h_web_L1, t_web_L1, b_bot_L1, t_bot_L1,   % center longitudinal free flange
         %  h_web_L2, t_web_L2, b_bot_L2, t_bot_L2,   % side longitudinal free flange
         %  h_web_R,  t_web_R,  b_bot_R,  t_bot_R]     % rib free flange
@@ -42,13 +42,18 @@ methods
         % [L1(4), L2(4), R1(4), R2(4), R3(4), R4(4)]
         % Longitudinal physical order: [L2, L1, L2]
         % Rib physical order: [R4, R3, R2, R1, R2, R3, R4]
+        % Task 6 uses the same 24 vars as Task 5:
+        % Rib physical order: [R4, R4, R3, R2, R1, R2, R3, R4, R4]
         %
         % n_long=5: same 12 vars, L3 (outer) = L2 (inner side)
         %
-        % Variable order for tasks 8-9 (36 vars):
+        % Variable order for task 8 (36 vars):
         % [L1(4), L2(4), L3(4), L4(4), R1(4), R2(4), R3(4), R4(4), R5(4)]
         % Longitudinal physical order: [L4, L3, L2, L1, L2, L3, L4]
         % Rib physical order: [R5, R4, R3, R2, R1, R2, R3, R4, R5]
+        % Task 9 uses 32 vars:
+        % [L1(4), L2(4), L3(4), L4(4), R1(4), R2(4), R3(4), R4(4)]
+        % Rib physical order: [R4, R4, R3, R2, R1, R2, R3, R4, R4]
 
         % Task 1
         tasks(1).name = 'Task1';
@@ -156,23 +161,27 @@ methods
         tasks(5).lb = [tasks(4).lb, task34_rib_group_lb];
         tasks(5).ub = [tasks(4).ub, task34_rib_group_ub];
 
-        % Task 6: based on Task 3, n_rib=6 (add one rib)
+        % Task 6: based on Task 5, n_rib=9 (add outer pair sharing R4 variables)
         tasks(6).name = 'Task6';
-        tasks(6).s_long = 2400;
-        tasks(6).s_rib = 800;
-        tasks(6).q1 = 6;
-        tasks(6).t_plate = 12;
-        tasks(6).n_long = 3;
-        tasks(6).n_rib = 6;
-        tasks(6).long_group_count = 2;
-        tasks(6).rib_group_count = 1;
-        tasks(6).sigma_allow = 230;
-        tasks(6).bend_allow = 138;   % 0.6 * sigma_allow
-        tasks(6).shear_allow = 69;   % 0.3 * sigma_allow
-        tasks(6).b_top_long = 133;   % equivalent plate width for longitudinals
-        tasks(6).b_top_rib = 400;    % equivalent plate width for ribs
-        tasks(6).lb = [250, 7, 100, 8, 250, 7, 100, 8, 120, 6, 50, 6];
-        tasks(6).ub = [450, 12, 200, 14, 450, 12, 200, 14, 250, 11, 120, 12];
+        tasks(6).s_long = tasks(5).s_long;
+        tasks(6).s_rib = tasks(5).s_rib;
+        tasks(6).q1 = tasks(5).q1;
+        tasks(6).t_plate = tasks(5).t_plate;
+        tasks(6).n_long = tasks(5).n_long;
+        tasks(6).n_rib = 9;
+        tasks(6).long_group_count = tasks(5).long_group_count;
+        tasks(6).rib_group_count = tasks(5).rib_group_count;
+        tasks(6).enable_group_slenderness = tasks(5).enable_group_slenderness;
+        tasks(6).sigma_allow = tasks(5).sigma_allow;
+        tasks(6).bend_allow = 150;
+        tasks(6).shear_allow = 75;
+        tasks(6).lambda_flange_long = tasks(5).lambda_flange_long;
+        tasks(6).lambda_flange_rib = tasks(5).lambda_flange_rib;
+        tasks(6).enforce_rib_web_below_long_web = tasks(5).enforce_rib_web_below_long_web;
+        [tasks(6).b_top_long, tasks(6).b_top_rib] = ...
+            obj.compute_task_position_eq_plate_widths(tasks(6), 6);
+        tasks(6).lb = tasks(5).lb;
+        tasks(6).ub = tasks(5).ub;
 
         % Task 7: based on Task 3, q1=25/3 (pure load variant)
         tasks(7).name = 'Task7';
@@ -196,7 +205,7 @@ methods
         tasks(8).name = 'Task8';
         tasks(8).s_long = 3000;
         tasks(8).s_rib = 1600;
-        tasks(8).q1 = 10;
+        tasks(8).q1 = 15;
         tasks(8).t_plate = 12;
         tasks(8).n_long = 7;
         tasks(8).n_rib = 9;
@@ -204,39 +213,44 @@ methods
         tasks(8).rib_group_count = 5;
         tasks(8).enable_group_slenderness = true;
         tasks(8).sigma_allow = 400;
-        tasks(8).bend_allow = 234;
-        tasks(8).shear_allow = 117;
+        tasks(8).bend_allow = 150;
+        tasks(8).shear_allow = 75;
         tasks(8).lambda_flange_long = 15;
         tasks(8).lambda_flange_rib = 15;
         [tasks(8).b_top_long, tasks(8).b_top_rib] = ...
             obj.compute_task_position_eq_plate_widths(tasks(8), 8);
-        task8_long_group_lb = [350, 6, 450, 12];
-        task8_long_group_ub = [650, 12, 600, 22];
-        task8_rib_group_lb = [200, 6, 350, 6];
-        task8_rib_group_ub = [350, 12, 500, 12];
+        task8_long_group_lb = [350, 7, 180, 12];
+        task8_long_group_ub = [650, 13, 300, 22];
+        task8_rib_group_lb = [150, 4, 180, 12];
+        task8_rib_group_ub = [300, 10, 300, 22];
         tasks(8).lb = [repmat(task8_long_group_lb, 1, 4), repmat(task8_rib_group_lb, 1, 5)];
         tasks(8).ub = [repmat(task8_long_group_ub, 1, 4), repmat(task8_rib_group_ub, 1, 5)];
 
-        % Task 9: grouped 7-longitudinal, 9-rib load variant with five rib groups
+        % Task 9: grouped 7-longitudinal, 9-rib load variant with four rib groups
+        % Rib physical groups: [R4, R4, R3, R2, R1, R2, R3, R4, R4]
         tasks(9).name = 'Task9';
         tasks(9).s_long = 3000;
         tasks(9).s_rib = 2000;
-        tasks(9).q1 = 25;
-        tasks(9).t_plate = 14;
+        tasks(9).q1 = 15;
+        tasks(9).t_plate = 16;
         tasks(9).n_long = 7;
         tasks(9).n_rib = 9;
         tasks(9).long_group_count = 4;
-        tasks(9).rib_group_count = 5;
+        tasks(9).rib_group_count = 4;
         tasks(9).enable_group_slenderness = true;
         tasks(9).sigma_allow = 900;
-        tasks(9).bend_allow = 234;
-        tasks(9).shear_allow = 117;
+        tasks(9).bend_allow = 150;
+        tasks(9).shear_allow = 75;
         tasks(9).lambda_flange_long = tasks(8).lambda_flange_long;
         tasks(9).lambda_flange_rib = tasks(8).lambda_flange_rib;
         [tasks(9).b_top_long, tasks(9).b_top_rib] = ...
             obj.compute_task_position_eq_plate_widths(tasks(9), 9);
-        tasks(9).lb = [repmat(task34_long_group_lb, 1, 4), repmat(task34_rib_group_lb, 1, 5)];
-        tasks(9).ub = [repmat(task34_long_group_ub, 1, 4), repmat(task34_rib_group_ub, 1, 5)];
+        task9_long_group_lb = [350, 7, 180, 12];
+        task9_long_group_ub = [700, 14, 300, 22];
+        tasks(9).lb = [repmat(task9_long_group_lb, 1, 4), ...
+            repmat(task8_rib_group_lb, 1, tasks(9).rib_group_count)];
+        tasks(9).ub = [repmat(task9_long_group_ub, 1, 4), ...
+            repmat(task8_rib_group_ub, 1, tasks(9).rib_group_count)];
     end
 
     function [long_widths, rib_widths] = compute_task_position_eq_plate_widths(obj, task, task_id)
@@ -341,6 +355,8 @@ methods
     function rib_map = get_rib_group_map(~, task)
         if task.rib_group_count == 5
             rib_map = [5, 4, 3, 2, 1, 2, 3, 4, 5];
+        elseif task.rib_group_count == 4 && task.n_rib == 9
+            rib_map = [4, 4, 3, 2, 1, 2, 3, 4, 4];
         elseif task.rib_group_count == 4 && task.n_rib == 7
             rib_map = [4, 3, 2, 1, 2, 3, 4];
         elseif task.rib_group_count == 2 && task.n_rib == 9
@@ -365,6 +381,10 @@ methods
     function rib_sec_map = get_rib_section_map(~, task)
         if task.rib_group_count == 5
             rib_sec_map = [9, 8, 7, 6, 5, 6, 7, 8, 9];
+        elseif task.rib_group_count == 4 && task.n_rib == 9 && task.long_group_count == 4
+            rib_sec_map = [8, 8, 7, 6, 5, 6, 7, 8, 8];
+        elseif task.rib_group_count == 4 && task.n_rib == 9
+            rib_sec_map = [6, 6, 5, 4, 3, 4, 5, 6, 6];
         elseif task.rib_group_count == 4 && task.n_rib == 7
             rib_sec_map = [6, 5, 4, 3, 4, 5, 6];
         elseif task.rib_group_count == 2 && task.n_rib == 9
@@ -399,7 +419,11 @@ methods
             sec_ids = 5:9;
             group_ids = 1:5;
             sec_names = {'RIB_1', 'RIB_2', 'RIB_3', 'RIB_4', 'RIB_5'};
-        elseif task.rib_group_count == 4 && task.n_rib == 7
+        elseif task.rib_group_count == 4 && task.n_rib == 9 && task.long_group_count == 4
+            sec_ids = 5:8;
+            group_ids = 1:4;
+            sec_names = {'RIB_1', 'RIB_2', 'RIB_3', 'RIB_4'};
+        elseif task.rib_group_count == 4 && any(task.n_rib == [7, 9])
             sec_ids = 3:6;
             group_ids = 1:4;
             sec_names = {'RIB_1', 'RIB_2', 'RIB_3', 'RIB_4'};

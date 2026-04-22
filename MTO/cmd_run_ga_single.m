@@ -6,10 +6,10 @@ rehash toolboxcache;
 addpath(genpath(pwd));
 
 %% ===== 配置 =====
-active_tasks = [5];
+active_tasks = [8];
 Reps = 1;
-maxFE = 6000;
-N = 100;
+maxFE = 12000;
+N = 150;
 Results_Num = 50;
 Global_Seed = 2604;
 EarlyStop_Patience = 50;

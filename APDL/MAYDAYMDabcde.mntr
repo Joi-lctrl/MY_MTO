@@ -2,10 +2,10 @@
 
 
  SOLUTION HISTORY INFORMATION FOR JOB: MAYDAYMDabcde.mntr                                                                                                                                                                                                                                                  
- ANSYS RELEASE 2024 R1          BUILD 24.1        06:42:09    04/21/2026
+ ANSYS RELEASE 2024 R1          BUILD 24.1        01:34:54    04/23/2026
 
   LOAD   SUB-  NO.  NO.    TOTL  INCREMENT    TOTAL         VARIAB 1     VARIAB 2     VARIAB 3     VARIAB 4
   STEP   STEP ATTMP ITER   ITER  TIME/LFACT   TIME/LFACT    MONITOR      MONITOR      MONITOR     MONITOR
                                                              Wall         MxDs         MxPl         MxRe
 
-     1      1    1     1      1     1.0000       1.0000      0.37516       5.3597       0.0000       0.0000    
+     1      1    1     1      1     1.0000       1.0000       1.0430       14.935       0.0000       0.0000    
